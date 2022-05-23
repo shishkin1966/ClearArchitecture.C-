@@ -9,5 +9,14 @@
     <Import_RootNamespace>ClearArchitecture</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)SL\INamed.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SL\IProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SL\IProviderFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SL\IProviderSubscriber.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SL\ISecretary.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SL\IServiceLocator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SL\ISmallUnion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SL\ISubscriber.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SL\IValidated.cs" />
   </ItemGroup>
 </Project>

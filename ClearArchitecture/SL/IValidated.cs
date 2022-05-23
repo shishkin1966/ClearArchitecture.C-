@@ -10,11 +10,10 @@ namespace ClearArchitecture.SL
     public interface IValidated
     {
         /**
-         * Проверить работоспособность объекта
-         *
-         * @return true - объект может обеспечивать свою функциональность
-         */
-        fun isValid(): Boolean
-
+        * Проверить работоспособность объекта
+        *
+        * @return true - объект может обеспечивать свою функциональность
+        */
+        Boolean isValid() 
     }
 }

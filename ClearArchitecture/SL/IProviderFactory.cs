@@ -9,6 +9,6 @@ namespace ClearArchitecture.SL
     */
     public interface IProviderFactory
     {
-        fun create(name: String): IProvider
+        IProvider create(String name) 
     }
 }

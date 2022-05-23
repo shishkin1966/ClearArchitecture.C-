@@ -7,28 +7,28 @@ namespace ClearArchitecture.SL
     /**
     * Интерфейс провайдера - объекта предоставлющий сервис
     */
-    public interface IProvider : INamed, IValidated, IComparable
+    public interface IProvider : INamed, IValidated, IComparable<IProvider>
     {
         /**
          * Получить тип провайдера
          *
          * @return true - не будет удаляться администратором
          */
-        fun isPersistent(): Boolean
+        Boolean isPersistent();
 
         /**
          * Событие - отключить регистрацию
          */
-        fun onUnRegister()
+        void onUnRegister();
 
         /**
         * Событие - регистрация
         */
-        fun onRegister()
+        void onRegister();
 
         /**
         * Остановитить работу провайдера
         */
-        fun stop()
+        void stop();
     }
 }

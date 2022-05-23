@@ -9,6 +9,6 @@ namespace ClearArchitecture.SL
     */
     public interface INamed
     {
-        fun getName(): String
+        String getName()
     }
 }

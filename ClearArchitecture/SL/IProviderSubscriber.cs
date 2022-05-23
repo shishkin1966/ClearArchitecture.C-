@@ -14,16 +14,16 @@ namespace ClearArchitecture.SL
         *
         * @return список имен провайдеров
         */
-        fun getProviderSubscription(): List<String>
+        List<String> getProviderSubscription()
 
         /**
         * Событие - провайдер прекратил работу
         */
-        fun onStopProvider(provider: IProvider)
+        void onStopProvider(IProvider provider)
 
         /**
-         * Остановить
+        * Остановить
         */
-        fun stop()
+        void stop()
     }
 }
