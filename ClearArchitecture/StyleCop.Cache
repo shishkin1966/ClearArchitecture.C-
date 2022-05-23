@@ -1,0 +1,36 @@
+<stylecopresultscache>
+  <version>12</version>
+  <project key="2007458500">
+    <configuration>
+    </configuration>
+  </project>
+  <sourcecode name="Secretary.cs" parser="StyleCop.CSharp.CsParser">
+    <timestamps>
+      <styleCop>2022.05.23 20:54:52.107</styleCop>
+      <settingsFile>2022.05.23 20:54:51.505</settingsFile>
+      <sourceFile>2022.05.23 22:17:12.563</sourceFile>
+      <parser>2022.05.23 20:54:52.107</parser>
+      <StyleCop.CSharp.DocumentationRules>2022.05.23 20:54:52.107</StyleCop.CSharp.DocumentationRules>
+      <StyleCop.CSharp.DocumentationRules.FilesHashCode>-1023355439</StyleCop.CSharp.DocumentationRules.FilesHashCode>
+      <StyleCop.CSharp.LayoutRules>2022.05.23 20:54:52.107</StyleCop.CSharp.LayoutRules>
+      <StyleCop.CSharp.LayoutRules.FilesHashCode>0</StyleCop.CSharp.LayoutRules.FilesHashCode>
+      <StyleCop.CSharp.MaintainabilityRules>2022.05.23 20:54:52.107</StyleCop.CSharp.MaintainabilityRules>
+      <StyleCop.CSharp.MaintainabilityRules.FilesHashCode>0</StyleCop.CSharp.MaintainabilityRules.FilesHashCode>
+      <StyleCop.CSharp.NamingRules>2022.05.23 20:54:52.107</StyleCop.CSharp.NamingRules>
+      <StyleCop.CSharp.NamingRules.FilesHashCode>0</StyleCop.CSharp.NamingRules.FilesHashCode>
+      <StyleCop.CSharp.OrderingRules>2022.05.23 20:54:52.107</StyleCop.CSharp.OrderingRules>
+      <StyleCop.CSharp.OrderingRules.FilesHashCode>0</StyleCop.CSharp.OrderingRules.FilesHashCode>
+      <StyleCop.CSharp.ReadabilityRules>2022.05.23 20:54:52.107</StyleCop.CSharp.ReadabilityRules>
+      <StyleCop.CSharp.ReadabilityRules.FilesHashCode>0</StyleCop.CSharp.ReadabilityRules.FilesHashCode>
+      <StyleCop.CSharp.SpacingRules>2022.05.23 20:54:52.107</StyleCop.CSharp.SpacingRules>
+      <StyleCop.CSharp.SpacingRules.FilesHashCode>0</StyleCop.CSharp.SpacingRules.FilesHashCode>
+    </timestamps>
+    <violations>
+      <violation namespace="StyleCop.CSharp.CsParser" rule="SyntaxException" ruleCheckId="SA0102">
+        <context>A syntax error has been discovered in file H:\ClearArchitecture.C#\ClearArchitecture\SL\Secretary.cs on line 14.</context>
+        <line>14</line>
+        <warning>False</warning>
+      </violation>
+    </violations>
+  </sourcecode>
+</stylecopresultscache>

@@ -6,7 +6,7 @@ namespace ClearArchitecture.SL
 {
     public class Secretary<T> : ISecretary<T>
     {
-        private Dictionary<String, T> subscribers = new Dictionary<String, T>();
+        private ConcurrentDictionary<String, T> subscribers = new ConcurrentDictionary<String, T>();
 
         override void remove(String key)
         {

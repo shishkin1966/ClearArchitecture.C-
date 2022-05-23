@@ -9,7 +9,9 @@
     <Import_RootNamespace>ClearArchitecture</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)SL\INamed.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SL\INamed.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)SL\IProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SL\IProviderFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SL\IProviderSubscriber.cs" />
@@ -22,5 +24,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)SL\Secretary.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)App\" />
   </ItemGroup>
 </Project>
