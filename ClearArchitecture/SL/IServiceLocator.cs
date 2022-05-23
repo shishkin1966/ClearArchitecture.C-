@@ -4,98 +4,98 @@ using System.Text;
 
 namespace ClearArchitecture.SL
 {
-    /**
+    /*
     * Интерфейс администратора(Service Locator)
     */
     public interface IServiceLocator
     {
-        /**
+        /*
         * Проверить существование провайдера
         *
         * @param name имя провайдера
         * @return true - провайдер существует
         */
-        Boolean exists(String name) 
+        virtual Boolean exists(String name)
 
-        /**
+        /*
         * Получить провайдера
         *
         * @param Any  тип провайдера
         * @param name имя провайдера
         * @return провайдер
         */
-        Object? getProvider(String name)
+        virtual Object? getProvider(String name)
 
-        /**
+        /*
         * Зарегистрировать провайдера
         *
         * @param provider провайдер
         * @return флаг - операция завершена успешно
         */
-        Boolean registerProvider(IProvider provider)
+        virtual Boolean registerProvider(IProvider provider)
 
-        /**
+        /*
         * Зарегистрировать провайдера
         *
         * @param name имя провайдера
-         * @return флаг - операция завершена успешно
-         */
-        Boolean registerProvider(String name)
+        * @return флаг - операция завершена успешно
+        */
+        virtual Boolean registerProvider(String name)
 
-        /**
+        /*
         * Отменить регистрацию провайдера
         *
         * @param name имя провайдера
         * @return флаг - операция завершена успешно
         */
-        Boolean unregisterProvider(String name)
+        virtual Boolean unregisterProvider(String name)
 
-        /**
+        /*
         * Зарегистрировать подписчика провайдера
         *
         * @param subscriber подписчик провайдера
         * @return флаг - операция завершена успешно
         */
-        Boolean registerSubscriber(IProviderSubscriber subscriber)
+        virtual Boolean registerSubscriber(IProviderSubscriber subscriber)
 
-        /**
+        /*
         * Отменить регистрацию подписчика провайдера
         *
         * @param subscriber подписчик провайдера
         * @return флаг - операция завершена успешно
         */
-        Boolean unregisterSubscriber(IProviderSubscriber subscriber)
+        virtual Boolean unregisterSubscriber(IProviderSubscriber subscriber)
 
-        /**
+        /*
         * Установить подписчика текущим
         *
         * @param subscriber подписчик
         * @return флаг - операция завершена успешно
         */
-        Boolean setCurrentSubscriber(IProviderSubscriber subscriber)  
+        virtual Boolean setCurrentSubscriber(IProviderSubscriber subscriber)
 
-        /**
+        /*
         * Остановитить работу service locator
         */
-        void stop()
+        virtual void stop()
 
-        /**
+        /*
         * Запустить работу service locator
         */
-        void start()
+        virtual void start()
 
-        /**
+        /*
         * Получить список провайдеров
         *
         * @return список провайдеров
         */
-        List<IProvider> getProviders()
+        virtual List<IProvider> getProviders()
 
-        /**
+        /*
         * Получить фабрику провайдеров
         *
         * @return фабрика провайдеров
         */
-        IProviderFactory getProviderFactory()  
+        virtual IProviderFactory getProviderFactory()  
     }
 }

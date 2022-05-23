@@ -17,6 +17,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)SL\IServiceLocator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SL\ISmallUnion.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SL\ISubscriber.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SL\IUnion.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SL\IValidated.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SL\Secretary.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
   </ItemGroup>
 </Project>

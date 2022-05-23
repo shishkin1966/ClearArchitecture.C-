@@ -4,11 +4,11 @@ using System.Text;
 
 namespace ClearArchitecture.SL
 {
-    /**
+    /*
     * Интерфейс именованного объекта
     */
     public interface INamed
     {
-        String getName()
+        virtual String getName()
     }
 }

@@ -4,68 +4,68 @@ using System.Text;
 
 namespace ClearArchitecture.SL
 {
-    /**
+    /*
     * Интерфейс секретаря объединиения
     */
     public interface ISecretary<T>
     {
-        /**
+        /*
         * удалить члена объединения
         *
         * @param key - имя члена объединения
         */
-        T? remove(String key): 
+        virtual void remove(String key)
 
-        /**
+        /*
         * получить размер объединения
         *
         * @return - получить размер объединения
         */
-        ulong size()
+        virtual int size()
 
-        /**
+        /*
         * добавить члена объединения
         *
         * @param key - имя члена объединения
         * @param value - член объединения
         */
-        void put(String key, T value)
+        virtual void put(String key, T value)
 
-        /**
+        /*
         * проверить наличие члена объединения
         *
         * @param key - имя члена объединения
         */
-        Boolean containsKey(String key)
+        virtual Boolean containsKey(String key)
 
-        /**
+        /*
         * получить члена объединения
         *
         * @param key - имя члена объединения
         */
-        T? get(String key)
+        virtual T? getValue(String key)
 
-        /**
+        /*
         * получить список членов объединения
         */
-        List<T> values()
+        virtual List<T> values()
 
-        /**
+        /*
         * проверить объединение на наличие членов
         *
         * @return true - объединение не пустое
         */
-        Boolean isEmpty() 
+        virtual Boolean isEmpty()
 
-        /**
+        /*
         * очистить объединение
         */
-        void clear()
+        virtual void clear()
 
-        /**
+        /*
         * получить список имен членов объединения
         * @return список имен
         */
-        List<String> keys()
+        virtual List<String> keys()
     }
 }
