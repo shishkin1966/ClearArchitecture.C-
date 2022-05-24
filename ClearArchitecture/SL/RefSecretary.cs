@@ -17,6 +17,11 @@ namespace ClearArchitecture.SL
 
         public bool ContainsKey(string key)
         {
+            if (String.IsNullOrEmpty(key))
+            {
+                return false;
+            }
+
             return subscribers.ContainsKey(key);
         }
 
@@ -36,7 +41,7 @@ namespace ClearArchitecture.SL
 
         public bool IsEmpty()
         {
-            return (subscribers.Count == 0);
+            return subscribers.Count == 0;
         }
 
         public List<string> Keys()
@@ -46,11 +51,26 @@ namespace ClearArchitecture.SL
 
         public void Put(string key, T value)
         {
+            if (String.IsNullOrEmpty(key))
+            {
+                return;
+            }
+
+            if (value == null)
+            {
+                return;
+            }
+
             subscribers.AddOrUpdate(key, new WeakReference(value, false), (key, oldValue) => oldValue);
         }
 
         public void Remove(string key)
         {
+            if (String.IsNullOrEmpty(key))
+            {
+                return;
+            }
+
             subscribers.Remove(key, out WeakReference old);
         }
 

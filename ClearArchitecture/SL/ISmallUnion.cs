@@ -11,7 +11,7 @@ namespace ClearArchitecture.SL
         /*
         * Получить секретаря (объект учитывающий подписчиков)
         */
-        ISecretary<IProviderSubscriber> CreateSecretary();
+        //ISecretary<IProviderSubscriber> CreateSecretary();
 
         /*
         * Зарегестрировать подписчика

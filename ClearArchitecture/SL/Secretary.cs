@@ -11,6 +11,11 @@ namespace ClearArchitecture.SL
 
         public void Remove(String key)
         {
+            if (String.IsNullOrEmpty(key))
+            {
+                return;
+            }
+
             subscribers.Remove(key, out T old);
         }
 
@@ -21,11 +26,26 @@ namespace ClearArchitecture.SL
 
         public void Put(String key, T value)
         {
+            if (String.IsNullOrEmpty(key))
+            {
+                return;
+            }
+
+            if (value == null)
+            {
+                return;
+            }
+
             subscribers.AddOrUpdate(key, value, (key, oldValue) => oldValue);
         }
 
         public Boolean ContainsKey(String key)
         {
+            if (String.IsNullOrEmpty(key))
+            {
+                return false;
+            }
+
             return subscribers.ContainsKey(key);
         }
 
