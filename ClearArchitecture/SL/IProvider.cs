@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ClearArchitecture.SL
 {
@@ -14,21 +12,21 @@ namespace ClearArchitecture.SL
          *
          * @return true - не будет удаляться администратором
          */
-        virtual Boolean isPersistent();
+        Boolean IsPersistent();
 
         /*
          * Событие - отключить регистрацию
          */
-        virtual void onUnRegister();
+        void OnUnRegister();
 
         /*
         * Событие - регистрация
         */
-        virtual void onRegister();
+        void OnRegister();
 
         /*
         * Остановитить работу провайдера
         */
-        virtual void stop();
+        void Stop();
     }
 }

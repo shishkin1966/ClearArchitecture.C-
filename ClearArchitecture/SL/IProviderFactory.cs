@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ClearArchitecture.SL
 {
@@ -9,6 +7,6 @@ namespace ClearArchitecture.SL
     */
     public interface IProviderFactory
     {
-        virtual IProvider create(String name) 
+        IProvider Create(String name); 
     }
 }

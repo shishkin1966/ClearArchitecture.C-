@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ClearArchitecture.SL
 {
@@ -12,14 +11,14 @@ namespace ClearArchitecture.SL
         /*
         * Получить секретаря (объект учитывающий подписчиков)
         */
-        virtual ISecretary<IProviderSubscriber> createSecretary()
+        ISecretary<IProviderSubscriber> CreateSecretary();
 
         /*
         * Зарегестрировать подписчика
         *
         * @param subscriber подписчик
         */
-        virtual Boolean register(IProviderSubscriber subscriber)
+        Boolean Register(IProviderSubscriber subscriber);
 
         /*
         * Отключить подписчика
@@ -27,7 +26,7 @@ namespace ClearArchitecture.SL
         * @param subscriber подписчик
         * @return true - провайдер должен быть остановлен и выгружен
         */
-        virtual void unregister(IProviderSubscriber subscriber)
+        void Unregister(IProviderSubscriber subscriber);
 
         /*
         * Отключить подписчика по его имени
@@ -35,35 +34,35 @@ namespace ClearArchitecture.SL
         * @param name имя подписчика
         * @return true - провайдер должен быть остановлен и выгружен
         */
-        virtual void unregister(String name)
+        void Unregister(String name);
 
         /*
         * Получить список подписчиков
         *
         * @return список подписчиков
         */
-        virtual List<IProviderSubscriber> getSubscribers()
+        List<IProviderSubscriber> GetSubscribers();
 
         /*
         * Получить список валидных подписчиков
         *
         * @return список подписчиков
         */
-        virtual List<IProviderSubscriber> getValidatedSubscribers()
+        List<IProviderSubscriber> GetValidatedSubscribers();
 
         /*
         * Получить список готовых Stateable подписчиков
         *
         * @return список подписчиков
         */
-        virtual List<IProviderSubscriber> getReadySubscribers()
+        List<IProviderSubscriber> GetReadySubscribers();
 
         /*
         * Проверить наличие подписчиков
         *
         * @return true - подписчики есть
         */
-        virtual Boolean hasSubscribers()
+        Boolean HasSubscribers();
 
         /*
         * Проверить наличие подписчика
@@ -71,32 +70,32 @@ namespace ClearArchitecture.SL
         * @param name имя подписчика
         * @return true - подписчик есть
         */
-        virtual Boolean hasSubscriber(String name)
+        Boolean HasSubscriber(String name);
 
         /*
-         * Получить подписчика по его имени
-         *
-         * @param name имя подписчика
-         * @return подписчик
-         */
-         virtual IProviderSubscriber? getSubscriber(String name)
+        * Получить подписчика по его имени
+        *
+        * @param name имя подписчика
+        * @return подписчик
+        */
+        IProviderSubscriber GetSubscriber(String name);
 
-         /*
-         * Событие - появился первый подписчик
-         */
-         virtual void onRegisterFirstSubscriber()
+        /*
+        * Событие - появился первый подписчик
+        */
+        void OnRegisterFirstSubscriber();
 
         /*
         * Событие - отписан последний подписчик
         */
-        virtual void onUnRegisterLastSubscriber()
+        void OnUnRegisterLastSubscriber();
 
         /*
         * Событие - добавлен подписчик
         *
         * @param subscriber подписчик
         */
-        virtual void onAddSubscriber(IProviderSubscriber subscriber)
+        void OnAddSubscriber(IProviderSubscriber subscriber);
 
         /*
         * Проверить регистрацию подписчика
@@ -104,6 +103,6 @@ namespace ClearArchitecture.SL
         * @param subscriber подписчик
         * @return true подписчик зарегистрирован
         */
-        virtual Boolean contains(IProviderSubscriber subscriber) 
+        Boolean Contains(IProviderSubscriber subscriber);
     }
 }

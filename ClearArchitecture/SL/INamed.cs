@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ClearArchitecture.SL
 {
@@ -9,6 +7,6 @@ namespace ClearArchitecture.SL
     */
     public interface INamed
     {
-        virtual String getName()
+        String GetName();
     }
 }

@@ -15,7 +15,7 @@ namespace ClearArchitecture.SL
         * @param name имя провайдера
         * @return true - провайдер существует
         */
-        virtual Boolean exists(String name)
+        Boolean Exists(String name);
 
         /*
         * Получить провайдера
@@ -24,7 +24,7 @@ namespace ClearArchitecture.SL
         * @param name имя провайдера
         * @return провайдер
         */
-        virtual Object? getProvider(String name)
+        Object GetProvider(String name);
 
         /*
         * Зарегистрировать провайдера
@@ -32,7 +32,7 @@ namespace ClearArchitecture.SL
         * @param provider провайдер
         * @return флаг - операция завершена успешно
         */
-        virtual Boolean registerProvider(IProvider provider)
+        Boolean RegisterProvider(IProvider provider);
 
         /*
         * Зарегистрировать провайдера
@@ -40,7 +40,7 @@ namespace ClearArchitecture.SL
         * @param name имя провайдера
         * @return флаг - операция завершена успешно
         */
-        virtual Boolean registerProvider(String name)
+        Boolean RegisterProvider(String name);
 
         /*
         * Отменить регистрацию провайдера
@@ -48,7 +48,7 @@ namespace ClearArchitecture.SL
         * @param name имя провайдера
         * @return флаг - операция завершена успешно
         */
-        virtual Boolean unregisterProvider(String name)
+        Boolean UnregisterProvider(String name);
 
         /*
         * Зарегистрировать подписчика провайдера
@@ -56,7 +56,7 @@ namespace ClearArchitecture.SL
         * @param subscriber подписчик провайдера
         * @return флаг - операция завершена успешно
         */
-        virtual Boolean registerSubscriber(IProviderSubscriber subscriber)
+        Boolean RegisterSubscriber(IProviderSubscriber subscriber);
 
         /*
         * Отменить регистрацию подписчика провайдера
@@ -64,7 +64,7 @@ namespace ClearArchitecture.SL
         * @param subscriber подписчик провайдера
         * @return флаг - операция завершена успешно
         */
-        virtual Boolean unregisterSubscriber(IProviderSubscriber subscriber)
+        Boolean UnregisterSubscriber(IProviderSubscriber subscriber);
 
         /*
         * Установить подписчика текущим
@@ -72,30 +72,30 @@ namespace ClearArchitecture.SL
         * @param subscriber подписчик
         * @return флаг - операция завершена успешно
         */
-        virtual Boolean setCurrentSubscriber(IProviderSubscriber subscriber)
+        Boolean setCurrentSubscriber(IProviderSubscriber subscriber);
 
         /*
         * Остановитить работу service locator
         */
-        virtual void stop()
+        void Stop();
 
         /*
         * Запустить работу service locator
         */
-        virtual void start()
+        void Start();
 
         /*
         * Получить список провайдеров
         *
         * @return список провайдеров
         */
-        virtual List<IProvider> getProviders()
+        List<IProvider> GetProviders();
 
         /*
         * Получить фабрику провайдеров
         *
         * @return фабрика провайдеров
         */
-        virtual IProviderFactory getProviderFactory()  
+        IProviderFactory GetProviderFactory();  
     }
 }

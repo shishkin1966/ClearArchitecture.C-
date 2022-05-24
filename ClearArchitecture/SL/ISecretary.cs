@@ -14,14 +14,14 @@ namespace ClearArchitecture.SL
         *
         * @param key - имя члена объединения
         */
-        virtual void remove(String key)
+        public void Remove(String key);
 
         /*
         * получить размер объединения
         *
         * @return - получить размер объединения
         */
-        virtual int size()
+        int Size();
 
         /*
         * добавить члена объединения
@@ -29,43 +29,43 @@ namespace ClearArchitecture.SL
         * @param key - имя члена объединения
         * @param value - член объединения
         */
-        virtual void put(String key, T value)
+        void Put(String key, T value);
 
         /*
         * проверить наличие члена объединения
         *
         * @param key - имя члена объединения
         */
-        virtual Boolean containsKey(String key)
+        Boolean ContainsKey(String key);
 
         /*
         * получить члена объединения
         *
         * @param key - имя члена объединения
         */
-        virtual T? getValue(String key)
+        T GetValue(String key);
 
         /*
         * получить список членов объединения
         */
-        virtual List<T> values()
+        List<T> Values();
 
         /*
         * проверить объединение на наличие членов
         *
         * @return true - объединение не пустое
         */
-        virtual Boolean isEmpty()
+        Boolean IsEmpty();
 
         /*
         * очистить объединение
         */
-        virtual void clear()
+        void Clear();
 
         /*
         * получить список имен членов объединения
         * @return список имен
         */
-        virtual List<String> keys()
+        List<String> Keys();
     }
 }

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ClearArchitecture.SL
 {
@@ -14,6 +12,6 @@ namespace ClearArchitecture.SL
         *
         * @return true - объект может обеспечивать свою функциональность
         */
-        virtual Boolean isValid() 
+        Boolean IsValid(); 
     }
 }

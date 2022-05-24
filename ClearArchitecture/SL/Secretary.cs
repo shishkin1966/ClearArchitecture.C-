@@ -1,62 +1,62 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace ClearArchitecture.SL
 {
     public class Secretary<T> : ISecretary<T>
     {
-        private ConcurrentDictionary<String, T> subscribers = new ConcurrentDictionary<String, T>();
+        private readonly ConcurrentDictionary<String, T> subscribers = new ConcurrentDictionary<String, T>();
 
-        override void remove(String key)
+        public void Remove(String key)
         {
-            subscribers.Remove(key)
+            subscribers.Remove(key, out T old);
         }
 
-        override int size()
+        public int Size()
         {
-            return subscribers.Count
+            return subscribers.Count;
         }
 
-        override void put(String key, T value)
+        public void Put(String key, T value)
         {
-            subscribers.Remove(key)
-            subscribers.Add(key, value)
+            subscribers.AddOrUpdate(key, value, (key, oldValue) => oldValue);
         }
 
-        override Boolean containsKey(String key)
+        public Boolean ContainsKey(String key)
         {
-            return subscribers.ContainsKey(key)
+            return subscribers.ContainsKey(key);
         }
 
-        override T? getValue(String key)
+        public T GetValue(String key)
         {
-            T value = null
-            if (containsKey(key))
+            T value = default(T);
+            if (ContainsKey(key))
             {
-                subscribers.TryGetValue(key, value)
+                subscribers.TryGetValue(key, out value);
             }
-            return value
+            return value;
         }
 
-        override List<T> values()
+        public List<T> Values()
         {
-            return subscribers.Values.ToList()
+            return subscribers.Values.ToList();
         }
 
-        override Boolean isEmpty()
+        public Boolean IsEmpty()
         {
-            return (subscribers.Count == 0)
+            return (subscribers.Count == 0);
         }
 
-        override void clear()
+        public void Clear()
         {
-            subscribers.Clear()
+            subscribers.Clear();
         }
 
-        override List<String> keys()
+        public List<String> Keys()
         {
-            return subscribers.Keys.ToList()
+            return subscribers.Keys.ToList();
         }
     }
 }

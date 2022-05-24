@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ClearArchitecture.SL
 {
@@ -14,14 +12,14 @@ namespace ClearArchitecture.SL
          *
          * @param subscriber специалист
          */
-        virtual Boolean setCurrentSubscriber(IProviderSubscriber subscriber)
+        Boolean SetCurrentSubscriber(IProviderSubscriber subscriber);
 
         /*
          * Получить текущего специалиста
          *
          * @return специалист
          */
-        virtual IProviderSubscriber? getCurrentSubscriber() 
+        IProviderSubscriber GetCurrentSubscriber(); 
 
     }
 }

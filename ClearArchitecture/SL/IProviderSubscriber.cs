@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ClearArchitecture.SL
 {
@@ -14,16 +13,16 @@ namespace ClearArchitecture.SL
         *
         * @return список имен провайдеров
         */
-        virtual List<String> getProviderSubscription()
+        List<String> GetProviderSubscription();
 
         /*
         * Событие - провайдер прекратил работу
         */
-        virtual void onStopProvider(IProvider provider)
+        void OnStopProvider(IProvider provider);
 
         /*
         * Остановить
         */
-        virtual void stop()
+        void Stop();
     }
 }
