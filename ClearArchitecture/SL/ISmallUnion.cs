@@ -6,19 +6,14 @@ namespace ClearArchitecture.SL
     /*
     * Интерфейс малого объединения подписчиков
     */
-    public interface ISmallUnion<IProviderSubscriber> : IProvider
+    public interface ISmallUnion<T> : IProvider where T : IProviderSubscriber
     {
-        /*
-        * Получить секретаря (объект учитывающий подписчиков)
-        */
-        //ISecretary<IProviderSubscriber> CreateSecretary();
-
         /*
         * Зарегестрировать подписчика
         *
         * @param subscriber подписчик
         */
-        Boolean Register(IProviderSubscriber subscriber);
+        Boolean Register(T subscriber);
 
         /*
         * Отключить подписчика
@@ -26,7 +21,7 @@ namespace ClearArchitecture.SL
         * @param subscriber подписчик
         * @return true - провайдер должен быть остановлен и выгружен
         */
-        void Unregister(IProviderSubscriber subscriber);
+        void Unregister(T subscriber);
 
         /*
         * Отключить подписчика по его имени
@@ -41,21 +36,21 @@ namespace ClearArchitecture.SL
         *
         * @return список подписчиков
         */
-        List<IProviderSubscriber> GetSubscribers();
+        List<T> GetSubscribers();
 
         /*
         * Получить список валидных подписчиков
         *
         * @return список подписчиков
         */
-        List<IProviderSubscriber> GetValidatedSubscribers();
+        List<T> GetValidatedSubscribers();
 
         /*
         * Получить список готовых Stateable подписчиков
         *
         * @return список подписчиков
         */
-        List<IProviderSubscriber> GetReadySubscribers();
+        List<T> GetReadySubscribers();
 
         /*
         * Проверить наличие подписчиков
@@ -78,7 +73,7 @@ namespace ClearArchitecture.SL
         * @param name имя подписчика
         * @return подписчик
         */
-        IProviderSubscriber GetSubscriber(String name);
+        T GetSubscriber(String name);
 
         /*
         * Событие - появился первый подписчик
@@ -95,7 +90,7 @@ namespace ClearArchitecture.SL
         *
         * @param subscriber подписчик
         */
-        void OnAddSubscriber(IProviderSubscriber subscriber);
+        void OnAddSubscriber(T subscriber);
 
         /*
         * Проверить регистрацию подписчика
@@ -103,6 +98,6 @@ namespace ClearArchitecture.SL
         * @param subscriber подписчик
         * @return true подписчик зарегистрирован
         */
-        Boolean Contains(IProviderSubscriber subscriber);
+        Boolean Contains(T subscriber);
     }
 }
