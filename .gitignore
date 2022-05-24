@@ -1,2 +1,3 @@
-**/ClearArchitecture
-
+ClearArchitecture/bin
+ClearArchitecture/obj/
+ClearArchitecture/.vs/
