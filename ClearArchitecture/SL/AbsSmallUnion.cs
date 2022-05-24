@@ -27,12 +27,69 @@ namespace ClearArchitecture.SL
             return secretary.ContainsKey(subscriber.GetName());
         }
 
-        public abstract List<T> GetReadySubscribers();
-        public abstract T GetSubscriber(string name);
-        public abstract List<T> GetSubscribers();
-        public abstract List<T> GetValidatedSubscribers();
-        public abstract bool HasSubscriber(string name);
-        public abstract bool HasSubscribers();
+        public List<T> GetReadySubscribers()
+        {
+            List<T> subscribers = new();
+            foreach (T subscriber in GetSubscribers())
+            {
+                if (subscriber.IsValid() && subscriber is ILifecycle)
+                {
+                    int state = (subscriber as ILifecycle).GetState();
+                    if (state == Lifecycle.VIEW_READY)
+                    {
+                        subscribers.Add(subscriber);
+                    }
+                }
+            }
+            return subscribers;
+        }
+        
+        public T GetSubscriber(string name)
+        {
+            if (!secretary.ContainsKey(name))
+            {
+                return default(T);
+            }
+            else
+            {
+                return secretary.GetValue(name);
+            }
+        }
+
+        public List<T> GetSubscribers()
+        {
+            return secretary.Values();
+        }
+
+        public List<T> GetValidatedSubscribers()
+        {
+            List<T> subscribers = new();
+            foreach(T subscriber in GetSubscribers())
+            {
+                if (subscriber.IsValid())
+                {
+                    subscribers.Add(subscriber);
+                }
+            }
+            return subscribers;
+        }
+
+        public bool HasSubscriber(string name)
+        {
+            if (String.IsNullOrEmpty(name))
+            {
+                return false;
+            }
+
+            return secretary.ContainsKey(name);
+        }
+
+        public bool HasSubscribers()
+        {
+            return !secretary.IsEmpty();
+
+        }
+
         public abstract void OnAddSubscriber(T subscriber);
         public abstract void OnRegisterFirstSubscriber();
         public abstract void OnUnRegisterLastSubscriber();
