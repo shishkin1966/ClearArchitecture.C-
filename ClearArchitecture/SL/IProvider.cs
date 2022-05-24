@@ -1,34 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ClearArchitecture.SL
 {
-    /**
+    /*
     * Интерфейс провайдера - объекта предоставлющий сервис
     */
-    public interface IProvider : INamed, IValidated, IComparable
+    public interface IProvider : INamed, IValidated, IComparable<IProvider>
     {
-        /**
+        /*
          * Получить тип провайдера
          *
          * @return true - не будет удаляться администратором
          */
-        fun isPersistent(): Boolean
+        Boolean IsPersistent();
 
-        /**
+        /*
          * Событие - отключить регистрацию
          */
-        fun onUnRegister()
+        void OnUnRegister();
 
-        /**
+        /*
         * Событие - регистрация
         */
-        fun onRegister()
+        void OnRegister();
 
-        /**
+        /*
         * Остановитить работу провайдера
         */
-        fun stop()
+        void Stop();
     }
 }
