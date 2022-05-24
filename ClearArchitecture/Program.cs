@@ -8,7 +8,7 @@ namespace ConsoleApp1
 
         static void Main(string[] args)
         {
-            Secretary<String> s = new();
+            RefSecretary<String> s = new();
 
             s.Put("1", "1");
             s.Put("2", "2");
