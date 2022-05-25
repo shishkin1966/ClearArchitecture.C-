@@ -6,7 +6,7 @@ namespace ClearArchitecture.SL
         public abstract int CompareTo(IProvider other);
         public abstract string GetName();
 
-        bool IProvider.IsPersistent()
+        public bool IsPersistent()
         {
             return false;
         }
