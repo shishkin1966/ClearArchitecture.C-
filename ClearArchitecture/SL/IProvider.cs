@@ -12,7 +12,7 @@ namespace ClearArchitecture.SL
          *
          * @return true - не будет удаляться администратором
          */
-        Boolean IsPersistent();
+        bool IsPersistent();
 
         /*
          * Событие - отключить регистрацию

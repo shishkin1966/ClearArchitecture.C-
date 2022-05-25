@@ -28,6 +28,12 @@ namespace ClearArchitecture.SL
         public T GetValue(string key)
         {
             T val = default(T);
+
+            if (String.IsNullOrEmpty(key))
+            {
+                return val;
+            }
+
             if (ContainsKey(key))
             {
                 bool ret = subscribers.TryGetValue(key, out WeakReference value);

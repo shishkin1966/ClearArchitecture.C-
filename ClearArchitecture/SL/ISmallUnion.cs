@@ -13,7 +13,7 @@ namespace ClearArchitecture.SL
         *
         * @param subscriber подписчик
         */
-        Boolean Register(T subscriber);
+        bool Register(T subscriber);
 
         /*
         * Отключить подписчика
@@ -57,7 +57,7 @@ namespace ClearArchitecture.SL
         *
         * @return true - подписчики есть
         */
-        Boolean HasSubscribers();
+        bool HasSubscribers();
 
         /*
         * Проверить наличие подписчика
@@ -65,7 +65,7 @@ namespace ClearArchitecture.SL
         * @param name имя подписчика
         * @return true - подписчик есть
         */
-        Boolean HasSubscriber(String name);
+        bool HasSubscriber(String name);
 
         /*
         * Получить подписчика по его имени
@@ -98,6 +98,6 @@ namespace ClearArchitecture.SL
         * @param subscriber подписчик
         * @return true подписчик зарегистрирован
         */
-        Boolean Contains(T subscriber);
+        bool Contains(T subscriber);
     }
 }

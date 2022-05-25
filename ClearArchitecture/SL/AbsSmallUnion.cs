@@ -48,7 +48,7 @@ namespace ClearArchitecture.SL
         {
             if (!secretary.ContainsKey(name))
             {
-                return default(T);
+                return default;
             }
             else
             {
@@ -90,9 +90,19 @@ namespace ClearArchitecture.SL
 
         }
 
-        public abstract void OnAddSubscriber(T subscriber);
-        public abstract void OnRegisterFirstSubscriber();
-        public abstract void OnUnRegisterLastSubscriber();
+        public void OnAddSubscriber(T subscriber)
+        {
+            // Method intentionally left empty.
+        }
+
+        public void OnRegisterFirstSubscriber()
+        {
+            // Method intentionally left empty.
+        }
+        public void OnUnRegisterLastSubscriber()
+        {
+            // Method intentionally left empty.
+        }
 
         public bool Register(T subscriber) 
         {
@@ -151,7 +161,16 @@ namespace ClearArchitecture.SL
                 T subscriber = GetSubscriber(name);
                 Unregister(subscriber);
             }
-
         }
+
+         public void Stop()
+         {
+            foreach (T subscriber in GetSubscribers())
+            {
+                Unregister(subscriber);
+                subscriber.OnStopProvider(this);
+            }
+            secretary.Clear();
+         }
     }
 }

@@ -51,7 +51,13 @@ namespace ClearArchitecture.SL
 
         public T GetValue(String key)
         {
-            T value = default(T);
+            T value = default;
+
+            if (String.IsNullOrEmpty(key))
+            {
+                return value;
+            }
+
             if (ContainsKey(key))
             {
                 subscribers.TryGetValue(key, out value);
