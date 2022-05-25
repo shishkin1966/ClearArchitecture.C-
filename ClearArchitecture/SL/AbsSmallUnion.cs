@@ -64,7 +64,7 @@ namespace ClearArchitecture.SL
         public List<T> GetValidatedSubscribers()
         {
             List<T> subscribers = new();
-            foreach(T subscriber in GetSubscribers())
+            foreach (T subscriber in GetSubscribers())
             {
                 if (subscriber.IsValid())
                 {
