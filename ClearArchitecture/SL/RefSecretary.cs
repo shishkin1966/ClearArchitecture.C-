@@ -8,7 +8,7 @@ namespace ClearArchitecture.SL
 {
     class RefSecretary<T> : ISecretary<T>
     {
-        private readonly ConcurrentDictionary<String, WeakReference> subscribers = new() ;
+        private readonly ConcurrentDictionary<string, WeakReference> subscribers = new() ;
 
         public void Clear()
         {
@@ -17,7 +17,7 @@ namespace ClearArchitecture.SL
 
         public bool ContainsKey(string key)
         {
-            if (String.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key))
             {
                 return false;
             }
@@ -29,7 +29,7 @@ namespace ClearArchitecture.SL
         {
             T val = default(T);
 
-            if (String.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key))
             {
                 return val;
             }
@@ -57,7 +57,7 @@ namespace ClearArchitecture.SL
 
         public void Put(string key, T value)
         {
-            if (String.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key))
             {
                 return;
             }
@@ -72,7 +72,7 @@ namespace ClearArchitecture.SL
 
         public void Remove(string key)
         {
-            if (String.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key))
             {
                 return;
             }

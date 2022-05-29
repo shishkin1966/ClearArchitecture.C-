@@ -8,19 +8,19 @@ namespace ClearArchitecture.SL
     public interface IProvider : INamed, IValidated, IComparable<IProvider>
     {
         /*
-         * Получить тип провайдера
+         * Получить тип провайдера - постоянный или нет
          *
          * @return true - не будет удаляться администратором
          */
         bool IsPersistent();
 
         /*
-         * Событие - отключить регистрацию
+         * Событие - отключить регистрацию провайдера
          */
         void OnUnRegister();
 
         /*
-        * Событие - регистрация
+        * Событие - регистрация провайдера
         */
         void OnRegister();
 

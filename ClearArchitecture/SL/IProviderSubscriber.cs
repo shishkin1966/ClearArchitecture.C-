@@ -13,7 +13,7 @@ namespace ClearArchitecture.SL
         *
         * @return список имен провайдеров
         */
-        List<String> GetProviderSubscription();
+        List<string> GetProviderSubscription();
 
         /*
         * Событие - провайдер прекратил работу
@@ -21,7 +21,7 @@ namespace ClearArchitecture.SL
         void OnStopProvider(IProvider provider);
 
         /*
-        * Остановить
+        * Остановить работу объекта
         */
         void Stop();
     }

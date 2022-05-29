@@ -7,6 +7,6 @@ namespace ClearArchitecture.SL
     */
     public interface INamed
     {
-        String GetName();
+        string GetName();
     }
 }

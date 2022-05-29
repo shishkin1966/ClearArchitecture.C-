@@ -7,6 +7,7 @@ namespace ClearArchitecture.SL
     */
     public interface IProviderFactory
     {
-        IProvider Create(String name); 
+        // Создать провайдера
+        IProvider Create(string name); 
     }
 }

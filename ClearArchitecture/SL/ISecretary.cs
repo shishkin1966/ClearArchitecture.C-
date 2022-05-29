@@ -5,7 +5,7 @@ using System.Text;
 namespace ClearArchitecture.SL
 {
     /*
-    * Интерфейс секретаря объединиения
+    * Интерфейс секретаря объединения
     */
     public interface ISecretary<T>
     {
@@ -14,7 +14,7 @@ namespace ClearArchitecture.SL
         *
         * @param key - имя члена объединения
         */
-        public void Remove(String key);
+        public void Remove(string key);
 
         /*
         * получить размер объединения
@@ -29,21 +29,21 @@ namespace ClearArchitecture.SL
         * @param key - имя члена объединения
         * @param value - член объединения
         */
-        void Put(String key, T value);
+        void Put(string key, T value);
 
         /*
         * проверить наличие члена объединения
         *
         * @param key - имя члена объединения
         */
-        Boolean ContainsKey(String key);
+        bool ContainsKey(string key);
 
         /*
         * получить члена объединения
         *
         * @param key - имя члена объединения
         */
-        T GetValue(String key);
+        T GetValue(string key);
 
         /*
         * получить список членов объединения
@@ -55,7 +55,7 @@ namespace ClearArchitecture.SL
         *
         * @return true - объединение не пустое
         */
-        Boolean IsEmpty();
+        bool IsEmpty();
 
         /*
         * очистить объединение
@@ -66,6 +66,6 @@ namespace ClearArchitecture.SL
         * получить список имен членов объединения
         * @return список имен
         */
-        List<String> Keys();
+        List<string> Keys();
     }
 }

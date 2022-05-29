@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ClearArchitecture.SL
 {
@@ -13,7 +12,7 @@ namespace ClearArchitecture.SL
         *
         * @param subscriber подписчик
         */
-        bool Register(T subscriber);
+        bool RegisterSubscriber(T subscriber);
 
         /*
         * Отключить подписчика
@@ -21,7 +20,7 @@ namespace ClearArchitecture.SL
         * @param subscriber подписчик
         * @return true - провайдер должен быть остановлен и выгружен
         */
-        void Unregister(T subscriber);
+        void UnregisterSubscriber(T subscriber);
 
         /*
         * Отключить подписчика по его имени
@@ -29,7 +28,7 @@ namespace ClearArchitecture.SL
         * @param name имя подписчика
         * @return true - провайдер должен быть остановлен и выгружен
         */
-        void Unregister(String name);
+        void UnregisterSubscriber(string name);
 
         /*
         * Получить список подписчиков
@@ -65,7 +64,7 @@ namespace ClearArchitecture.SL
         * @param name имя подписчика
         * @return true - подписчик есть
         */
-        bool HasSubscriber(String name);
+        bool HasSubscriber(string name);
 
         /*
         * Получить подписчика по его имени
@@ -73,7 +72,7 @@ namespace ClearArchitecture.SL
         * @param name имя подписчика
         * @return подписчик
         */
-        T GetSubscriber(String name);
+        T GetSubscriber(string name);
 
         /*
         * Событие - появился первый подписчик
@@ -98,6 +97,6 @@ namespace ClearArchitecture.SL
         * @param subscriber подписчик
         * @return true подписчик зарегистрирован
         */
-        bool Contains(T subscriber);
+        bool ContainsSubscriber(T subscriber);
     }
 }

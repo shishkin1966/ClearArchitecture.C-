@@ -12,7 +12,7 @@ namespace ClearArchitecture.SL
          *
          * @param subscriber специалист
          */
-        Boolean SetCurrentSubscriber(T subscriber);
+        bool SetCurrentSubscriber(T subscriber);
 
         /*
          * Получить текущего специалиста
@@ -20,6 +20,5 @@ namespace ClearArchitecture.SL
          * @return специалист
          */
         T GetCurrentSubscriber(); 
-
     }
 }

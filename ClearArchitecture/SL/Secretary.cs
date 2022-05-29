@@ -7,11 +7,11 @@ namespace ClearArchitecture.SL
 {
     public class Secretary<T> : ISecretary<T>
     {
-        private readonly ConcurrentDictionary<String, T> subscribers = new ConcurrentDictionary<String, T>();
+        private readonly ConcurrentDictionary<string, T> subscribers = new();
 
-        public void Remove(String key)
+        public void Remove(string key)
         {
-            if (String.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key))
             {
                 return;
             }
@@ -24,9 +24,9 @@ namespace ClearArchitecture.SL
             return subscribers.Count;
         }
 
-        public void Put(String key, T value)
+        public void Put(string key, T value)
         {
-            if (String.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key))
             {
                 return;
             }
@@ -39,9 +39,9 @@ namespace ClearArchitecture.SL
             subscribers.AddOrUpdate(key, value, (key, oldValue) => oldValue);
         }
 
-        public Boolean ContainsKey(String key)
+        public bool ContainsKey(string key)
         {
-            if (String.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key))
             {
                 return false;
             }
@@ -49,11 +49,11 @@ namespace ClearArchitecture.SL
             return subscribers.ContainsKey(key);
         }
 
-        public T GetValue(String key)
+        public T GetValue(string key)
         {
             T value = default;
 
-            if (String.IsNullOrEmpty(key))
+            if (string.IsNullOrEmpty(key))
             {
                 return value;
             }
@@ -70,7 +70,7 @@ namespace ClearArchitecture.SL
             return subscribers.Values.ToList();
         }
 
-        public Boolean IsEmpty()
+        public bool IsEmpty()
         {
             return (subscribers.Count == 0);
         }
@@ -80,7 +80,7 @@ namespace ClearArchitecture.SL
             subscribers.Clear();
         }
 
-        public List<String> Keys()
+        public List<string> Keys()
         {
             return subscribers.Keys.ToList();
         }
