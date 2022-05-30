@@ -1,6 +1,6 @@
 ﻿namespace ClearArchitecture.SL
 {
-    public class DataMessage : AbsMessage, IMessage
+    public class DataMessage : AbsMessage
     {
         private object data;
 
