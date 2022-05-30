@@ -7,23 +7,20 @@ namespace ClearArchitecture.SL
     {
         private WeakReference currentSubscriber;
 
-        public new bool Register(T subscriber)
+        public new bool RegisterSubscriber(T subscriber)
         {
             if (subscriber == null)
             {
                 return false;
             }
 
-            if (base.Register(subscriber)) {
-                if (currentSubscriber != null)
+            if (base.RegisterSubscriber(subscriber)) {
+                if (currentSubscriber != null && currentSubscriber.IsAlive)
                 {
-                    if (currentSubscriber.IsAlive)
+                    T oldSubscriber = (T)currentSubscriber.Target;
+                    if (subscriber.GetName() == (oldSubscriber.GetName()))
                     {
-                        T oldSubscriber = (T)currentSubscriber.Target;
-                        if (subscriber.GetName() == (oldSubscriber.GetName())) 
-                        {
-                            currentSubscriber = new WeakReference(subscriber, false);
-                        }
+                        currentSubscriber = new WeakReference(subscriber, false);
                     }
                 }
                 return true;
@@ -31,21 +28,18 @@ namespace ClearArchitecture.SL
             return false;
         }
 
-        public new void Unregister(T subscriber)
+        public new void UnregisterSubscriber(T subscriber)
         {
             if (subscriber == null) return;
 
-            base.Unregister(subscriber);
+            base.UnregisterSubscriber(subscriber);
 
-            if (currentSubscriber != null)
+            if (currentSubscriber != null && currentSubscriber.IsAlive)
             {
-                if (currentSubscriber.IsAlive)
+                T oldSubscriber = (T)currentSubscriber.Target;
+                if (subscriber.GetName() == (oldSubscriber.GetName()))
                 {
-                    T oldSubscriber = (T)currentSubscriber.Target;
-                    if (subscriber.GetName() == (oldSubscriber.GetName()))
-                    {
-                        currentSubscriber.Target = null;
-                    }
+                    currentSubscriber.Target = null;
                 }
             }
         }
@@ -56,11 +50,11 @@ namespace ClearArchitecture.SL
 
             if (!subscriber.IsValid()) return false;
 
-            if (!Contains(subscriber)) {
-                Register(subscriber);
+            if (!ContainsSubscriber(subscriber)) {
+                RegisterSubscriber(subscriber);
             }
             
-            if (!Contains(subscriber)) {
+            if (!ContainsSubscriber(subscriber)) {
                 return false;
             }
 

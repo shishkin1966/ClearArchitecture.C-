@@ -1,7 +1,7 @@
 ﻿
 namespace ClearArchitecture.SL
 {
-    interface ILifecycle
+    public interface ILifecycle
     {
         /**
          * Получить состояние объекта

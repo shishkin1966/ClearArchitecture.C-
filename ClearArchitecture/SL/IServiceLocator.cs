@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ClearArchitecture.SL
 {
@@ -15,7 +14,7 @@ namespace ClearArchitecture.SL
         * @param name имя провайдера
         * @return true - провайдер существует
         */
-        Boolean Exists(String name);
+        bool ExistsProvider(string name);
 
         /*
         * Получить провайдера
@@ -24,7 +23,7 @@ namespace ClearArchitecture.SL
         * @param name имя провайдера
         * @return провайдер
         */
-        Object GetProvider(String name);
+        IProvider GetProvider(string name);
 
         /*
         * Зарегистрировать провайдера
@@ -32,7 +31,7 @@ namespace ClearArchitecture.SL
         * @param provider провайдер
         * @return флаг - операция завершена успешно
         */
-        Boolean RegisterProvider(IProvider provider);
+        bool RegisterProvider(IProvider provider);
 
         /*
         * Зарегистрировать провайдера
@@ -40,7 +39,7 @@ namespace ClearArchitecture.SL
         * @param name имя провайдера
         * @return флаг - операция завершена успешно
         */
-        Boolean RegisterProvider(String name);
+        bool RegisterProvider(string name);
 
         /*
         * Отменить регистрацию провайдера
@@ -48,7 +47,7 @@ namespace ClearArchitecture.SL
         * @param name имя провайдера
         * @return флаг - операция завершена успешно
         */
-        Boolean UnregisterProvider(String name);
+        bool UnregisterProvider(string name);
 
         /*
         * Зарегистрировать подписчика провайдера
@@ -56,7 +55,7 @@ namespace ClearArchitecture.SL
         * @param subscriber подписчик провайдера
         * @return флаг - операция завершена успешно
         */
-        Boolean RegisterSubscriber(IProviderSubscriber subscriber);
+        bool RegisterSubscriber(IProviderSubscriber subscriber);
 
         /*
         * Отменить регистрацию подписчика провайдера
@@ -64,7 +63,7 @@ namespace ClearArchitecture.SL
         * @param subscriber подписчик провайдера
         * @return флаг - операция завершена успешно
         */
-        Boolean UnregisterSubscriber(IProviderSubscriber subscriber);
+        bool UnregisterSubscriber(IProviderSubscriber subscriber);
 
         /*
         * Установить подписчика текущим
@@ -72,7 +71,7 @@ namespace ClearArchitecture.SL
         * @param subscriber подписчик
         * @return флаг - операция завершена успешно
         */
-        Boolean setCurrentSubscriber(IProviderSubscriber subscriber);
+        bool SetCurrentSubscriber(IProviderSubscriber subscriber);
 
         /*
         * Остановитить работу service locator

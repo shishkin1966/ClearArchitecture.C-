@@ -12,6 +12,6 @@ namespace ClearArchitecture.SL
         *
         * @return true - объект может обеспечивать свою функциональность
         */
-        Boolean IsValid(); 
+        bool IsValid(); 
     }
 }

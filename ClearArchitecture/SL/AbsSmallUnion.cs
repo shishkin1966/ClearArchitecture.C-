@@ -1,6 +1,6 @@
 ﻿
-using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ClearArchitecture.SL
 {
@@ -17,7 +17,7 @@ namespace ClearArchitecture.SL
             return new Secretary<T>();
         }
 
-        public bool Contains(T subscriber)
+        public bool ContainsSubscriber(T subscriber)
         {
             if (subscriber == null)
             {
@@ -64,19 +64,15 @@ namespace ClearArchitecture.SL
         public List<T> GetValidatedSubscribers()
         {
             List<T> subscribers = new();
-            foreach (T subscriber in GetSubscribers())
-            {
-                if (subscriber.IsValid())
-                {
-                    subscribers.Add(subscriber);
-                }
-            }
+            subscribers.AddRange(from T subscriber in GetSubscribers()
+                                 where subscriber.IsValid()
+                                 select subscriber);
             return subscribers;
         }
 
         public bool HasSubscriber(string name)
         {
-            if (String.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(name))
             {
                 return false;
             }
@@ -104,7 +100,7 @@ namespace ClearArchitecture.SL
             // Method intentionally left empty.
         }
 
-        public bool Register(T subscriber) 
+        public bool RegisterSubscriber(T subscriber) 
         {
             if (subscriber == null)
             {
@@ -130,7 +126,7 @@ namespace ClearArchitecture.SL
             return true;
         }
 
-        public void Unregister(T subscriber)
+        public void UnregisterSubscriber(T subscriber)
         {
             if (subscriber == null)
             {
@@ -149,9 +145,9 @@ namespace ClearArchitecture.SL
             }
         }
 
-        public void Unregister(String name)
+        public void UnregisterSubscriber(string name)
         {
-            if (String.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(name))
             {
                 return;
             }
@@ -159,7 +155,7 @@ namespace ClearArchitecture.SL
             if (HasSubscriber(name))
             {
                 T subscriber = GetSubscriber(name);
-                Unregister(subscriber);
+                UnregisterSubscriber(subscriber);
             }
         }
 
@@ -167,7 +163,7 @@ namespace ClearArchitecture.SL
          {
             foreach (T subscriber in GetSubscribers())
             {
-                Unregister(subscriber);
+                UnregisterSubscriber(subscriber);
                 subscriber.OnStopProvider(this);
             }
             secretary.Clear();
