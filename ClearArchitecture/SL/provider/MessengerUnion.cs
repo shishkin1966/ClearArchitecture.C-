@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ClearArchitecture.SL
 {
@@ -155,13 +156,9 @@ namespace ClearArchitecture.SL
             if (string.IsNullOrEmpty(subscriber)) return;
 
             List<IMessage> list = new();
-            foreach(IMessage message in messages.Values)
-            {
-                if (message.ContainsAddress(subscriber))
-                {
-                    list.Add(message);
-                }
-            }
+            list.AddRange(collection: from IMessage message in messages.Values
+                          where message.ContainsAddress(subscriber)
+                          select message);
             foreach (IMessage message in list)
             {
                 messages.Remove(message.GetMessageId(), out IMessage value);
@@ -196,12 +193,15 @@ namespace ClearArchitecture.SL
             {
                 messages.Remove(message.GetMessageId(), out IMessage value);
             }
+            List<IMessage> sortedList =  list.OrderBy(message=>message.GetMessageId()).ToList();
+            /*
             list.Sort(delegate(IMessage x, IMessage y) {
                 if (x.GetMessageId() > y.GetMessageId()) return 1;
                 if (x.GetMessageId() < y.GetMessageId()) return -1;
                 else return 0;
             });
-            return list;
+            */
+            return sortedList;
         }
 
         public List<string> GetMessagingList(string name)
