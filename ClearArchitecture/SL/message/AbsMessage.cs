@@ -7,7 +7,7 @@ namespace ClearArchitecture.SL
         private int id = -1;
         private string address;
         private readonly List<string> copyTo = new();
-        private long keepAliveTime = -1;
+        private long keepAliveTime = -1L;
         private string subj;
 
         protected AbsMessage() 

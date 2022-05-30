@@ -30,13 +30,6 @@ namespace ClearArchitecture.SL
         void AddNotMandatoryMessage(IMessage message);
 
         /**
-        * Заменить почтовое сообщение
-        *
-        * @param message the message
-        */
-        void ReplaceMessage(IMessage message);
-
-        /**
         * Удалить почтовое сообщение
         *
         * @param message the message

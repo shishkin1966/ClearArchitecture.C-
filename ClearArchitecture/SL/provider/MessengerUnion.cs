@@ -1,4 +1,5 @@
 ﻿using App.Metrics.Concurrency;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 
@@ -8,13 +9,16 @@ namespace ClearArchitecture.SL
     {
         public const string NAME = "MessengerUnion";
 
-        private ConcurrentDictionary<int, IMessage> messages = new();
+        private readonly ConcurrentDictionary<int, IMessage> messages = new();
         private readonly Secretary<List<string>> messagingList = new();
-        private AtomicInteger atomicId = new(0);
+        private readonly AtomicInteger atomicId = new(0);
 
         private List<string> GetAddresses(string address)  
         {
             List<string> addresses = new();
+
+            if (string.IsNullOrEmpty(address)) return addresses;
+
             if (messagingList.ContainsKey(address)) {
                 List<string> list = messagingList.GetValue(address);
                 if (list != null) 
@@ -34,6 +38,8 @@ namespace ClearArchitecture.SL
 
         private void RemoveDublicate(IMessage message)
         {
+            if (message == null) return;
+
             foreach (IMessage tmpMessage in messages.Values)
             {
                 if (message.GetSubj() == tmpMessage.GetSubj() && message.GetAddress() == tmpMessage.GetAddress())
@@ -45,6 +51,8 @@ namespace ClearArchitecture.SL
 
         private void CheckAndReadMessagesSubscriber(string address)
         {
+            if (string.IsNullOrEmpty(address)) return;
+
             T subscriber = GetSubscriber(address);
             if (subscriber != null && address == subscriber.GetName())
             {
@@ -54,6 +62,8 @@ namespace ClearArchitecture.SL
 
         private T CheckSubscriber(string address) 
         {
+            if (string.IsNullOrEmpty(address)) return default;
+
             T subscriber = GetSubscriber(address);
             if (subscriber != null && address == subscriber.GetName()) 
             {
@@ -112,6 +122,8 @@ namespace ClearArchitecture.SL
 
         public void AddNotMandatoryMessage(IMessage message)
         {
+            if (message == null) return;
+
             List<string> list = new();
             list.AddRange(message.GetCopyTo());
             if (!string.IsNullOrEmpty(message.GetAddress()))
@@ -135,12 +147,25 @@ namespace ClearArchitecture.SL
 
         public void ClearMessages()
         {
-            throw new System.NotImplementedException();
+            messages.Clear();
         }
 
         public void ClearMessages(string subscriber)
         {
-            throw new System.NotImplementedException();
+            if (string.IsNullOrEmpty(subscriber)) return;
+
+            List<IMessage> list = new();
+            foreach(IMessage message in messages.Values)
+            {
+                if (message.ContainsAddress(subscriber))
+                {
+                    list.Add(message);
+                }
+            }
+            foreach (IMessage message in list)
+            {
+                messages.Remove(message.GetMessageId(), out IMessage value);
+            }
         }
 
         public override int CompareTo(IProvider other)
@@ -153,12 +178,44 @@ namespace ClearArchitecture.SL
 
         public List<IMessage> GetMessages(IMessengerSubscriber subscriber)
         {
-            throw new System.NotImplementedException();
+            if (subscriber == null) return new List<IMessage>();
+            if (messages.IsEmpty) return new List<IMessage>();
+
+            // удаляем старые письма
+            string name = subscriber.GetName();
+            long currentTime = DateTime.Now.Ticks;
+            List<IMessage> list = new();
+            foreach (IMessage message in messages.Values)
+            {
+                if (message.ContainsAddress(name) && message.GetEndTime() != -1L && message.GetEndTime() < currentTime)
+                {
+                    list.Add(message);
+                }
+            }
+            foreach (IMessage message in list)
+            {
+                messages.Remove(message.GetMessageId(), out IMessage value);
+            }
+            list.Sort(delegate(IMessage x, IMessage y) {
+                if (x.GetMessageId() > y.GetMessageId()) return 1;
+                if (x.GetMessageId() < y.GetMessageId()) return -1;
+                else return 0;
+            });
+            return list;
         }
 
         public List<string> GetMessagingList(string name)
         {
-            throw new System.NotImplementedException();
+            if (string.IsNullOrEmpty(name)) return new List<string>();
+
+            if (messagingList.ContainsKey(name))
+            {
+                return messagingList.GetValue(name);
+            }
+            else
+            {
+                return new List<string>();
+            }
         }
 
         public override string GetName()
@@ -168,22 +225,32 @@ namespace ClearArchitecture.SL
 
         public void ReadMessages(IMessengerSubscriber subscriber)
         {
-            throw new System.NotImplementedException();
+            if (subscriber == null) return;
+
+            List<IMessage> list = GetMessages(subscriber);
+            foreach (IMessage message in list)
+            {
+                int state = subscriber.GetState();
+                if (state == Lifecycle.VIEW_READY)
+                {
+                    message.Read(subscriber);
+                    RemoveMessage(message);
+                }
+            }
         }
 
         public void RemoveMessage(IMessage message)
         {
-            throw new System.NotImplementedException();
+            if (message == null) return;
+
+            messages.Remove(message.GetMessageId(), out IMessage value);
         }
 
         public void RemoveMessagingList(string name)
         {
-            throw new System.NotImplementedException();
-        }
+            if (string.IsNullOrEmpty(name)) return;
 
-        public void ReplaceMessage(IMessage message)
-        {
-            throw new System.NotImplementedException();
+            messagingList.Remove(name);
         }
     }
 }
