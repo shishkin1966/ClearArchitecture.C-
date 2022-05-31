@@ -20,7 +20,7 @@ namespace ClearArchitecture.SL
         * @param subscriber подписчик
         * @return true - провайдер должен быть остановлен и выгружен
         */
-        void UnregisterSubscriber(T subscriber);
+        void UnRegisterSubscriber(T subscriber);
 
         /*
         * Отключить подписчика по его имени
@@ -28,7 +28,7 @@ namespace ClearArchitecture.SL
         * @param name имя подписчика
         * @return true - провайдер должен быть остановлен и выгружен
         */
-        void UnregisterSubscriber(string name);
+        void UnRegisterSubscriber(string name);
 
         /*
         * Получить список подписчиков

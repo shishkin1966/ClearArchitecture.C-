@@ -28,11 +28,11 @@ namespace ClearArchitecture.SL
             return false;
         }
 
-        public new void UnregisterSubscriber(T subscriber)
+        public new void UnRegisterSubscriber(T subscriber)
         {
             if (subscriber == null) return;
 
-            base.UnregisterSubscriber(subscriber);
+            base.UnRegisterSubscriber(subscriber);
 
             if (currentSubscriber != null && currentSubscriber.IsAlive)
             {

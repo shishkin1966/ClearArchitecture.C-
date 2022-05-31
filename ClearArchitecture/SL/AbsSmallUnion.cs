@@ -126,7 +126,7 @@ namespace ClearArchitecture.SL
             return true;
         }
 
-        public void UnregisterSubscriber(T subscriber)
+        public void UnRegisterSubscriber(T subscriber)
         {
             if (subscriber == null)
             {
@@ -145,7 +145,7 @@ namespace ClearArchitecture.SL
             }
         }
 
-        public void UnregisterSubscriber(string name)
+        public void UnRegisterSubscriber(string name)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -155,7 +155,7 @@ namespace ClearArchitecture.SL
             if (HasSubscriber(name))
             {
                 T subscriber = GetSubscriber(name);
-                UnregisterSubscriber(subscriber);
+                UnRegisterSubscriber(subscriber);
             }
         }
 
@@ -163,7 +163,7 @@ namespace ClearArchitecture.SL
          {
             foreach (T subscriber in GetSubscribers())
             {
-                UnregisterSubscriber(subscriber);
+                UnRegisterSubscriber(subscriber);
                 subscriber.OnStopProvider(this);
             }
             secretary.Clear();
