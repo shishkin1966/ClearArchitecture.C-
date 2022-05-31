@@ -1,26 +1,18 @@
-﻿using ClearArchitecture.SL;
-using System;
+﻿using ConsoleApp1.App;
 
 namespace ConsoleApp1
 {
     static class Program
     {
-
         static void Main(string[] args)
         {
-            RefSecretary<String> s = new();
+            ServiceLocator sl = new();
 
-            s.Put("1", "1");
-            s.Put("2", "2");
+            sl.Start();
 
-            // Тест
-            Console.WriteLine(s.Size().ToString());
-            Console.WriteLine(s.GetValue("1"));
-            if (s.GetValue("5") == default(String))
-            {
-                Console.WriteLine("Error");
-            }
+            sl.OutPrv.WriteLine("Test");
 
+            sl.Stop();
         }
     }
 }

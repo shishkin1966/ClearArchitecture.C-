@@ -6,7 +6,7 @@ namespace ClearArchitecture.SL
     /*
     * Интерфейс администратора(Service Locator)
     */
-    public interface IServiceLocator
+    public interface IServiceLocator : INamed
     {
         /*
         * Проверить существование провайдера
