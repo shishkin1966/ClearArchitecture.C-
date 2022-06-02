@@ -1,18 +1,28 @@
-﻿using ConsoleApp1.App;
+﻿using ClearArchitecture.SL;
+using ConsoleApp1.App;
 
 namespace ConsoleApp1
 {
-    static class Program
+    public static class Program
     {
+        private readonly static ServiceLocator sl = new();
+
+        public static ServiceLocator ServiceLocator
+        {
+            get
+            {
+                return sl;
+            }
+        }
+
         static void Main(string[] args)
         {
-            ServiceLocator sl = new();
 
-            sl.Start();
+            ServiceLocator.Start();
 
-            sl.Out.WriteLine("Test");
+            ServiceLocator.Out.WriteLine("Test");
 
-            sl.Stop();
+            ServiceLocator.Stop();
         }
     }
 }
