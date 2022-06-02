@@ -2,7 +2,7 @@
 
 namespace ConsoleApp1.App
 {
-    public class ServiceLocator : AbsServiceLocator
+    public class ServiceLocator : AbsServiceLocator, IServiceLocator
     {
         public const string NAME = "ServiceLocator";
 
