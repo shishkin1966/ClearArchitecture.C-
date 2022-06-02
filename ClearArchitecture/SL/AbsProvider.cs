@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace ClearArchitecture.SL
 {
     public abstract class AbsProvider : IProvider
@@ -11,24 +13,25 @@ namespace ClearArchitecture.SL
             return false;
         }
 
-        bool IValidated.IsValid()
+        public bool IsValid()
         {
             return true;
         }
 
-        void IProvider.OnRegister()
+        public void OnRegister()
         {
-            // Method intentionally left empty.
+            Console.WriteLine( "OnRegister " + GetName());
         }
 
-        void IProvider.OnUnRegister()
+        public void OnUnRegister()
         {
-            // Method intentionally left empty.
+            Console.WriteLine("OnUnRegister " + GetName());
         }
 
-        void IProvider.Stop()
+        public void Stop()
         {
-            // Method intentionally left empty.
+            Console.WriteLine("Stop " + GetName());
         }
+
     }
 }

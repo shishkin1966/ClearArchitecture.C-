@@ -10,6 +10,8 @@ namespace ClearArchitecture.SL
 
         public abstract void Start();
 
+        public abstract string GetName();
+
         public void Stop()
         {
             foreach (IProvider provider in GetProviders())
@@ -18,8 +20,6 @@ namespace ClearArchitecture.SL
                 provider.Stop();
             }
         }
-
-        public abstract string GetName();
 
         public bool ExistsProvider(string name)
         {
@@ -192,7 +192,6 @@ namespace ClearArchitecture.SL
                 }
             }
             return true;
-
         }
     }
 }

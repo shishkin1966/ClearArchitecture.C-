@@ -194,13 +194,6 @@ namespace ClearArchitecture.SL
                 messages.Remove(message.GetMessageId(), out IMessage value);
             }
             List<IMessage> sortedList =  list.OrderBy(message=>message.GetMessageId()).ToList();
-            /*
-            list.Sort(delegate(IMessage x, IMessage y) {
-                if (x.GetMessageId() > y.GetMessageId()) return 1;
-                if (x.GetMessageId() < y.GetMessageId()) return -1;
-                else return 0;
-            });
-            */
             return sortedList;
         }
 

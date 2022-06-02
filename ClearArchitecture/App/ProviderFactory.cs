@@ -16,6 +16,10 @@ namespace ConsoleApp1.App
                 {
                     case OutProvider.NAME:
                         return new OutProvider();
+                    case ObservableUnion<IObservableSubscriber>.NAME:
+                        return new ObservableUnion<IObservableSubscriber>();
+                    case MessengerUnion<IMessengerSubscriber>.NAME:
+                        return new MessengerUnion<IMessengerSubscriber>();
                     default:
                         return default;
                 }

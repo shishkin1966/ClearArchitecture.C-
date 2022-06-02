@@ -6,7 +6,7 @@ namespace ConsoleApp1.App
     {
         public const string NAME = "ServiceLocator";
 
-        public IOutProvider OutPrv
+        public IOutProvider Out
         {
             get
             {
@@ -14,8 +14,27 @@ namespace ConsoleApp1.App
             }
         }
 
+        public IMessengerUnion<IMessengerSubscriber> Messenger
+        {
+            get
+            {
+                return (IMessengerUnion<IMessengerSubscriber>)GetProvider(MessengerUnion<IMessengerSubscriber>.NAME);
+            }
+        }
+
+        public IObservableUnion<IObservableSubscriber> Observable
+        {
+            get
+            {
+                return (IObservableUnion<IObservableSubscriber>)GetProvider(ObservableUnion<IObservableSubscriber>.NAME);
+            }
+        }
+
         public override void Start()
         {
+            RegisterProvider(MessengerUnion<IMessengerSubscriber>.NAME);
+            RegisterProvider(ObservableUnion<IObservableSubscriber>.NAME);
+
             RegisterProvider(OutProvider.NAME); 
         }
 
