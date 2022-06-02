@@ -3,11 +3,11 @@ using System;
 
 namespace ConsoleApp1.App
 {
-    public class OutProvider : IOutProvider
+    public class OutProvider : AbsProvider, IOutProvider
     {
         public const string NAME = "OutProvider";
 
-        public int CompareTo(IProvider other)
+        public override int CompareTo(IProvider other)
         {
             if (other is OutProvider)
             { 
@@ -19,34 +19,9 @@ namespace ConsoleApp1.App
             }
         }
 
-        public string GetName()
+        public override string GetName()
         {
             return NAME;
-        }
-
-        public bool IsPersistent()
-        {
-            return false;
-        }
-
-        public bool IsValid()
-        {
-            return true;
-        }
-
-        public void OnRegister()
-        {
-            Console.WriteLine("OnRegister " + NAME);
-        }
-
-        public void OnUnRegister()
-        {
-            Console.WriteLine("OnUnRegister " + NAME);
-        }
-
-        public void Stop()
-        {
-            Console.WriteLine("Stop " + NAME);
         }
 
         public void WriteLine(string line)

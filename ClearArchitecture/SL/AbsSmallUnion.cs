@@ -159,8 +159,10 @@ namespace ClearArchitecture.SL
             }
         }
 
-         public void Stop()
+         new public void Stop()
          {
+            base.Stop();
+
             foreach (T subscriber in GetSubscribers())
             {
                 UnRegisterSubscriber(subscriber);

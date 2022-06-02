@@ -10,7 +10,7 @@ namespace ConsoleApp1
 
             sl.Start();
 
-            sl.OutPrv.WriteLine("Test");
+            sl.Out.WriteLine("Test");
 
             sl.Stop();
         }
