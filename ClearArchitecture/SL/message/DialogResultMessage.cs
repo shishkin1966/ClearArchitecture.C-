@@ -5,12 +5,12 @@
         private readonly DialogResultAction action;
         public const string SUBJ = "DialogResultMessage";
 
-        protected DialogResultMessage(string address, DialogResultAction action) : base(address)
+        public DialogResultMessage(string address, DialogResultAction action) : base(address)
         {
             this.action = action;
         }
 
-        protected DialogResultMessage(DialogResultMessage message, DialogResultAction action) : base(message)
+        public DialogResultMessage(DialogResultMessage message, DialogResultAction action) : base(message)
         {
             this.action = action;
         }
