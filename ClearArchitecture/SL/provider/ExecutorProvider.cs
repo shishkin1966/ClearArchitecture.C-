@@ -63,11 +63,6 @@ namespace ClearArchitecture.SL
             return NAME;
         }
 
-        new public bool IsPersistent()
-        {
-            return true;
-        }
-
         new public bool IsValid()
         {
             return true;

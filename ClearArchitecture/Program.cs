@@ -9,7 +9,7 @@ namespace ConsoleApp1
 
         private readonly static ServiceLocator sl = new();
 
-        public static ServiceLocator ServiceLocator
+        public static ServiceLocator SL
         {
             get
             {
@@ -20,13 +20,13 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
 
-            ServiceLocator.Start();
+            SL.Start();
 
-            ServiceLocator.Out.WriteLine("Test");
+            SL.Out.WriteLine("Test");
 
-            ServiceLocator.Executor.PutRequest(new GetRequest(NAME,null,1));
+            SL.Executor.PutRequest(new GetRequest(NAME,null,1));
 
-            ServiceLocator.Stop();
+            SL.Stop();
         }
     }
 }

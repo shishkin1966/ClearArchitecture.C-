@@ -14,6 +14,14 @@ namespace ConsoleApp1.App
             }
         }
 
+        public IApplicationProvider App
+        {
+            get
+            {
+                return (IApplicationProvider)GetProvider(ApplicationProvider.NAME);
+            }
+        }
+
         public IMessengerUnion<IMessengerSubscriber> Messenger
         {
             get
@@ -40,11 +48,18 @@ namespace ConsoleApp1.App
 
         public override void Start()
         {
+            RegisterProvider(ApplicationProvider.NAME);
             RegisterProvider(MessengerUnion<IMessengerSubscriber>.NAME);
             RegisterProvider(ObservableUnion<IObservableSubscriber>.NAME);
             RegisterProvider(ExecutorProvider.NAME);
-
             RegisterProvider(OutProvider.NAME); 
+        }
+
+        new public void Stop()
+        {
+            base.Stop();
+
+            App.SetExit();
         }
 
         public override IProviderFactory GetProviderFactory()

@@ -14,6 +14,8 @@ namespace ConsoleApp1.App
             {
                 switch (name)
                 {
+                    case ApplicationProvider.NAME:
+                        return new ApplicationProvider();
                     case OutProvider.NAME:
                         return new OutProvider();
                     case ExecutorProvider.NAME:
