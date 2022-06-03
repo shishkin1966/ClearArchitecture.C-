@@ -1,8 +1,8 @@
-﻿using App.Metrics.Concurrency;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace ClearArchitecture.SL
 {
@@ -12,7 +12,7 @@ namespace ClearArchitecture.SL
 
         private readonly ConcurrentDictionary<int, IMessage> messages = new();
         private readonly Secretary<List<string>> messagingList = new();
-        private readonly AtomicInteger atomicId = new(0);
+        private int id = 0;
 
         private List<string> GetAddresses(string address)  
         {
@@ -94,20 +94,20 @@ namespace ClearArchitecture.SL
             }
             foreach (string address in addresses)
             {
-                int id = atomicId.Increment();
+                int _id = Interlocked.Increment(ref this.id);
                 IMessage newMessage = message.Copy();
-                newMessage.SetMessageId(id);
+                newMessage.SetMessageId(_id);
                 newMessage.SetAddress(address);
                 newMessage.SetCopyTo(new List<string>());
     
                 if (!message.IsCheckDublicate())
                 {
-                    messages[id] = newMessage;
+                    messages[_id] = newMessage;
                 }
                 else
                 {
                     RemoveDublicate(newMessage);
-                    messages[id] = newMessage;
+                    messages[_id] = newMessage;
                 }
 
                 CheckAndReadMessagesSubscriber(address);
