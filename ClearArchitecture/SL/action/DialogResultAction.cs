@@ -4,7 +4,7 @@
     {
         private readonly int id;
 
-        protected DialogResultAction(int id)
+        public DialogResultAction(int id)
         {
             this.id = id;
         }

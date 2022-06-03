@@ -30,10 +30,19 @@ namespace ConsoleApp1.App
             }
         }
 
+        public IExecutor Executor
+        {
+            get
+            {
+                return (IExecutor)GetProvider(ExecutorProvider.NAME);
+            }
+        }
+
         public override void Start()
         {
             RegisterProvider(MessengerUnion<IMessengerSubscriber>.NAME);
             RegisterProvider(ObservableUnion<IObservableSubscriber>.NAME);
+            RegisterProvider(ExecutorProvider.NAME);
 
             RegisterProvider(OutProvider.NAME); 
         }

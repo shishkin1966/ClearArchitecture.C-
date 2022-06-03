@@ -2,10 +2,10 @@
 {
     public class DataMessage : AbsMessage
     {
-        private object data;
+        private readonly object data;
 
 
-        protected DataMessage(string address, object data) : base(address)
+        public DataMessage(string address, object data) : base(address)
         {
             this.data = data;
         }

@@ -13,7 +13,7 @@ namespace ClearArchitecture.SL
         private string name;
         private int id = 0;
 
-        protected ExtResult(object data)
+        public ExtResult(object data)
         {
             this.data = data;
         }

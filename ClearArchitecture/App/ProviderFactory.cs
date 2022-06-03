@@ -16,6 +16,8 @@ namespace ConsoleApp1.App
                 {
                     case OutProvider.NAME:
                         return new OutProvider();
+                    case ExecutorProvider.NAME:
+                        return new ExecutorProvider();
                     case ObservableUnion<IObservableSubscriber>.NAME:
                         return new ObservableUnion<IObservableSubscriber>();
                     case MessengerUnion<IMessengerSubscriber>.NAME:

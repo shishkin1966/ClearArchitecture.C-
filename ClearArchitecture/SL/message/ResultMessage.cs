@@ -9,7 +9,7 @@
         {
         }
 
-        protected ResultMessage(string address, ExtResult result) : this(address)
+        public ResultMessage(string address, ExtResult result) : this(address)
         {
             this.result = result;
         }
@@ -18,7 +18,7 @@
         {
         }
 
-        protected ResultMessage(ResultMessage message, ExtResult result) : this(message)
+        public ResultMessage(ResultMessage message, ExtResult result) : this(message)
         {
             this.result = result;
         }

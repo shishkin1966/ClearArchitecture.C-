@@ -16,6 +16,7 @@
         {
             return isRun;
         }
+
         public void SetRun()
         {
             isRun = true;
