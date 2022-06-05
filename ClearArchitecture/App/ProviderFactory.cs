@@ -16,6 +16,8 @@ namespace ConsoleApp1.App
                 {
                     case ApplicationProvider.NAME:
                         return new ApplicationProvider();
+                    case LogProvider.NAME:
+                        return new LogProvider();
                     case OutProvider.NAME:
                         return new OutProvider();
                     case ExecutorProvider.NAME:

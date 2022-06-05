@@ -2,7 +2,7 @@
 
 namespace ClearArchitecture.SL
 {
-    public class ExecutorProvider : AbsProvider, IExecutor
+    public class ExecutorProvider : AbsProvider, IExecutorProvider
     {
         public const string NAME = "ExecutorProvider";
         public const int ACTION_NOTHING = -1;
@@ -10,6 +10,13 @@ namespace ClearArchitecture.SL
         public const int ACTION_IGNORE = 1;
 
         private readonly Secretary<IRequest> requests = new();
+
+        new public void OnRegister()
+        {
+            base.OnRegister();
+
+            ThreadPool.SetMaxThreads(8, 4);
+        }
 
         public void CancelAll()
         {
@@ -52,7 +59,7 @@ namespace ClearArchitecture.SL
 
         public override int CompareTo(IProvider other)
         {
-            if (other is IExecutor)
+            if (other is IExecutorProvider)
             { return 0; }
             else
             { return 1; }
@@ -70,6 +77,11 @@ namespace ClearArchitecture.SL
 
         public void PutRequest(IRequest request)
         {
+            if (request.IsSingle() && requests.ContainsKey(request.GetName()))
+            {
+                return;
+            }
+
             if (request.IsDistinct() && requests.ContainsKey(request.GetName()))
             {
                 foreach(IRequest oldRequest in requests.Values())
@@ -96,7 +108,7 @@ namespace ClearArchitecture.SL
             requests.Remove(request.GetName());
         }
 
-        private void ExecuteRequest(IRequest request)
+        static private void ExecuteRequest(IRequest request)
         {
             if (request == null) return;
 

@@ -38,17 +38,26 @@ namespace ConsoleApp1.App
             }
         }
 
-        public IExecutor Executor
+        public IExecutorProvider Executor
         {
             get
             {
-                return (IExecutor)GetProvider(ExecutorProvider.NAME);
+                return (IExecutorProvider)GetProvider(ExecutorProvider.NAME);
+            }
+        }
+
+        public ILogProvider Log
+        {
+            get
+            {
+                return (ILogProvider)GetProvider(LogProvider.NAME);
             }
         }
 
         public override void Start()
         {
             RegisterProvider(ApplicationProvider.NAME);
+            RegisterProvider(LogProvider.NAME);
             RegisterProvider(MessengerUnion<IMessengerSubscriber>.NAME);
             RegisterProvider(ObservableUnion<IObservableSubscriber>.NAME);
             RegisterProvider(ExecutorProvider.NAME);

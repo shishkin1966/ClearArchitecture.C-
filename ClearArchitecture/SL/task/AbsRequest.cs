@@ -1,34 +1,46 @@
-﻿namespace ClearArchitecture.SL
+﻿using System.Collections.Generic;
+
+namespace ClearArchitecture.SL
 {
     public abstract class AbsRequest : IRequest
     {
-        private object obj;
-        private string sender;
-        private string receiver;
+        private readonly object data;
+        private readonly string sender;
+        private readonly List<string> receiver = new();
         private int id = -1;
         private bool isCancelled = false;
-        private IExecutor executor;
+        private IExecutorProvider executor;
+        private ExtResult result;
 
-        protected AbsRequest(string sender, string receiver, object obj)
+        protected AbsRequest(string sender, string receiver, object data)
         {
             this.sender = sender;
-            this.receiver = receiver;
-            this.obj = obj;
+            if (string.IsNullOrEmpty(receiver))
+            {
+                this.receiver.Add(receiver);
+            }
+            this.data = data;
+        }
+
+        protected AbsRequest(string sender, List<string> receivers, object data)
+        {
+            this.sender = sender;
+            if (receivers != null)
+            {
+                this.receiver.AddRange (receivers);
+            }
+            this.data = data;
         }
 
         public abstract void Execute(object obj);
         public abstract string GetName();
+        public abstract void SendResult();
 
         public int GetAction(IRequest oldRequest)
         {
             return ExecutorProvider.ACTION_DELETE;
         }
         
-        public object GetData()
-        {
-            return obj;
-        }
-
         public int GetId()
         {
             return id;
@@ -48,6 +60,11 @@
             return true;
         }
 
+        public bool IsSingle()
+        {
+            return true;
+        }
+
         public bool IsValid()
         {
             return true;
@@ -59,7 +76,7 @@
             return this;
         }
 
-        public IRequest SetExecutor(IExecutor executor)
+        public IRequest SetExecutor(IExecutorProvider executor)
         {
             this.executor = executor;
             return this;
@@ -79,9 +96,26 @@
             }
         }
 
-        public string GetReceiver()
+        public List<string> GetReceiver()
         {
             return receiver;
         }
+
+        public IRequest SetResult(ExtResult result)
+        {
+            this.result = result;
+            return this;
+        }
+
+        public ExtResult GetResult()
+        {
+            return result;   
+        }
+
+        public object GetData()
+        {
+            return data;
+        }
+
     }
 }

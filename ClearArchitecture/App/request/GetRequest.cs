@@ -13,13 +13,34 @@ namespace ConsoleApp1.App
 
         public override void Execute(object obj)
         {
-            Console.WriteLine("Запрос: "+obj.ToString()+":"+(obj as IRequest).GetData().ToString());
-            RemoveRequest();
+            try
+            {
+                if (obj is IRequest requst)
+                {
+                    SetResult(new ExtResult(requst.GetData()));
+                    Console.WriteLine("Запрос: " + requst.ToString() + ":" + requst.GetResult().GetData().ToString());
+
+                    SendResult();
+                }
+            }
+            catch (Exception e)
+            {
+                Program.SL.Log.AddError(new ExtError().AddError(GetName(), e));
+            }
+            finally
+            {
+                RemoveRequest();
+            }
         }
 
         public override string GetName()
         {
             return NAME;
+        }
+
+        public override void SendResult()
+        {
+            //Program.SL.Messenger.AddNotMandatoryMessage();
         }
     }
 }

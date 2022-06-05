@@ -1,5 +1,4 @@
-﻿using ClearArchitecture.SL;
-using ConsoleApp1.App;
+﻿using ConsoleApp1.App;
 
 namespace ConsoleApp1
 {

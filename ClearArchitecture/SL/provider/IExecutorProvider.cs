@@ -1,6 +1,6 @@
 ﻿namespace ClearArchitecture.SL
 {
-    public interface IExecutor : IProvider
+    public interface IExecutorProvider : IProvider
     {
         void CancelRequests(string sender);
 

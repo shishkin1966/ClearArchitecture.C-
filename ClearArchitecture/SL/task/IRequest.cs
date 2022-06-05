@@ -1,4 +1,6 @@
-﻿namespace ClearArchitecture.SL
+﻿using System.Collections.Generic;
+
+namespace ClearArchitecture.SL
 {
     public interface IRequest : INamed, IValidated
     {
@@ -8,18 +10,18 @@
         void Execute(object obj);
 
         /**
-        * Получить данные запроса
-        *
-        * @return данные запроса
-        */
-        object GetData();
-
-        /**
         * Получить имя источника запроса
         *
         * @return имя источника запроса
         */
         string GetSender();
+
+        /**
+        * Получить данные запроса
+        *
+        * @return данные запроса
+        */
+        object GetData();
 
         /**
         * Получить id запроса
@@ -42,7 +44,7 @@
         * @param Executor запроса
         * @return запрос
         */
-        IRequest SetExecutor(IExecutor executor);
+        IRequest SetExecutor(IExecutorProvider executor);
 
         /**
         * Установить флаг - запрос прерван
@@ -64,6 +66,13 @@
         bool IsDistinct();
 
         /**
+        * Проверить является ли запрос одиночным
+        *
+        * @return true - при запуске если он выполняется - то не запускается на выполнение
+        */
+        bool IsSingle();
+
+        /**
         * Что делать если такой запрос уже есть
         *
         * @return 0 - удалить старые запросы, 1 = не выполнять
@@ -76,10 +85,25 @@
         void RemoveRequest();
 
         /**
-        * Получить имя получателя запроса
+        * Получить список получателей запроса
         *
-        * @return имя получателя запроса
+        * @return список получателей запроса
         */
-        string GetReceiver();
+        List<string> GetReceiver();
+
+        /**
+        * Установить результат запроса
+        */
+        IRequest SetResult(ExtResult result);
+
+        /**
+        * Получить результат запроса
+        */
+        ExtResult GetResult();
+
+        /**
+        * Отослать результат запроса
+        */
+        void SendResult();
     }
 }
