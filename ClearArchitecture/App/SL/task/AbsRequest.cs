@@ -15,7 +15,7 @@ namespace ClearArchitecture.SL
         protected AbsRequest(string sender, string receiver, object data)
         {
             this.sender = sender;
-            if (string.IsNullOrEmpty(receiver))
+            if (!string.IsNullOrEmpty(receiver))
             {
                 this.receiver.Add(receiver);
             }

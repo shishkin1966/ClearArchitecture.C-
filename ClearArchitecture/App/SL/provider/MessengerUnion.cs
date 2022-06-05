@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace ClearArchitecture.SL
 {
-    public class MessengerUnion<T> : AbsSmallUnion<T>, IMessengerUnion<T> where T : IMessengerSubscriber
+    public class MessengerUnion : AbsSmallUnion, IMessengerUnion
     {
         public const string NAME = "MessengerUnion";
 
@@ -54,18 +54,18 @@ namespace ClearArchitecture.SL
         {
             if (string.IsNullOrEmpty(address)) return;
 
-            T subscriber = GetSubscriber(address);
+            IMessengerSubscriber subscriber = (IMessengerSubscriber)GetSubscriber(address);
             if (subscriber != null && address == subscriber.GetName())
             {
                 ReadMessages(subscriber);
             }
         }
 
-        private T CheckSubscriber(string address) 
+        private IMessengerSubscriber CheckSubscriber(string address) 
         {
             if (string.IsNullOrEmpty(address)) return default;
 
-            T subscriber = GetSubscriber(address);
+            IMessengerSubscriber subscriber = (IMessengerSubscriber)GetSubscriber(address);
             if (subscriber != null && address == subscriber.GetName()) 
             {
                 int state = subscriber.GetState();
@@ -138,7 +138,7 @@ namespace ClearArchitecture.SL
             }
             foreach (string address in addresses)
             {
-                T subscriber = CheckSubscriber(address);
+                IMessengerSubscriber subscriber = CheckSubscriber(address);
                 if (subscriber != null)
                 {
                     message.Read(subscriber);
@@ -167,7 +167,7 @@ namespace ClearArchitecture.SL
 
         public override int CompareTo(IProvider other)
         {
-            if (other is IMessengerUnion<T>)
+            if (other is IMessengerUnion)
             { return 0; }
             else 
             { return 1; }
@@ -244,6 +244,14 @@ namespace ClearArchitecture.SL
             if (string.IsNullOrEmpty(name)) return;
 
             messagingList.Remove(name);
+        }
+
+        new public void Stop()
+        {
+            messages.Clear();
+            messagingList.Clear();
+
+            base.Stop();
         }
     }
 }

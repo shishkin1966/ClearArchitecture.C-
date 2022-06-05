@@ -22,19 +22,19 @@ namespace ConsoleApp1.App
             }
         }
 
-        public IMessengerUnion<IMessengerSubscriber> Messenger
+        public IMessengerUnion Messenger
         {
             get
             {
-                return (IMessengerUnion<IMessengerSubscriber>)GetProvider(MessengerUnion<IMessengerSubscriber>.NAME);
+                return (IMessengerUnion)GetProvider(MessengerUnion.NAME);
             }
         }
 
-        public IObservableUnion<IObservableSubscriber> Observable
+        public IObservableUnion Observable
         {
             get
             {
-                return (IObservableUnion<IObservableSubscriber>)GetProvider(ObservableUnion<IObservableSubscriber>.NAME);
+                return (IObservableUnion)GetProvider(ObservableUnion.NAME);
             }
         }
 
@@ -58,8 +58,8 @@ namespace ConsoleApp1.App
         {
             RegisterProvider(ApplicationProvider.NAME);
             RegisterProvider(LogProvider.NAME);
-            RegisterProvider(MessengerUnion<IMessengerSubscriber>.NAME);
-            RegisterProvider(ObservableUnion<IObservableSubscriber>.NAME);
+            RegisterProvider(MessengerUnion.NAME);
+            RegisterProvider(ObservableUnion.NAME);
             RegisterProvider(ExecutorProvider.NAME);
             RegisterProvider(OutProvider.NAME); 
         }

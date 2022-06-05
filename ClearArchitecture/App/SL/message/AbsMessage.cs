@@ -19,6 +19,20 @@ namespace ClearArchitecture.SL
             this.address = address;
         }
 
+        protected AbsMessage(List<string> address) : this()
+        {
+            if (address != null && address.Count > 0)
+            {
+                this.address = address[0];
+                var copy = new List<string>();
+                for (int i = 1; i < address.Count; i++)
+                {
+                    copy.Add(address[i]);
+                }
+                copyTo.AddRange(copy);
+            }
+        }
+
         protected AbsMessage(IMessage message) : this(message.GetAddress())
         {
             copyTo.AddRange(message.GetCopyTo());

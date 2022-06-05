@@ -96,7 +96,7 @@ namespace ClearArchitecture.SL
                     // нельзя отменить регистрацию у объединения с подписчиками
                     if (!provider.IsPersistent())
                     {
-                        if (provider is ISmallUnion<IProviderSubscriber> p)
+                        if (provider is ISmallUnion p)
                         {
                             if (p.HasSubscribers()) return false;
                         }
@@ -135,7 +135,7 @@ namespace ClearArchitecture.SL
                 if (secretary.ContainsKey(type))
                 {
                     provider = secretary.GetValue(type);
-                    if (provider is ISmallUnion<IProviderSubscriber> p)
+                    if (provider is ISmallUnion p)
                     {
                         p.RegisterSubscriber(subscriber);
                     }
@@ -159,7 +159,7 @@ namespace ClearArchitecture.SL
                 if (secretary.ContainsKey(type))
                 {
                     IProvider provider = secretary.GetValue(type);
-                    if (provider is ISmallUnion <IProviderSubscriber> p)
+                    if (provider is ISmallUnion  p)
                     {
                         p.UnRegisterSubscriber(subscriber);
                         if (!p.IsPersistent() && !p.HasSubscribers())
@@ -188,7 +188,7 @@ namespace ClearArchitecture.SL
                 if (secretary.ContainsKey(type))
                 {
                     IProvider provider = secretary.GetValue(type);
-                    if (provider is IUnion<IProviderSubscriber> p)
+                    if (provider is IUnion p)
                     {
                         p.SetCurrentSubscriber(subscriber);
                     }
