@@ -16,8 +16,11 @@ namespace ClearArchitecture.SL
         {
             foreach (IProvider provider in GetProviders())
             {
-                UnRegisterProvider(provider.GetName());
-                provider.Stop();
+                if (!provider.IsPersistent()) 
+                {
+                    UnRegisterProvider(provider.GetName());
+                    provider.Stop();
+                }
             }
         }
 

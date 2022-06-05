@@ -9,7 +9,7 @@ namespace ConsoleApp1.App
 
         public override int CompareTo(IProvider other)
         {
-            if (other is OutProvider)
+            if (other is IOutProvider)
             { 
                 return 0; 
             } 

@@ -34,7 +34,7 @@ namespace ClearArchitecture.SL
             if (e == null) return this;
 
             this.sender = sender;
-            errorText.Append(e.ToString());
+            errorText.Append(e.Message);
             return this;
         }
 
