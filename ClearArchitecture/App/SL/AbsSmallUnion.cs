@@ -4,20 +4,20 @@ using System.Linq;
 
 namespace ClearArchitecture.SL
 {
-    public abstract class AbsSmallUnion<T> : AbsProvider, ISmallUnion<T> where T : IProviderSubscriber
+    public abstract class AbsSmallUnion : AbsProvider, ISmallUnion 
     {
-        private readonly ISecretary<T> secretary = CreateSecretary();
+        private readonly ISecretary<IProviderSubscriber> secretary = CreateSecretary();
 
         public override abstract int CompareTo(IProvider other);
 
         public override abstract string GetName();
 
-        public static ISecretary<T> CreateSecretary()
+        public static ISecretary<IProviderSubscriber> CreateSecretary()
         {
-            return new Secretary<T>();
+            return new Secretary<IProviderSubscriber>();
         }
 
-        public bool ContainsSubscriber(T subscriber)
+        public bool ContainsSubscriber(IProviderSubscriber subscriber)
         {
             if (subscriber == null)
             {
@@ -27,10 +27,10 @@ namespace ClearArchitecture.SL
             return secretary.ContainsKey(subscriber.GetName());
         }
 
-        public List<T> GetReadySubscribers()
+        public List<IProviderSubscriber> GetReadySubscribers()
         {
-            List<T> subscribers = new();
-            foreach (T subscriber in GetSubscribers())
+            List<IProviderSubscriber> subscribers = new();
+            foreach (IProviderSubscriber subscriber in GetSubscribers())
             {
                 if (subscriber.IsValid() && subscriber is ILifecycle)
                 {
@@ -44,7 +44,7 @@ namespace ClearArchitecture.SL
             return subscribers;
         }
         
-        public T GetSubscriber(string name)
+        public IProviderSubscriber GetSubscriber(string name)
         {
             if (!secretary.ContainsKey(name))
             {
@@ -56,15 +56,15 @@ namespace ClearArchitecture.SL
             }
         }
 
-        public List<T> GetSubscribers()
+        public List<IProviderSubscriber> GetSubscribers()
         {
             return secretary.Values();
         }
 
-        public List<T> GetValidatedSubscribers()
+        public List<IProviderSubscriber> GetValidatedSubscribers()
         {
-            List<T> subscribers = new();
-            subscribers.AddRange(from T subscriber in GetSubscribers()
+            List<IProviderSubscriber> subscribers = new();
+            subscribers.AddRange(from IProviderSubscriber subscriber in GetSubscribers()
                                  where subscriber.IsValid()
                                  select subscriber);
             return subscribers;
@@ -86,7 +86,7 @@ namespace ClearArchitecture.SL
 
         }
 
-        public void OnAddSubscriber(T subscriber)
+        public void OnAddSubscriber(IProviderSubscriber subscriber)
         {
             // Method intentionally left empty.
         }
@@ -100,7 +100,7 @@ namespace ClearArchitecture.SL
             // Method intentionally left empty.
         }
 
-        public bool RegisterSubscriber(T subscriber) 
+        public bool RegisterSubscriber(IProviderSubscriber subscriber) 
         {
             if (subscriber == null)
             {
@@ -126,7 +126,7 @@ namespace ClearArchitecture.SL
             return true;
         }
 
-        public void UnRegisterSubscriber(T subscriber)
+        public void UnRegisterSubscriber(IProviderSubscriber subscriber)
         {
             if (subscriber == null)
             {
@@ -154,7 +154,7 @@ namespace ClearArchitecture.SL
 
             if (HasSubscriber(name))
             {
-                T subscriber = GetSubscriber(name);
+                IProviderSubscriber subscriber = GetSubscriber(name);
                 UnRegisterSubscriber(subscriber);
             }
         }
@@ -163,7 +163,7 @@ namespace ClearArchitecture.SL
          {
             base.Stop();
 
-            foreach (T subscriber in GetSubscribers())
+            foreach (IProviderSubscriber subscriber in GetSubscribers())
             {
                 UnRegisterSubscriber(subscriber);
                 subscriber.OnStopProvider(this);

@@ -1,4 +1,5 @@
 ﻿using ConsoleApp1.App;
+using System.Threading;
 
 namespace ConsoleApp1
 {
@@ -18,12 +19,17 @@ namespace ConsoleApp1
 
         static void Main(string[] args)
         {
+            MessengerSubscriber ms = new();
 
             SL.Start();
 
-            SL.Out.WriteLine("Test");
+            SL.RegisterSubscriber(ms);
 
-            SL.Executor.PutRequest(new GetRequest(NAME,null,1));
+            SL.Executor.PutRequest(new GetRequest(NAME, ms.GetName(), 1));
+
+            Thread.Sleep(500); 
+
+            SL.UnRegisterSubscriber(ms);
 
             SL.Stop();
         }

@@ -15,7 +15,7 @@ namespace ClearArchitecture.SL
         protected AbsRequest(string sender, string receiver, object data)
         {
             this.sender = sender;
-            if (string.IsNullOrEmpty(receiver))
+            if (!string.IsNullOrEmpty(receiver))
             {
                 this.receiver.Add(receiver);
             }
@@ -117,5 +117,18 @@ namespace ClearArchitecture.SL
             return data;
         }
 
+        public IRequest AddReceiver(List<string> receiver)
+        {
+            if (receiver == null) return this;
+
+            foreach (string rec in receiver)
+            {
+                if (!this.receiver.Contains(rec))
+                {
+                    this.receiver.Add(rec);
+                }
+            }
+            return this;
+        }
     }
 }

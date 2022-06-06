@@ -7,7 +7,7 @@ namespace ConsoleApp1.App
     {
         public const string NAME = "GetRequest";
 
-        public GetRequest(string sender, string receiver, object obj) : base(sender,receiver,obj)
+        public GetRequest(string sender, string receiver, object obj) : base(sender, receiver, obj)
         {
         }
 
@@ -40,7 +40,7 @@ namespace ConsoleApp1.App
 
         public override void SendResult()
         {
-            //Program.SL.Messenger.AddNotMandatoryMessage();
+            Program.SL.Messenger.AddNotMandatoryMessage(new ResultMessage(GetReceiver(),GetResult()));
         }
     }
 }

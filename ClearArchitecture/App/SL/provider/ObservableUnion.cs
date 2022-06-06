@@ -2,7 +2,7 @@
 
 namespace ClearArchitecture.SL
 {
-    public class ObservableUnion<T> : AbsSmallUnion<T>, IObservableUnion<T> where T : IObservableSubscriber
+    public class ObservableUnion : AbsSmallUnion, IObservableUnion
     {
         public const string NAME = "ObservableUnion";
 
@@ -10,7 +10,7 @@ namespace ClearArchitecture.SL
 
         public override int CompareTo(IProvider other)
         {
-            if (other is IObservableUnion<T>)
+            if (other is IObservableUnion)
             { return 0; }
             else
             { return 1; }
@@ -75,7 +75,7 @@ namespace ClearArchitecture.SL
             }
         }
 
-        new public void UnRegisterSubscriber(T subscriber)
+        public void UnRegisterSubscriber(IObservableSubscriber subscriber)
         {
             if (subscriber == null) return;
 
@@ -91,7 +91,7 @@ namespace ClearArchitecture.SL
             }
         }
 
-        new public bool RegisterSubscriber(T subscriber)
+        public bool RegisterSubscriber(IObservableSubscriber subscriber)
         {
             if (subscriber == null) return true;
 

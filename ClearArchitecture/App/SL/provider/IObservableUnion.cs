@@ -2,7 +2,7 @@
 
 namespace ClearArchitecture.SL
 {
-    public interface IObservableUnion<T> : ISmallUnion<T> where T : IObservableSubscriber
+    public interface IObservableUnion : ISmallUnion
     {
         /**
         * Получить список слушаемых объектов

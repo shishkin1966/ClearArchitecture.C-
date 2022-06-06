@@ -1,15 +1,25 @@
-﻿namespace ClearArchitecture.SL
+﻿using System.Collections.Generic;
+
+namespace ClearArchitecture.SL
 {
     public class ResultMessage : AbsMessage
     {
-        private readonly ExtResult result; 
-
+        private readonly ExtResult result;
 
         private ResultMessage(string address) : base(address)
         {
         }
 
+        private ResultMessage(List<string> address) : base(address)
+        {
+        }
+
         public ResultMessage(string address, ExtResult result) : this(address)
+        {
+            this.result = result;
+        }
+
+        public ResultMessage(List<string> address, ExtResult result) : this(address)
         {
             this.result = result;
         }

@@ -5,7 +5,7 @@ namespace ClearArchitecture.SL
     /**
     * Интерфейс объединения, предоставляющего Messager сервис подписчикам
     */
-    public interface IMessengerUnion<T> : ISmallUnion<T> where T : IMessengerSubscriber
+    public interface IMessengerUnion : ISmallUnion
     {
         /**
         * Получить сообщения подписчика

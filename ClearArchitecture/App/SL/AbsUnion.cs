@@ -2,11 +2,11 @@
 
 namespace ClearArchitecture.SL
 {
-    public abstract class AbsUnion<T> : AbsSmallUnion<T>, IUnion<T> where T : IProviderSubscriber
+    public abstract class AbsUnion : AbsSmallUnion, IUnion
     {
         private WeakReference currentSubscriber;
 
-        public new bool RegisterSubscriber(T subscriber)
+        public new bool RegisterSubscriber(IProviderSubscriber subscriber)
         {
             if (subscriber == null)
             {
@@ -16,7 +16,7 @@ namespace ClearArchitecture.SL
             if (base.RegisterSubscriber(subscriber)) {
                 if (currentSubscriber != null && currentSubscriber.IsAlive)
                 {
-                    T oldSubscriber = (T)currentSubscriber.Target;
+                    IProviderSubscriber oldSubscriber = (IProviderSubscriber)currentSubscriber.Target;
                     if (subscriber.GetName() == (oldSubscriber.GetName()))
                     {
                         currentSubscriber = new WeakReference(subscriber, false);
@@ -27,7 +27,7 @@ namespace ClearArchitecture.SL
             return false;
         }
 
-        public new void UnRegisterSubscriber(T subscriber)
+        public new void UnRegisterSubscriber(IProviderSubscriber subscriber)
         {
             if (subscriber == null) return;
 
@@ -35,7 +35,7 @@ namespace ClearArchitecture.SL
 
             if (currentSubscriber != null && currentSubscriber.IsAlive)
             {
-                T oldSubscriber = (T)currentSubscriber.Target;
+                IProviderSubscriber oldSubscriber = (IProviderSubscriber)currentSubscriber.Target;
                 if (subscriber.GetName() == (oldSubscriber.GetName()))
                 {
                     currentSubscriber.Target = null;
@@ -43,7 +43,7 @@ namespace ClearArchitecture.SL
             }
         }
 
-        public bool SetCurrentSubscriber(T subscriber) 
+        public bool SetCurrentSubscriber(IProviderSubscriber subscriber) 
         {
             if (subscriber == null) return false;
 
@@ -62,11 +62,11 @@ namespace ClearArchitecture.SL
             return true;
         }
 
-        public T GetCurrentSubscriber() 
+        public IProviderSubscriber GetCurrentSubscriber() 
         {
             if (currentSubscriber != null && currentSubscriber.IsAlive)
             {
-                return (T)currentSubscriber.Target;
+                return (IProviderSubscriber)currentSubscriber.Target;
             }
             return default;
         }

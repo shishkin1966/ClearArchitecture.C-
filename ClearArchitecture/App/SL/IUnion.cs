@@ -5,20 +5,20 @@ namespace ClearArchitecture.SL
     /*
     * Интерфейс объединения подписчиков
     */
-    public interface IUnion<T> : ISmallUnion<T> where T : IProviderSubscriber
+    public interface IUnion : ISmallUnion
     {
         /*
          * Установить текущего специалиста
          *
          * @param subscriber специалист
          */
-        bool SetCurrentSubscriber(T subscriber);
+        bool SetCurrentSubscriber(IProviderSubscriber subscriber);
 
         /*
          * Получить текущего специалиста
          *
          * @return специалист
          */
-        T GetCurrentSubscriber(); 
+        IProviderSubscriber GetCurrentSubscriber(); 
     }
 }

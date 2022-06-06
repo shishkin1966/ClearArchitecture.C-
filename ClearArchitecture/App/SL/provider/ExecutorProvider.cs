@@ -77,28 +77,46 @@ namespace ClearArchitecture.SL
 
         public void PutRequest(IRequest request)
         {
-            if (request.IsSingle() && requests.ContainsKey(request.GetName()))
+            if (request.IsSingle())
             {
-                return;
-            }
-
-            if (request.IsDistinct() && requests.ContainsKey(request.GetName()))
-            {
-                foreach(IRequest oldRequest in requests.Values())
+                if (requests.ContainsKey(request.GetName()))
                 {
-                    if (oldRequest.GetName() == request.GetName())
+                    foreach (IRequest oldRequest in requests.Values())
                     {
-                        var action = request.GetAction(oldRequest);
-                        if (action == ACTION_DELETE)
+                        if (oldRequest.GetName() == request.GetName())
                         {
-                            oldRequest.SetCanceled();
+                            oldRequest.AddReceiver(request.GetReceiver());
                         }
                     }
                 }
+                else
+                {
+
+                    request.SetExecutor(this);
+                    requests.Put(request.GetName(), request);
+                    ExecuteRequest(request);
+                }
             }
-            request.SetExecutor(this);
-            requests.Put(request.GetName(), request);
-            ExecuteRequest(request);
+            else
+            {
+                if (request.IsDistinct() && requests.ContainsKey(request.GetName()))
+                {
+                    foreach (IRequest oldRequest in requests.Values())
+                    {
+                        if (oldRequest.GetName() == request.GetName())
+                        {
+                            var action = request.GetAction(oldRequest);
+                            if (action == ACTION_DELETE)
+                            {
+                                oldRequest.SetCanceled();
+                            }
+                        }
+                    }
+                }
+                request.SetExecutor(this);
+                requests.Put(request.GetName(), request);
+                ExecuteRequest(request);
+            }
         }
 
         public void RemoveRequest(IRequest request)
