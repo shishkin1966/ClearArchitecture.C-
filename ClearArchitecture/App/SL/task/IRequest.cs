@@ -105,5 +105,13 @@ namespace ClearArchitecture.SL
         * Отослать результат запроса
         */
         void SendResult();
+
+        /**
+        * Добавить получателей в запрос
+        *
+        * @param список получателей запроса
+        */
+        IRequest AddReceiver(List<string> receiver);
+
     }
 }

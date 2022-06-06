@@ -117,5 +117,18 @@ namespace ClearArchitecture.SL
             return data;
         }
 
+        public IRequest AddReceiver(List<string> receiver)
+        {
+            if (receiver == null) return this;
+
+            foreach (string rec in receiver)
+            {
+                if (!this.receiver.Contains(rec))
+                {
+                    this.receiver.Add(rec);
+                }
+            }
+            return this;
+        }
     }
 }
