@@ -15,19 +15,19 @@ namespace ConsoleApp1.App
                 switch (name)
                 {
                     case ApplicationProvider.NAME:
-                        return new ApplicationProvider();
+                        return new ApplicationProvider(ApplicationProvider.NAME);
                     case LogProvider.NAME:
-                        return new LogProvider();
+                        return new LogProvider(LogProvider.NAME);
                     case OutProvider.NAME:
-                        return new OutProvider();
+                        return new OutProvider(OutProvider.NAME);
                     case ExecutorProvider.NAME:
-                        return new ExecutorProvider();
+                        return new ExecutorProvider(ExecutorProvider.NAME);
                     case ObservableUnion.NAME:
-                        return new ObservableUnion();
+                        return new ObservableUnion(ObservableUnion.NAME);
                     case MessengerUnion.NAME:
-                        return new MessengerUnion();
+                        return new MessengerUnion(MessengerUnion.NAME);
                     case PresenterUnion.NAME:
-                        return new PresenterUnion();
+                        return new PresenterUnion(PresenterUnion.NAME);
                     default:
                         return default;
                 }

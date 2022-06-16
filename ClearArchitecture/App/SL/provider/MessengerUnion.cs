@@ -14,6 +14,10 @@ namespace ClearArchitecture.SL
         private readonly Secretary<List<string>> messagingList = new();
         private int id = 0;
 
+        public MessengerUnion(string name) : base(name)
+        {
+        }
+
         private List<string> GetAddresses(string address)  
         {
             List<string> addresses = new();

@@ -11,6 +11,10 @@ namespace ClearArchitecture.SL
 
         private readonly Secretary<IRequest> requests = new();
 
+        public ExecutorProvider(string name) : base(name)
+        {
+        }
+
         new public void OnRegister()
         {
             base.OnRegister();

@@ -1,6 +1,5 @@
 ﻿using ClearArchitecture.SL;
 using System;
-using System.Collections.Generic;
 
 namespace ConsoleApp1.App
 {
@@ -8,6 +7,10 @@ namespace ConsoleApp1.App
     {
         public const string NAME = "ApplicationProvider";
         private bool isExit = false;
+
+        public ApplicationProvider(string name) : base(name)
+        {
+        }
 
         public override int CompareTo(IProvider other)
         {
@@ -19,11 +22,6 @@ namespace ConsoleApp1.App
             {
                 return 1;
             }
-        }
-
-        public override string GetName()
-        {
-            return NAME;
         }
 
         public bool IsExit()
