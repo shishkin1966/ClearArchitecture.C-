@@ -6,6 +6,10 @@ namespace ClearArchitecture.SL
     {
         public const string NAME = "LogProvider";
 
+        public LogProvider(string name) : base(name)
+        {
+        }
+
         public void AddError(ExtError error)
         {
             if (error == null) return;

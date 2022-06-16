@@ -5,6 +5,13 @@ namespace ClearArchitecture.SL
 {
     public abstract class AbsProvider : AbsSubscriber, IProvider
     {
+        private readonly string name;
+
+        protected AbsProvider(string name)
+        {
+            this.name = name;
+        }
+
         public abstract int CompareTo(IProvider other);
 
         public bool IsPersistent()
@@ -25,6 +32,11 @@ namespace ClearArchitecture.SL
         public void Stop()
         {
             Console.WriteLine("Stop " + GetName());
+        }
+
+        public override string GetName()
+        {
+            return name;
         }
 
     }

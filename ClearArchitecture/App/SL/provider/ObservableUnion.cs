@@ -8,6 +8,10 @@ namespace ClearArchitecture.SL
 
         private readonly Secretary<IObservable> secretary = new();
 
+        public ObservableUnion(string name) : base(name)
+        {
+        }
+
         public override int CompareTo(IProvider other)
         {
             if (other is IObservableUnion)

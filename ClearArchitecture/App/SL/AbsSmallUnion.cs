@@ -13,6 +13,10 @@ namespace ClearArchitecture.SL
             return new Secretary<IProviderSubscriber>();
         }
 
+        protected AbsSmallUnion(string name) : base(name)
+        {
+        }
+
         public bool ContainsSubscriber(IProviderSubscriber subscriber)
         {
             if (subscriber == null)

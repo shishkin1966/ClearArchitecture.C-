@@ -6,6 +6,11 @@ namespace ClearArchitecture.SL
     {
         private WeakReference currentSubscriber;
 
+        protected AbsUnion(string name) : base(name)
+        {
+
+        }
+
         public new bool RegisterSubscriber(IProviderSubscriber subscriber)
         {
             if (subscriber == null)
