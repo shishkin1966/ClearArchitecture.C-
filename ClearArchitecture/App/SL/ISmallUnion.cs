@@ -38,18 +38,18 @@ namespace ClearArchitecture.SL
         List<IProviderSubscriber> GetSubscribers();
 
         /*
-        * Получить список валидных подписчиков
+        * Получить проверенного подписчика
         *
-        * @return список подписчиков
+        * @return проверенный подписчик
         */
-        List<IProviderSubscriber> GetValidatedSubscribers();
+        IProviderSubscriber GetValidSubscriber();
 
         /*
-        * Получить список готовых Stateable подписчиков
+        * Получить список проверенных подписчиков
         *
-        * @return список подписчиков
+        * @return список проверенных подписчиков
         */
-        List<IProviderSubscriber> GetReadySubscribers();
+        List<IProviderSubscriber> GetValidSubscribers();
 
         /*
         * Проверить наличие подписчиков
@@ -98,5 +98,20 @@ namespace ClearArchitecture.SL
         * @return true подписчик зарегистрирован
         */
         bool ContainsSubscriber(IProviderSubscriber subscriber);
+
+        /*
+        * Получить свободного подписчика
+        *
+        * @return свободный подписчик
+        */
+        IProviderSubscriber GetUnBusySubscriber();
+
+        /*
+        * Получить список свободных подписчиков
+        *
+        * @return список свободных подписчиков
+        */
+        List<IProviderSubscriber> GetUnBusySubscribers();
+
     }
 }

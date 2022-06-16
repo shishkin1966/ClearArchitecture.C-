@@ -5,7 +5,7 @@ namespace ClearArchitecture.SL
     /*
     * Интерфейс провайдера - объекта предоставлющий сервис
     */
-    public interface IProvider : INamed, IValidated, IComparable<IProvider>
+    public interface IProvider : ISubscriber, IComparable<IProvider>
     {
         /*
          * Получить тип провайдера - постоянный или нет
@@ -28,5 +28,6 @@ namespace ClearArchitecture.SL
         * Остановитить работу провайдера
         */
         void Stop();
+
     }
 }

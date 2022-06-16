@@ -4,15 +4,15 @@ using System.Collections.Generic;
 
 namespace ConsoleApp1.App
 {
-    public class MessengerSubscriber : IMessengerSubscriber, IResponseListener
+    public class MessengerSubscriber : AbsProviderSubscriber, IMessengerSubscriber, IResponseListener
     {
         public const string NAME = "MessengerSubscriber";
-        public string GetName()
+        public override string GetName()
         {
             return NAME;
         }
 
-        public List<string> GetProviderSubscription()
+        public override List<string> GetProviderSubscription()
         {
             List<string> list = new();
             list.Add(Program.SL.Messenger.GetName());
@@ -22,16 +22,6 @@ namespace ConsoleApp1.App
         public int GetState()
         {
             return Lifecycle.VIEW_READY;
-        }
-
-        public bool IsValid()
-        {
-            return true;
-        }
-
-        public void OnStopProvider(IProvider provider)
-        {
-            //
         }
 
         public void Read(IMessage message)
@@ -49,9 +39,5 @@ namespace ConsoleApp1.App
             //
         }
 
-        public void Stop()
-        {
-            //
-        }
     }
 }

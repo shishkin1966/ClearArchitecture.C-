@@ -60,6 +60,7 @@ namespace ConsoleApp1.App
             RegisterProvider(LogProvider.NAME);
             RegisterProvider(MessengerUnion.NAME);
             RegisterProvider(ObservableUnion.NAME);
+            RegisterProvider(PresenterUnion.NAME);
             RegisterProvider(ExecutorProvider.NAME);
             RegisterProvider(OutProvider.NAME); 
         }
