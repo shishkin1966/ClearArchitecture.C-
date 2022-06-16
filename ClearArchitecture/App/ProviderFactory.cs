@@ -26,6 +26,8 @@ namespace ConsoleApp1.App
                         return new ObservableUnion();
                     case MessengerUnion.NAME:
                         return new MessengerUnion();
+                    case PresenterUnion.NAME:
+                        return new PresenterUnion();
                     default:
                         return default;
                 }

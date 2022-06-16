@@ -70,5 +70,6 @@ namespace ClearArchitecture.SL
             }
             return default;
         }
+
     }
 }

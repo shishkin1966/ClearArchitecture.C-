@@ -19,6 +19,7 @@ namespace ClearArchitecture.SL
          *
          * @return специалист
          */
-        IProviderSubscriber GetCurrentSubscriber(); 
+        IProviderSubscriber GetCurrentSubscriber();
+
     }
 }

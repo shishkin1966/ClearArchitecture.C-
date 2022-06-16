@@ -3,7 +3,7 @@
     /*
     * Интерфейс подписчика
     */
-    public interface ISubscriber : INamed, IValidated
+    public interface ISubscriber : INamed, IValidated, IBusy
     {
     }
 }

@@ -8,10 +8,6 @@ namespace ClearArchitecture.SL
     {
         private readonly ISecretary<IProviderSubscriber> secretary = CreateSecretary();
 
-        public override abstract int CompareTo(IProvider other);
-
-        public override abstract string GetName();
-
         public static ISecretary<IProviderSubscriber> CreateSecretary()
         {
             return new Secretary<IProviderSubscriber>();
@@ -61,7 +57,20 @@ namespace ClearArchitecture.SL
             return secretary.Values();
         }
 
-        public List<IProviderSubscriber> GetValidatedSubscribers()
+        public IProviderSubscriber GetValidSubscriber()
+        {
+            foreach (IProviderSubscriber subscriber in GetSubscribers())
+            {
+                if (!subscriber.IsValid())
+                {
+                    return subscriber;
+                }
+
+            }
+            return default;
+        }
+
+        public List<IProviderSubscriber> GetValidSubscribers()
         {
             List<IProviderSubscriber> subscribers = new();
             subscribers.AddRange(from IProviderSubscriber subscriber in GetSubscribers()
@@ -170,5 +179,28 @@ namespace ClearArchitecture.SL
             }
             secretary.Clear();
          }
+
+        public IProviderSubscriber GetUnBusySubscriber()
+        {
+            foreach (IProviderSubscriber subscriber in GetSubscribers())
+            {
+                if (!subscriber.IsBusy() && subscriber.IsValid())
+                {
+                    return subscriber;
+                }
+
+            }
+            return default;
+        }
+
+        public List<IProviderSubscriber> GetUnBusySubscribers()
+        {
+            List<IProviderSubscriber> list = new();
+            list.AddRange(from IProviderSubscriber subscriber in GetSubscribers()
+                          where !subscriber.IsBusy() && subscriber.IsValid()
+                          select subscriber);
+            return list;
+        }
+
     }
 }

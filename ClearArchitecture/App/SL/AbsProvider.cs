@@ -3,19 +3,13 @@ using System;
 
 namespace ClearArchitecture.SL
 {
-    public abstract class AbsProvider : IProvider
+    public abstract class AbsProvider : AbsSubscriber, IProvider
     {
         public abstract int CompareTo(IProvider other);
-        public abstract string GetName();
 
         public bool IsPersistent()
         {
             return false;
-        }
-
-        public bool IsValid()
-        {
-            return true;
         }
 
         public void OnRegister()

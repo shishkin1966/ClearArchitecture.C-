@@ -2,19 +2,30 @@
 
 namespace ClearArchitecture.SL
 {
-    public abstract class AbsPresenter : IPresenter
+    public abstract class AbsPresenter : AbsProviderSubscriber, IPresenterSubscriber
     {
         private readonly LifecycleObserver lifecycle;
+        private readonly List<IAction> actions = new();
 
         protected AbsPresenter()
         {
             lifecycle = new LifecycleObserver(this);
         }
 
-        public abstract string GetName();
-        public abstract List<string> GetProviderSubscription();
+        public abstract void OnStart();
 
-        public abstract void AddAction(IAction action);
+        public override List<string> GetProviderSubscription()
+        {
+            List<string> list = new();
+            list.Add(PresenterUnion.NAME); 
+            list.Add(MessengerUnion.NAME);
+            return list;
+        }
+
+        public bool OnAction(IAction action)
+        {
+            return true;
+        }
 
         public int GetState()
         {
@@ -25,39 +36,69 @@ namespace ClearArchitecture.SL
         {
             return true;
         }
-        public bool IsValid()
+        new public bool IsValid()
         {
             return lifecycle.GetState() != Lifecycle.VIEW_DESTROY;
         }
 
-        public abstract bool OnAction(IAction action);
-        public void OnCreateView()
+        public void AddAction(IAction action)
         {
-            //
-        }
-        public void OnDestroyView()
-        {
-            //
-        }
-        public void OnReadyView()
-        {
-            //
+            switch (GetState()) 
+            {
+                case Lifecycle.VIEW_DESTROY:
+                    return;
+
+                case Lifecycle.VIEW_NOT_READY:
+                case Lifecycle.VIEW_CREATE:  
+                    if (!action.IsRun())
+                    {
+                            actions.Add(action);
+                    }
+                    return;
+
+                default: 
+                    if (!action.IsRun())
+                    {
+                        actions.Add(action);
+                    }
+                    DoActions();
+                    return;
+            }
         }
 
-        public void OnStopProvider(IProvider provider)
+        protected void DoActions()
         {
-            //
+            var deleted = new List<IAction>();
+            for (int i=0;i < actions.Count;i++)
+            {
+                if (GetState() != Lifecycle.VIEW_READY)
+                {
+                    break;
+                }
+                if (!actions[i].IsRun())
+                {
+                    actions[i].SetRun();
+                    OnAction(actions[i]);
+                    deleted.Add(actions[i]);
+                }
+            }
+            foreach (IAction action in deleted)
+            {
+                actions.Remove(action);
+            }
         }
+
+        public abstract void OnCreateView();
+
+        public abstract void OnDestroyView();
+
+        public abstract void OnReadyView();
 
         public abstract void Read(IMessage message);
+
         public void SetState(int state)
         {
             lifecycle.SetState(state);
-        }
-
-        public void Stop()
-        {
-            //
         }
     }
 }
