@@ -8,6 +8,20 @@ namespace ClearArchitecture.SL
         private readonly StringBuilder errorText = new();
         private string sender;
 
+        public ExtError()
+        {
+        }
+
+        public ExtError(string sender, string error) : this()
+        {
+            AddError(sender, error);
+        }
+
+        public ExtError(string sender, Exception e) : this()
+        {
+            AddError(sender, e);
+        }
+
         public string GetErrorText()
         {
             return errorText.ToString();
