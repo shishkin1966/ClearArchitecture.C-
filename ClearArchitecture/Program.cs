@@ -20,7 +20,7 @@ namespace ConsoleApp1
 
         static void Main(string[] args)
         {
-            MessengerSubscriber ms = new();
+            TestSubscriber ms = new();
 
             SL.Start();
 

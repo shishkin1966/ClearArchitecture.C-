@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 namespace ConsoleApp1.App
 {
-    public class MessengerSubscriber : AbsProviderSubscriber, IMessengerSubscriber, IResponseListener
+    public class TestSubscriber : AbsProviderSubscriber, IMessengerSubscriber, IResponseListener
     {
-        public const string NAME = "MessengerSubscriber";
+        public const string NAME = "TestSubscriber";
 
-        public MessengerSubscriber() : base(NAME)
+        public TestSubscriber() : base(NAME)
         {
         }
 
