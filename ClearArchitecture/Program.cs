@@ -30,8 +30,6 @@ namespace ConsoleApp1
 
             Thread.Sleep(500); 
 
-            SL.UnRegisterSubscriber(ms);
-
             SL.Messenger.AddComment("Все хорошо");
 
             Console.WriteLine(SL.Messenger.GetComment());

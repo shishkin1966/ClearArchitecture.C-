@@ -1,11 +1,11 @@
-﻿
+﻿using System;
 using System.Collections.Generic;
 
 namespace ClearArchitecture.SL
 {
     public abstract class AbsProviderSubscriber : AbsSubscriber, IProviderSubscriber
     {
-        private readonly Secretary<IProvider> providers = new();
+        private readonly Secretary<string> providers = new();
 
         public abstract List<string> GetProviderSubscription();
 
@@ -13,34 +13,47 @@ namespace ClearArchitecture.SL
         {
         }
 
-        public void OnStopProvider(IProvider provider)
+        public void OnStopProvider(string provider)
         {
-            //
+            if (string.IsNullOrEmpty(provider)) return;
+
+            RemoveProvider(provider);
+            OnRemoveProvider(provider);
         }
 
         public void Stop()
         {
-            //
+            providers.Clear();
         }
 
-        public List<IProvider> GetProviders()
+        public List<string> GetProviders()
         {
             return providers.Values();
         }
 
-        public void SetProvider(IProvider provider)
+        public void SetProvider(string provider)
         {
-            if (provider == default) return;
+            if (string.IsNullOrEmpty(provider)) return;
 
-            providers.Put(provider.GetName(), provider);
+            providers.Put(provider,provider);
+            OnSetProvider(provider);
         }
 
-        public void RemoveProvider(IProvider provider)
+        public void RemoveProvider(string provider)
         {
-            if (provider == default) return;
+            if (string.IsNullOrEmpty(provider)) return;
 
-            providers.Remove(provider.GetName());
+            providers.Remove(provider);
         }
 
+        public void OnSetProvider(string provider)
+        {
+            Console.WriteLine(DateTime.Now.ToString("G") + ": Подключен к провайдеру " + provider + " подписчик "+ GetName());
+        }
+
+        public void OnRemoveProvider(string provider)
+        {
+            Console.WriteLine(DateTime.Now.ToString("G") + ": Отключен от провайдера " + provider + " подписчик " + GetName());
+        }
     }
 }
