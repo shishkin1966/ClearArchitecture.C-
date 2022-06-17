@@ -7,7 +7,7 @@ namespace ClearArchitecture.SL
         private readonly LifecycleObserver lifecycle;
         private readonly List<IAction> actions = new();
 
-        protected AbsPresenter()
+        protected AbsPresenter(string name) : base(name)
         {
             lifecycle = new LifecycleObserver(this);
         }

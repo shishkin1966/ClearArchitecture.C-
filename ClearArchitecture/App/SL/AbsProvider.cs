@@ -5,11 +5,8 @@ namespace ClearArchitecture.SL
 {
     public abstract class AbsProvider : AbsSubscriber, IProvider
     {
-        private readonly string name;
-
-        protected AbsProvider(string name)
+        protected AbsProvider(string name) : base(name)
         {
-            this.name = name;
         }
 
         public abstract int CompareTo(IProvider other);
@@ -33,11 +30,5 @@ namespace ClearArchitecture.SL
         {
             Console.WriteLine("Stop " + GetName());
         }
-
-        public override string GetName()
-        {
-            return name;
-        }
-
     }
 }

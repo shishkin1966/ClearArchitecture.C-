@@ -69,11 +69,6 @@ namespace ClearArchitecture.SL
             { return 1; }
         }
 
-        public override string GetName()
-        {
-            return NAME;
-        }
-
         new public bool IsValid()
         {
             return true;

@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 namespace ClearArchitecture.SL
 {
-    public abstract class AbsProviderSubscriber : IProviderSubscriber
+    public abstract class AbsProviderSubscriber : AbsSubscriber, IProviderSubscriber
     {
-        public abstract string GetName();
+        private readonly Secretary<IProvider> providers = new();
+
         public abstract List<string> GetProviderSubscription();
 
-        public bool IsValid()
+        protected AbsProviderSubscriber(string name) : base(name)
         {
-            return true;
         }
 
         public void OnStopProvider(IProvider provider)
@@ -23,9 +23,23 @@ namespace ClearArchitecture.SL
             //
         }
 
-        public bool IsBusy()
+        public List<IProvider> GetProviders()
         {
-            return false;
+            return providers.Values();
+        }
+
+        public void SetProvider(IProvider provider)
+        {
+            if (provider == default) return;
+
+            providers.Put(provider.GetName(), provider);
+        }
+
+        public void RemoveProvider(IProvider provider)
+        {
+            if (provider == default) return;
+
+            providers.Remove(provider.GetName());
         }
 
     }

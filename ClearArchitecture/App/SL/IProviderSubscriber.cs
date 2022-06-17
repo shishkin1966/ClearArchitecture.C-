@@ -24,5 +24,23 @@ namespace ClearArchitecture.SL
         * Остановить работу объекта
         */
         void Stop();
+
+        /*
+        * Получить провайдеров подписчика
+        *
+        * @return провайдера подписчика
+        */
+        List<IProvider> GetProviders();
+
+        /*
+        * Установить провайдера подписчика
+        * @param IProvider провайдер
+        */
+        void SetProvider(IProvider provider);
+
+        /*
+        * Очистить провайдера подписчика
+        */
+        void RemoveProvider(IProvider provider);
     }
 }

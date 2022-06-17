@@ -24,10 +24,5 @@ namespace ClearArchitecture.SL
             else
             { return 1; }
         }
-
-        public override string GetName()
-        {
-            return NAME;
-        }
     }
 }

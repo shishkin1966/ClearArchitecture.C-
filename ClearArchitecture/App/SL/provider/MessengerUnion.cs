@@ -215,11 +215,6 @@ namespace ClearArchitecture.SL
             }
         }
 
-        public override string GetName()
-        {
-            return NAME;
-        }
-
         public void ReadMessages(IMessengerSubscriber subscriber)
         {
             if (subscriber == null) return;

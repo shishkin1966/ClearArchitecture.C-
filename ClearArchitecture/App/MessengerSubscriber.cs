@@ -7,9 +7,9 @@ namespace ConsoleApp1.App
     public class MessengerSubscriber : AbsProviderSubscriber, IMessengerSubscriber, IResponseListener
     {
         public const string NAME = "MessengerSubscriber";
-        public override string GetName()
+
+        public MessengerSubscriber() : base(NAME)
         {
-            return NAME;
         }
 
         public override List<string> GetProviderSubscription()

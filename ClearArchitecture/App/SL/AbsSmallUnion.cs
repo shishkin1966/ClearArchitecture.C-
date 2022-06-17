@@ -128,6 +128,7 @@ namespace ClearArchitecture.SL
             int cnt = secretary.Size();
 
             secretary.Put(subscriber.GetName(), subscriber);
+            subscriber.SetProvider(this);
 
             if (cnt == 0 && secretary.Size() == 1)
             {
@@ -150,6 +151,7 @@ namespace ClearArchitecture.SL
             if (secretary.ContainsKey(subscriber.GetName()) && (subscriber.GetType() == secretary.GetValue(subscriber.GetName()).GetType()))
             {
                 secretary.Remove(subscriber.GetName());
+                subscriber.RemoveProvider(this);
             }
 
             if (cnt == 1 && secretary.Size() == 0)
