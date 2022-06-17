@@ -1,4 +1,5 @@
 ﻿using ConsoleApp1.App;
+using System;
 using System.Threading;
 
 namespace ConsoleApp1
@@ -30,6 +31,10 @@ namespace ConsoleApp1
             Thread.Sleep(500); 
 
             SL.UnRegisterSubscriber(ms);
+
+            SL.Messenger.AddComment("Все хорошо");
+
+            Console.WriteLine(SL.Messenger.GetComment());
 
             SL.Stop();
         }

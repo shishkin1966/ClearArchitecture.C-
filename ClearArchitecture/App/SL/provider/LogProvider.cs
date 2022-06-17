@@ -14,7 +14,14 @@ namespace ClearArchitecture.SL
         {
             if (error == null) return;
 
-            Console.WriteLine("Ошибка: "+error.GetErrorText());
+            Console.WriteLine(error.GetErrorText());
+        }
+
+        public void AddMessage(string message)
+        {
+            if (string.IsNullOrEmpty(message)) return;
+
+            Console.WriteLine(DateTime.Now.ToString("G") + ": " + message);
         }
 
         public override int CompareTo(IProvider other)

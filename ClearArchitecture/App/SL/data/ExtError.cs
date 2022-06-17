@@ -8,16 +8,23 @@ namespace ClearArchitecture.SL
         private readonly StringBuilder errorText = new();
         private string sender;
 
+        public ExtError()
+        {
+        }
+
+        public ExtError(string sender, string error) : this()
+        {
+            AddError(sender, error);
+        }
+
+        public ExtError(string sender, Exception e) : this()
+        {
+            AddError(sender, e);
+        }
+
         public string GetErrorText()
         {
-            if (errorText.Length == 0)
-            {
-                return null;
-            }
-            else
-            {
-                return errorText.ToString();
-            }
+            return errorText.ToString();
         }
 
         public ExtError AddError(string sender, string error)
@@ -25,7 +32,7 @@ namespace ClearArchitecture.SL
             if (string.IsNullOrEmpty(error)) return this;
 
             this.sender = sender;
-            errorText.Append(error);
+            errorText.Append(DateTime.Now.ToString("G") + ": " + error);
             return this;
         }
 
@@ -34,7 +41,7 @@ namespace ClearArchitecture.SL
             if (e == null) return this;
 
             this.sender = sender;
-            errorText.Append(e.Message);
+            errorText.Append(DateTime.Now.ToString("G") + ": " + e.Message);
             return this;
         }
 
