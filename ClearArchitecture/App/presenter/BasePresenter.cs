@@ -4,6 +4,10 @@ namespace ConsoleApp1.App
 {
     public abstract class BasePresenter : AbsPresenter
     {
+        protected BasePresenter(string name) : base(name)
+        {
+        }
+
         public override void OnCreateView()
         {
             //

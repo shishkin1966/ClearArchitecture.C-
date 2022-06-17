@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace ClearArchitecture.SL
 {
@@ -18,11 +19,6 @@ namespace ClearArchitecture.SL
             { return 0; }
             else
             { return 1; }
-        }
-
-        public override string GetName()
-        {
-            return NAME;
         }
 
         public IObservable GetObservable(string name)
@@ -86,12 +82,11 @@ namespace ClearArchitecture.SL
             base.UnRegisterSubscriber(subscriber);
 
             List<string> list = subscriber.GetObservable();
-            foreach (IObservable observable in GetObservables())
+            foreach (var observable in from IObservable observable in GetObservables()
+                                       where list.Contains(observable.GetName())
+                                       select observable)
             {
-                if (list.Contains(observable.GetName()))
-                {
-                    observable.RemoveObserver(subscriber);
-                }
+                observable.RemoveObserver(subscriber);
             }
         }
 

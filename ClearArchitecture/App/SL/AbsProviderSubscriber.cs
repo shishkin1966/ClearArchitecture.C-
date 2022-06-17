@@ -9,6 +9,10 @@ namespace ClearArchitecture.SL
 
         public abstract List<string> GetProviderSubscription();
 
+        protected AbsProviderSubscriber(string name) : base(name)
+        {
+        }
+
         public void OnStopProvider(IProvider provider)
         {
             //

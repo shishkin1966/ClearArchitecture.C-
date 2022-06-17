@@ -23,11 +23,6 @@ namespace ConsoleApp1.App
             }
         }
 
-        public override string GetName()
-        {
-            return NAME;
-        }
-
         public void WriteLine(string line)
         {
             if (string.IsNullOrEmpty(line)) return;
