@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 
 namespace ClearArchitecture.SL
 {
@@ -40,7 +41,7 @@ namespace ClearArchitecture.SL
 
         public void AddComment(string comment)
         {
-            this.comment.Append(comment);
+            this.comment.Append(DateTime.Now.ToString("G") + ": " + comment);
         }
 
         public string GetComment()
