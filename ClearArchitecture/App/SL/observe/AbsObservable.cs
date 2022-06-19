@@ -1,12 +1,22 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ClearArchitecture.SL
 {
     public abstract class AbsObservable : IObservable
     {
         private readonly Secretary<IObservableSubscriber> secretary = new();
+        private readonly string name;
 
-        public abstract string GetName();
+        protected AbsObservable(string name)
+        {
+            this.name = name;
+        }
+
+        public string GetName()
+        {
+            return name;
+        }
 
         public void AddObserver(IObservableSubscriber subscriber)
         {
@@ -69,7 +79,7 @@ namespace ClearArchitecture.SL
 
         public void Stop()
         {
-            //
+            Console.WriteLine(DateTime.Now.ToString("G") + ": " + "Stop "+GetName());
         }
 
     }
