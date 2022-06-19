@@ -65,16 +65,6 @@ namespace ClearArchitecture.SL
             return false;
         }
 
-        new public void Stop()
-        {
-            base.Stop();
-    
-            foreach (IObservable observable in GetObservables())
-            {
-                observable.Stop();
-            }
-        }
-
         new public void UnRegisterSubscriber(IProviderSubscriber subscriber)
         {
             if (subscriber == null) return;
@@ -117,14 +107,17 @@ namespace ClearArchitecture.SL
 
         new public void OnUnRegister()
         {
-            base.OnUnRegister();
-
             foreach (IObservable observable in GetObservables())
             {
                 observable.Stop();
             }
+            base.OnUnRegister();
         }
 
-
+        new public void Stop()
+        {
+            OnUnRegister();
+            base.Stop();
+        }
     }
 }

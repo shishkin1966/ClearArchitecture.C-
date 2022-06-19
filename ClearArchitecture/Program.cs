@@ -33,11 +33,11 @@ namespace ConsoleApp1
 
             SL.Executor.PutRequest(new GetRequest(NAME, ms.GetName(), 1));
 
-            Thread.Sleep(500); 
+            Thread.Sleep(1000); 
 
             SL.Messenger.AddComment("Все хорошо");
 
-            SL.Observable.OnChangeObservable("TestObservable","Change");
+            SL.Observable.OnChangeObservable("TestObservable","Change 1");
 
             Console.WriteLine(SL.Messenger.GetComment());
 

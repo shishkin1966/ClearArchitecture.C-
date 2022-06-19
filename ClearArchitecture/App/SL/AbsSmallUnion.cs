@@ -176,10 +176,17 @@ namespace ClearArchitecture.SL
 
          new public void Stop()
          {
-            UnRegisterSubscribers();
+            OnUnRegister();
 
             base.Stop();
          }
+
+        new public void OnUnRegister()
+        {
+            UnRegisterSubscribers();
+
+            base.OnUnRegister();
+        }
 
         public IProviderSubscriber GetUnBusySubscriber()
         {
@@ -208,7 +215,7 @@ namespace ClearArchitecture.SL
             foreach (IProviderSubscriber subscriber in GetSubscribers())
             {
                 UnRegisterSubscriber(subscriber);
-                subscriber.OnStopProvider(this.GetName());
+                subscriber.OnStopProvider(GetName());
             }
             secretary.Clear();
         }

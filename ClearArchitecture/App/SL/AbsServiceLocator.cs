@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ClearArchitecture.SL
 {
@@ -19,7 +20,6 @@ namespace ClearArchitecture.SL
                 if (!provider.IsPersistent()) 
                 {
                     UnRegisterProvider(provider.GetName());
-                    provider.Stop();
                 }
             }
         }
@@ -60,13 +60,11 @@ namespace ClearArchitecture.SL
                 {
                     return false;
                 }
-                if (!UnRegisterProvider(provider.GetName()))
-                {
-                    return false;
-                }
+                UnRegisterProvider(provider.GetName());
             }
 
             secretary.Put(provider.GetName(), provider);
+            Console.WriteLine("SL:RegisterProvider " + provider.GetName());
             provider.OnRegister();
             return true;
         }
@@ -84,32 +82,23 @@ namespace ClearArchitecture.SL
             }
         }
 
-        public bool UnRegisterProvider(string name)
+        public void UnRegisterProvider(string name)
         {
-            if (string.IsNullOrEmpty(name)) return true;
+            if (string.IsNullOrEmpty(name)) return;
 
             if (secretary.ContainsKey(name))
             {
                 IProvider provider = secretary.GetValue(name);
                 if (provider != null)
                 {
-                    // нельзя отменить регистрацию у объединения с подписчиками
                     if (!provider.IsPersistent())
                     {
-                        if (provider is ISmallUnion p)
-                        {
-                            if (p.HasSubscribers()) return false;
-                        }
-                        provider.OnUnRegister();
+                        provider.Stop();
+                        Console.WriteLine("SL:UnRegisterProvider " + provider.GetName());
                         secretary.Remove(name);
                     }
                 }
-                else
-                {
-                    secretary.Remove(name);
-                }
             }
-            return true;
         }
 
         public List<IProvider> GetProviders()

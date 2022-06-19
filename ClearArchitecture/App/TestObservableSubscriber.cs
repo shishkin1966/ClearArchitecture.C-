@@ -26,7 +26,7 @@ namespace ConsoleApp1.App
 
         public override void OnChangeObservable(string name, object obj)
         {
-            Console.WriteLine(DateTime.Now.ToString("G") + ": " + "OnChangeObservable TestObservable");
+            Console.WriteLine(DateTime.Now.ToString("G") + ": " + "OnChangeObservable TestObservable " + obj.ToString());
         }
     }
 }
