@@ -18,12 +18,12 @@ namespace ClearArchitecture.SL
 
         public void OnRegister()
         {
-            Console.WriteLine("OnRegister provider " + GetName());
+            //Console.WriteLine("OnRegister provider " + GetName());
         }
 
         public void OnUnRegister()
         {
-            Console.WriteLine("OnUnRegister provider " + GetName());
+            //Console.WriteLine("OnUnRegister provider " + GetName());
         }
 
         public void Stop()

@@ -137,9 +137,9 @@ namespace ClearArchitecture.SL
             return true;
         }
 
-        public bool UnRegisterSubscriber(IProviderSubscriber subscriber)
+        public void UnRegisterSubscriber(IProviderSubscriber subscriber)
         {
-            if (subscriber == null) return true;
+            if (subscriber == null) return;
 
             List<string> types = subscriber.GetProviderSubscription();
             List<IProvider> stopProviders = new();
@@ -161,10 +161,8 @@ namespace ClearArchitecture.SL
             // удаляем провайдеры без подписчиков
             foreach (IProvider provider in stopProviders)
             {
-                provider.Stop();
                 UnRegisterProvider(provider.GetName());
             }
-            return true;
         }
 
         public bool SetCurrentSubscriber(IProviderSubscriber subscriber)
