@@ -17,9 +17,9 @@ namespace ClearArchitecture.SL
 
         new public void OnRegister()
         {
-            base.OnRegister();
-
             ThreadPool.SetMaxThreads(8, 4);
+
+            base.OnRegister();
         }
 
         public void CancelAll()
@@ -67,11 +67,6 @@ namespace ClearArchitecture.SL
             { return 0; }
             else
             { return 1; }
-        }
-
-        new public bool IsValid()
-        {
-            return true;
         }
 
         public void PutRequest(IRequest request)
@@ -134,9 +129,9 @@ namespace ClearArchitecture.SL
 
         new public void Stop()
         {
-            base.Stop();
-
             CancelAll();
+
+            base.Stop();
         }
     }
 }

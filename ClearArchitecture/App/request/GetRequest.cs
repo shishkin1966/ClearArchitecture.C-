@@ -13,13 +13,14 @@ namespace ConsoleApp1.App
 
         public override void Execute(object obj)
         {
+            Program.SL.Observable.OnChangeObservable("TestObservable", "Change 0");
+
             try
             {
                 if (obj is IRequest requst)
                 {
                     SetResult(new ExtResult(requst.GetData()));
                     Console.WriteLine("Запрос: " + requst.ToString() + ":" + requst.GetResult().GetData().ToString());
-
                     SendResult();
                 }
             }

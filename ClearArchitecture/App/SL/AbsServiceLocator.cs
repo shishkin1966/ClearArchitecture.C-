@@ -1,16 +1,27 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ClearArchitecture.SL
 {
     public abstract class AbsServiceLocator : IServiceLocator
     {
+        private readonly string name;
+        
         private readonly Secretary<IProvider> secretary = new();
 
         public abstract IProviderFactory GetProviderFactory();
 
         public abstract void Start();
 
-        public abstract string GetName();
+        public string GetName()
+        {
+            return name;
+        }
+
+        protected AbsServiceLocator(string name) 
+        {
+            this.name = name;
+        }
 
         public void Stop()
         {
@@ -19,7 +30,6 @@ namespace ClearArchitecture.SL
                 if (!provider.IsPersistent()) 
                 {
                     UnRegisterProvider(provider.GetName());
-                    provider.Stop();
                 }
             }
         }
@@ -35,9 +45,8 @@ namespace ClearArchitecture.SL
         {
             if (string.IsNullOrEmpty(name)) return default;
 
-            if (!ExistsProvider(name)) {
-                if (!RegisterProvider(name)) return default;
-            }
+            if (!ExistsProvider(name) && !RegisterProvider(name)) return default;
+
             if (secretary.GetValue(name) != null)
             {
                 return secretary.GetValue(name);
@@ -60,13 +69,11 @@ namespace ClearArchitecture.SL
                 {
                     return false;
                 }
-                if (!UnRegisterProvider(provider.GetName()))
-                {
-                    return false;
-                }
+                UnRegisterProvider(provider.GetName());
             }
 
             secretary.Put(provider.GetName(), provider);
+            Console.WriteLine("SL:RegisterProvider " + provider.GetName());
             provider.OnRegister();
             return true;
         }
@@ -84,32 +91,20 @@ namespace ClearArchitecture.SL
             }
         }
 
-        public bool UnRegisterProvider(string name)
+        public void UnRegisterProvider(string name)
         {
-            if (string.IsNullOrEmpty(name)) return true;
+            if (string.IsNullOrEmpty(name)) return;
 
             if (secretary.ContainsKey(name))
             {
                 IProvider provider = secretary.GetValue(name);
-                if (provider != null)
+                if (provider != null && !provider.IsPersistent())
                 {
-                    // нельзя отменить регистрацию у объединения с подписчиками
-                    if (!provider.IsPersistent())
-                    {
-                        if (provider is ISmallUnion p)
-                        {
-                            if (p.HasSubscribers()) return false;
-                        }
-                        provider.OnUnRegister();
-                        secretary.Remove(name);
-                    }
-                }
-                else
-                {
+                    provider.Stop();
+                    Console.WriteLine("SL:UnRegisterProvider " + provider.GetName());
                     secretary.Remove(name);
                 }
             }
-            return true;
         }
 
         public List<IProvider> GetProviders()
@@ -148,9 +143,9 @@ namespace ClearArchitecture.SL
             return true;
         }
 
-        public bool UnRegisterSubscriber(IProviderSubscriber subscriber)
+        public void UnRegisterSubscriber(IProviderSubscriber subscriber)
         {
-            if (subscriber == null) return true;
+            if (subscriber == null) return;
 
             List<string> types = subscriber.GetProviderSubscription();
             List<IProvider> stopProviders = new();
@@ -172,10 +167,8 @@ namespace ClearArchitecture.SL
             // удаляем провайдеры без подписчиков
             foreach (IProvider provider in stopProviders)
             {
-                provider.Stop();
                 UnRegisterProvider(provider.GetName());
             }
-            return true;
         }
 
         public bool SetCurrentSubscriber(IProviderSubscriber subscriber)

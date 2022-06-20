@@ -128,7 +128,7 @@ namespace ClearArchitecture.SL
             int cnt = secretary.Size();
 
             secretary.Put(subscriber.GetName(), subscriber);
-            subscriber.SetProvider(this);
+            subscriber.SetProvider(this.GetName());
 
             if (cnt == 0 && secretary.Size() == 1)
             {
@@ -151,7 +151,7 @@ namespace ClearArchitecture.SL
             if (secretary.ContainsKey(subscriber.GetName()) && (subscriber.GetType() == secretary.GetValue(subscriber.GetName()).GetType()))
             {
                 secretary.Remove(subscriber.GetName());
-                subscriber.RemoveProvider(this);
+                subscriber.RemoveProvider(this.GetName());
             }
 
             if (cnt == 1 && secretary.Size() == 0)
@@ -176,15 +176,17 @@ namespace ClearArchitecture.SL
 
          new public void Stop()
          {
-            base.Stop();
+            OnUnRegister();
 
-            foreach (IProviderSubscriber subscriber in GetSubscribers())
-            {
-                UnRegisterSubscriber(subscriber);
-                subscriber.OnStopProvider(this);
-            }
-            secretary.Clear();
+            base.Stop();
          }
+
+        new public void OnUnRegister()
+        {
+            UnRegisterSubscribers();
+
+            base.OnUnRegister();
+        }
 
         public IProviderSubscriber GetUnBusySubscriber()
         {
@@ -208,5 +210,14 @@ namespace ClearArchitecture.SL
             return list;
         }
 
+        public void UnRegisterSubscribers()
+        {
+            foreach (IProviderSubscriber subscriber in GetSubscribers())
+            {
+                UnRegisterSubscriber(subscriber);
+                subscriber.OnStopProvider(GetName());
+            }
+            secretary.Clear();
+        }
     }
 }

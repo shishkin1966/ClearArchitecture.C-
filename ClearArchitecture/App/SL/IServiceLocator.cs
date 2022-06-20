@@ -47,7 +47,7 @@ namespace ClearArchitecture.SL
         * @param name имя провайдера
         * @return флаг - операция завершена успешно
         */
-        bool UnRegisterProvider(string name);
+        void UnRegisterProvider(string name);
 
         /*
         * Зарегистрировать подписчика провайдера
@@ -63,7 +63,7 @@ namespace ClearArchitecture.SL
         * @param subscriber подписчик провайдера
         * @return флаг - операция завершена успешно
         */
-        bool UnRegisterSubscriber(IProviderSubscriber subscriber);
+        void UnRegisterSubscriber(IProviderSubscriber subscriber);
 
         /*
         * Установить подписчика текущим

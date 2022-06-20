@@ -19,7 +19,6 @@
         public IPresenterSubscriber GetPresenter(string name)
         {
             return base.GetSubscriber(name) as IPresenterSubscriber;
-
         }
     }
 }

@@ -65,43 +65,41 @@ namespace ClearArchitecture.SL
             return false;
         }
 
-        new public void Stop()
-        {
-            base.Stop();
-    
-            foreach (IObservable observable in GetObservables())
-            {
-                observable.Stop();
-            }
-        }
-
-        public void UnRegisterSubscriber(IObservableSubscriber subscriber)
+        new public void UnRegisterSubscriber(IProviderSubscriber subscriber)
         {
             if (subscriber == null) return;
 
             base.UnRegisterSubscriber(subscriber);
 
-            List<string> list = subscriber.GetObservable();
+            if (subscriber is not IObservableSubscriber) return;
+
+            var s = subscriber as IObservableSubscriber;
+
+            List<string> list = s.GetObservable();
             foreach (var observable in from IObservable observable in GetObservables()
                                        where list.Contains(observable.GetName())
                                        select observable)
             {
-                observable.RemoveObserver(subscriber);
+                observable.RemoveObserver(s);
             }
         }
 
-        public bool RegisterSubscriber(IObservableSubscriber subscriber)
+        new public bool RegisterSubscriber(IProviderSubscriber subscriber)
         {
             if (subscriber == null) return true;
 
+            if (subscriber is not IObservableSubscriber) return true;
+
+            var s = subscriber as IObservableSubscriber;
+
             if (!base.RegisterSubscriber(subscriber)) return false;
 
-            List<string> list = subscriber.GetObservable();
+            List<string> list = s.GetObservable();
             foreach (IObservable observable in GetObservables()) 
             {
                 string name = observable.GetName();
                 if (list.Contains(name)) {
-                    observable.AddObserver(subscriber);
+                    observable.AddObserver(s);
                 }
             }
             return true;
@@ -109,14 +107,17 @@ namespace ClearArchitecture.SL
 
         new public void OnUnRegister()
         {
-            base.OnUnRegister();
-
             foreach (IObservable observable in GetObservables())
             {
                 observable.Stop();
             }
+            base.OnUnRegister();
         }
 
-
+        new public void Stop()
+        {
+            OnUnRegister();
+            base.Stop();
+        }
     }
 }

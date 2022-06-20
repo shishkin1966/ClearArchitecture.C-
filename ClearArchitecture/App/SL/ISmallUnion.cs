@@ -23,6 +23,11 @@ namespace ClearArchitecture.SL
         void UnRegisterSubscriber(IProviderSubscriber subscriber);
 
         /*
+        * Отключить всех подписчиков
+        */
+        void UnRegisterSubscribers();
+
+        /*
         * Отключить подписчика по его имени
         *
         * @param name имя подписчика
