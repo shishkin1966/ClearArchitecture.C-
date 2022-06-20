@@ -4,13 +4,13 @@ namespace ClearArchitecture.SL
 {
     public abstract class AbsRequest : IRequest
     {
-        private readonly object data;
+        private readonly object data = null;
         private readonly string sender;
         private readonly List<string> receiver = new();
         private int id = -1;
         private bool isCancelled = false;
-        private IExecutorProvider executor;
-        private ExtResult result;
+        private IExecutorProvider executor = default;
+        private ExtResult result = default;
 
         protected AbsRequest(string sender, string receiver, object data)
         {

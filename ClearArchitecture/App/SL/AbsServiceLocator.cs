@@ -5,13 +5,23 @@ namespace ClearArchitecture.SL
 {
     public abstract class AbsServiceLocator : IServiceLocator
     {
+        private readonly string name;
+        
         private readonly Secretary<IProvider> secretary = new();
 
         public abstract IProviderFactory GetProviderFactory();
 
         public abstract void Start();
 
-        public abstract string GetName();
+        public string GetName()
+        {
+            return name;
+        }
+
+        protected AbsServiceLocator(string name) 
+        {
+            this.name = name;
+        }
 
         public void Stop()
         {
@@ -35,9 +45,8 @@ namespace ClearArchitecture.SL
         {
             if (string.IsNullOrEmpty(name)) return default;
 
-            if (!ExistsProvider(name)) {
-                if (!RegisterProvider(name)) return default;
-            }
+            if (!ExistsProvider(name) && !RegisterProvider(name)) return default;
+
             if (secretary.GetValue(name) != null)
             {
                 return secretary.GetValue(name);
@@ -89,14 +98,11 @@ namespace ClearArchitecture.SL
             if (secretary.ContainsKey(name))
             {
                 IProvider provider = secretary.GetValue(name);
-                if (provider != null)
+                if (provider != null && !provider.IsPersistent())
                 {
-                    if (!provider.IsPersistent())
-                    {
-                        provider.Stop();
-                        Console.WriteLine("SL:UnRegisterProvider " + provider.GetName());
-                        secretary.Remove(name);
-                    }
+                    provider.Stop();
+                    Console.WriteLine("SL:UnRegisterProvider " + provider.GetName());
+                    secretary.Remove(name);
                 }
             }
         }

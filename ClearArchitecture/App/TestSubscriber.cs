@@ -8,7 +8,7 @@ namespace ConsoleApp1.App
     {
         public const string NAME = "TestSubscriber";
 
-        public TestSubscriber() : base(NAME)
+        public TestSubscriber(string name) : base(name)
         {
         }
 

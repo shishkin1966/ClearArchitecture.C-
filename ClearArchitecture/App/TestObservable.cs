@@ -2,10 +2,12 @@
 
 namespace ConsoleApp1.App
 {
-    class TestObservable : AbsObservable
+    public class TestObservable : AbsObservable
     {
+        public const string NAME = "TestObservable";
+
         public TestObservable(string name) : base(name)
         {
         }
-    }
+}
 }

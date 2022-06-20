@@ -6,6 +6,8 @@ namespace ConsoleApp1.App
 {
     public class TestObservableSubscriber : AbsObservableSubscriber
     {
+        public const string NAME = "TestObservableSubscriber";
+
         public TestObservableSubscriber(string name) : base(name)
         {
         }
@@ -13,7 +15,7 @@ namespace ConsoleApp1.App
         public override List<string> GetObservable()
         {
             List<string> list = new();
-            list.Add("TestObservable");
+            list.Add(TestObservable.NAME);
             return list;
         }
 

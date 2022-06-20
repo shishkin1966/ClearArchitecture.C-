@@ -1,5 +1,4 @@
-﻿using ClearArchitecture.SL;
-using ConsoleApp1.App;
+﻿using ConsoleApp1.App;
 using System;
 using System.Threading;
 
@@ -9,7 +8,7 @@ namespace ConsoleApp1
     {
         public const string NAME = "Application";
 
-        private readonly static ServiceLocator sl = new();
+        private readonly static ServiceLocator sl = new(ServiceLocator.NAME);
 
         public static ServiceLocator SL
         {
@@ -21,15 +20,15 @@ namespace ConsoleApp1
 
         static void Main(string[] args)
         {
-            TestSubscriber ms = new();
-            TestObservable obs = new("TestObservable");
+            TestSubscriber ms = new(TestSubscriber.NAME);
+            TestObservable obs = new(TestObservable.NAME);
 
             SL.Start();
 
             SL.RegisterSubscriber(ms);
 
             SL.Observable.RegisterObservable(obs);
-            SL.Observable.RegisterSubscriber(new TestObservableSubscriber("TestObservableSubscriber"));
+            SL.Observable.RegisterSubscriber(new TestObservableSubscriber(TestObservableSubscriber.NAME));
 
             SL.Executor.PutRequest(new GetRequest(NAME, ms.GetName(), 1));
 
@@ -37,7 +36,7 @@ namespace ConsoleApp1
 
             SL.Messenger.AddComment("Все хорошо");
 
-            SL.Observable.OnChangeObservable("TestObservable","Change 1");
+            SL.Observable.OnChangeObservable(TestObservable.NAME,"Change 1");
 
             Console.WriteLine(SL.Messenger.GetComment());
 

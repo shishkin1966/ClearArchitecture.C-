@@ -6,6 +6,10 @@ namespace ConsoleApp1.App
     {
         public const string NAME = "ServiceLocator";
 
+        public ServiceLocator(string name) : base(name)
+        {
+        }
+
         public IOutProvider Out
         {
             get
@@ -75,11 +79,6 @@ namespace ConsoleApp1.App
         public override IProviderFactory GetProviderFactory()
         {
             return new ProviderFactory();
-        }
-
-        public override string GetName()
-        {
-            return NAME;
         }
     }
 }
