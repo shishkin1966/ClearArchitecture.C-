@@ -3,17 +3,7 @@
     /*
     * Интерфейс подписчика
     */
-    public interface ISubscriber : INamed, IValidated, IBusy
+    public interface ISubscriber : INamed, IValidated, IBusy, ICommented
     {
-        /*
-        * Добавить комментарий подписчику
-        */
-        void AddComment(string comment);
-
-        /*
-        * Получить комментарий подписчика
-        * @return string - комментарий подписчика
-        */
-        string GetComment();
     }
 }
