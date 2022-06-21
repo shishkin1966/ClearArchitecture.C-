@@ -8,13 +8,13 @@ namespace ConsoleApp1
     {
         public const string NAME = "Application";
 
-        private readonly static ServiceLocator sl = new(ServiceLocator.NAME);
+        private readonly static ServiceLocator _sl = new(ServiceLocator.NAME);
 
         public static ServiceLocator SL
         {
             get
             {
-                return sl;
+                return _sl;
             }
         }
 

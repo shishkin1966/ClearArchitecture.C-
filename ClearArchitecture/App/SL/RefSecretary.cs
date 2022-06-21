@@ -8,11 +8,11 @@ namespace ClearArchitecture.SL
 {
     class RefSecretary<T> : ISecretary<T>
     {
-        private readonly ConcurrentDictionary<string, WeakReference> subscribers = new() ;
+        private readonly ConcurrentDictionary<string, WeakReference> _subscribers = new() ;
 
         public void Clear()
         {
-            subscribers.Clear();
+            _subscribers.Clear();
         }
 
         public bool ContainsKey(string key)
@@ -22,7 +22,7 @@ namespace ClearArchitecture.SL
                 return false;
             }
 
-            return subscribers.ContainsKey(key);
+            return _subscribers.ContainsKey(key);
         }
 
         public T GetValue(string key)
@@ -36,7 +36,7 @@ namespace ClearArchitecture.SL
 
             if (ContainsKey(key))
             {
-                bool ret = subscribers.TryGetValue(key, out WeakReference value);
+                bool ret = _subscribers.TryGetValue(key, out WeakReference value);
                 if (ret && value.IsAlive)
                 {
                     val = (T)value.Target;
@@ -47,12 +47,12 @@ namespace ClearArchitecture.SL
 
         public bool IsEmpty()
         {
-            return subscribers.Count == 0;
+            return _subscribers.Count == 0;
         }
 
         public List<string> Keys()
         {
-            return subscribers.Keys.ToList();
+            return _subscribers.Keys.ToList();
         }
 
         public void Put(string key, T value)
@@ -67,7 +67,7 @@ namespace ClearArchitecture.SL
                 return;
             }
 
-            subscribers.AddOrUpdate(key, new WeakReference(value, false), (key, oldValue) => oldValue);
+            _subscribers.AddOrUpdate(key, new WeakReference(value, false), (key, oldValue) => oldValue);
         }
 
         public void Remove(string key)
@@ -77,18 +77,18 @@ namespace ClearArchitecture.SL
                 return;
             }
 
-            subscribers.Remove(key, out WeakReference old);
+            _subscribers.Remove(key, out WeakReference old);
         }
 
         public int Size()
         {
-            return subscribers.Count;
+            return _subscribers.Count;
         }
 
         public List<T> Values()
         {
             List<T> list = new();
-            foreach (WeakReference r in subscribers.Values)
+            foreach (WeakReference r in _subscribers.Values)
             {
                 if (r.IsAlive)
                 {

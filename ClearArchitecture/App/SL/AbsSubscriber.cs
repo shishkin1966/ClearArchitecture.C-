@@ -5,9 +5,9 @@ namespace ClearArchitecture.SL
 {
     public abstract class AbsSubscriber : ISubscriber
     {
-        private bool isBusy = false;
-        private string name;
-        private readonly StringBuilder comment = new();
+        private bool _isBusy = false;
+        private string _name;
+        private readonly StringBuilder _comment = new();
 
         protected AbsSubscriber()
         {
@@ -15,17 +15,17 @@ namespace ClearArchitecture.SL
 
         protected AbsSubscriber(string name) : base()
         {
-            this.name = name;
+            _name = name;
         }
 
         public string GetName()
         {
-            return name;
+            return _name;
         }
 
         public void SetName(string name)
         {
-            this.name = name;
+            _name = name;
         }
 
         public bool IsValid()
@@ -35,27 +35,27 @@ namespace ClearArchitecture.SL
 
         public bool IsBusy()
         {
-            return isBusy;
+            return _isBusy;
         }
 
         public void SetBusy()
         {
-            isBusy = true;
+            _isBusy = true;
         }
 
         public void SetUnBusy()
         {
-            isBusy = false;
+            _isBusy = false;
         }
 
         public void AddComment(string comment)
         {
-            this.comment.Append(DateTime.Now.ToString("G") + ": " + comment);
+            _comment.Append(DateTime.Now.ToString("G") + ": " + comment);
         }
 
         public string GetComment()
         {
-            return comment.ToString();
+            return _comment.ToString();
         }
     }
 }

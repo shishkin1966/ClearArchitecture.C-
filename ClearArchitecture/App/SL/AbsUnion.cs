@@ -4,7 +4,7 @@ namespace ClearArchitecture.SL
 {
     public abstract class AbsUnion : AbsSmallUnion, IUnion
     {
-        private WeakReference currentSubscriber;
+        private WeakReference _currentSubscriber;
 
         protected AbsUnion(string name) : base(name)
         {
@@ -19,12 +19,12 @@ namespace ClearArchitecture.SL
             }
 
             if (base.RegisterSubscriber(subscriber)) {
-                if (currentSubscriber != null && currentSubscriber.IsAlive)
+                if (_currentSubscriber != null && _currentSubscriber.IsAlive)
                 {
-                    IProviderSubscriber oldSubscriber = (IProviderSubscriber)currentSubscriber.Target;
+                    IProviderSubscriber oldSubscriber = (IProviderSubscriber)_currentSubscriber.Target;
                     if (subscriber.GetName() == (oldSubscriber.GetName()))
                     {
-                        currentSubscriber = new WeakReference(subscriber, false);
+                        _currentSubscriber = new WeakReference(subscriber, false);
                     }
                 }
                 return true;
@@ -38,12 +38,12 @@ namespace ClearArchitecture.SL
 
             base.UnRegisterSubscriber(subscriber);
 
-            if (currentSubscriber != null && currentSubscriber.IsAlive)
+            if (_currentSubscriber != null && _currentSubscriber.IsAlive)
             {
-                IProviderSubscriber oldSubscriber = (IProviderSubscriber)currentSubscriber.Target;
+                IProviderSubscriber oldSubscriber = (IProviderSubscriber)_currentSubscriber.Target;
                 if (subscriber.GetName() == (oldSubscriber.GetName()))
                 {
-                    currentSubscriber.Target = null;
+                    _currentSubscriber.Target = null;
                 }
             }
         }
@@ -62,16 +62,16 @@ namespace ClearArchitecture.SL
                 return false;
             }
 
-            currentSubscriber = new WeakReference(subscriber, false);
+            _currentSubscriber = new WeakReference(subscriber, false);
 
             return true;
         }
 
         public IProviderSubscriber GetCurrentSubscriber() 
         {
-            if (currentSubscriber != null && currentSubscriber.IsAlive)
+            if (_currentSubscriber != null && _currentSubscriber.IsAlive)
             {
-                return (IProviderSubscriber)currentSubscriber.Target;
+                return (IProviderSubscriber)_currentSubscriber.Target;
             }
             return default;
         }

@@ -2,17 +2,18 @@
 {
     public class DialogResultMessage : AbsMessage
     {
-        private readonly DialogResultAction action;
         public const string SUBJ = "DialogResultMessage";
+
+        private readonly DialogResultAction _action;
 
         public DialogResultMessage(string address, DialogResultAction action) : base(address)
         {
-            this.action = action;
+            _action = action;
         }
 
         public DialogResultMessage(DialogResultMessage message, DialogResultAction action) : base(message)
         {
-            this.action = action;
+            _action = action;
         }
 
         public new string GetSubj()
@@ -22,7 +23,7 @@
 
         public override IMessage Copy()
         {
-            return new DialogResultMessage(this, action);
+            return new DialogResultMessage(this, _action);
         }
 
         public override void Read(IMessengerSubscriber subscriber)
@@ -34,7 +35,7 @@
 
             if (subscriber is IDialogResultListener listener)
             {
-                listener.OnDialogResult(action);
+                listener.OnDialogResult(_action);
             }
         }
 

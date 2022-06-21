@@ -4,7 +4,7 @@ namespace ClearArchitecture.SL
 {
     public class ResultMessage : AbsMessage
     {
-        private readonly ExtResult result;
+        private readonly ExtResult _result;
 
         private ResultMessage(string address) : base(address)
         {
@@ -16,12 +16,12 @@ namespace ClearArchitecture.SL
 
         public ResultMessage(string address, ExtResult result) : this(address)
         {
-            this.result = result;
+            _result = result;
         }
 
         public ResultMessage(List<string> address, ExtResult result) : this(address)
         {
-            this.result = result;
+            _result = result;
         }
 
         private ResultMessage(ResultMessage message) : base(message)
@@ -30,12 +30,12 @@ namespace ClearArchitecture.SL
 
         public ResultMessage(ResultMessage message, ExtResult result) : this(message)
         {
-            this.result = result;
+            _result = result;
         }
 
         public override IMessage Copy()
         {
-            return new ResultMessage(this, result);
+            return new ResultMessage(this, _result);
         }
 
         public override void Read(IMessengerSubscriber subscriber)
@@ -44,7 +44,7 @@ namespace ClearArchitecture.SL
 
             if (subscriber is IResponseListener listener)
             {
-                listener.Response(result);
+                listener.Response(_result);
             }
         }
     }

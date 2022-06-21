@@ -5,7 +5,7 @@ namespace ClearArchitecture.SL
 {
     public abstract class AbsProviderSubscriber : AbsSubscriber, IProviderSubscriber
     {
-        private readonly Secretary<string> providers = new();
+        private readonly Secretary<string> _providers = new();
 
         public abstract List<string> GetProviderSubscription();
 
@@ -23,19 +23,19 @@ namespace ClearArchitecture.SL
 
         public void Stop()
         {
-            providers.Clear();
+            _providers.Clear();
         }
 
         public List<string> GetProviders()
         {
-            return providers.Values();
+            return _providers.Values();
         }
 
         public void SetProvider(string provider)
         {
             if (string.IsNullOrEmpty(provider)) return;
 
-            providers.Put(provider,provider);
+            _providers.Put(provider,provider);
             OnSetProvider(provider);
         }
 
@@ -43,7 +43,7 @@ namespace ClearArchitecture.SL
         {
             if (string.IsNullOrEmpty(provider)) return;
 
-            providers.Remove(provider);
+            _providers.Remove(provider);
         }
 
         public void OnSetProvider(string provider)

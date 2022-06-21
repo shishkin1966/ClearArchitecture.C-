@@ -5,9 +5,8 @@ namespace ClearArchitecture.SL
 {
     public abstract class AbsServiceLocator : IServiceLocator
     {
-        private readonly string name;
-        
-        private readonly Secretary<IProvider> secretary = new();
+        private readonly string _name;
+        private readonly Secretary<IProvider> _secretary = new();
 
         public abstract IProviderFactory GetProviderFactory();
 
@@ -15,12 +14,12 @@ namespace ClearArchitecture.SL
 
         public string GetName()
         {
-            return name;
+            return _name;
         }
 
         protected AbsServiceLocator(string name) 
         {
-            this.name = name;
+            _name = name;
         }
 
         public void Stop()
@@ -38,7 +37,7 @@ namespace ClearArchitecture.SL
         {
             if (string.IsNullOrEmpty(name)) return false;
 
-            return secretary.ContainsKey(name);
+            return _secretary.ContainsKey(name);
         }
 
         public IProvider GetProvider(string name)
@@ -47,13 +46,13 @@ namespace ClearArchitecture.SL
 
             if (!ExistsProvider(name) && !RegisterProvider(name)) return default;
 
-            if (secretary.GetValue(name) != null)
+            if (_secretary.GetValue(name) != null)
             {
-                return secretary.GetValue(name);
+                return _secretary.GetValue(name);
             }
             else
             {
-                secretary.Remove(name);
+                _secretary.Remove(name);
             }
             return default;
         }
@@ -62,7 +61,7 @@ namespace ClearArchitecture.SL
         {
             if (provider == null) return false;
 
-            if (secretary.ContainsKey(provider.GetName()))
+            if (_secretary.ContainsKey(provider.GetName()))
             {
                 IProvider oldprovider = GetProvider(provider.GetName());
                 if (oldprovider != null && oldprovider.CompareTo(provider) != 0)
@@ -72,7 +71,7 @@ namespace ClearArchitecture.SL
                 UnRegisterProvider(provider.GetName());
             }
 
-            secretary.Put(provider.GetName(), provider);
+            _secretary.Put(provider.GetName(), provider);
             Console.WriteLine("SL:RegisterProvider " + provider.GetName());
             provider.OnRegister();
             return true;
@@ -95,21 +94,21 @@ namespace ClearArchitecture.SL
         {
             if (string.IsNullOrEmpty(name)) return;
 
-            if (secretary.ContainsKey(name))
+            if (_secretary.ContainsKey(name))
             {
-                IProvider provider = secretary.GetValue(name);
+                IProvider provider = _secretary.GetValue(name);
                 if (provider != null && !provider.IsPersistent())
                 {
                     provider.Stop();
                     Console.WriteLine("SL:UnRegisterProvider " + provider.GetName());
-                    secretary.Remove(name);
+                    _secretary.Remove(name);
                 }
             }
         }
 
         public List<IProvider> GetProviders()
         {
-            return secretary.Values();
+            return _secretary.Values();
         }
 
         public bool RegisterSubscriber(IProviderSubscriber subscriber)
@@ -122,14 +121,14 @@ namespace ClearArchitecture.SL
             // регистрируем subscriber у провайдеров
             foreach (string type in types)
             {
-                if (!secretary.ContainsKey(type))
+                if (!_secretary.ContainsKey(type))
                 {
                     RegisterProvider(type);
                 }
 
-                if (secretary.ContainsKey(type))
+                if (_secretary.ContainsKey(type))
                 {
-                    provider = secretary.GetValue(type);
+                    provider = _secretary.GetValue(type);
                     if (provider is ISmallUnion p)
                     {
                         p.RegisterSubscriber(subscriber);
@@ -151,9 +150,9 @@ namespace ClearArchitecture.SL
             List<IProvider> stopProviders = new();
             foreach (string type in types)
             {
-                if (secretary.ContainsKey(type))
+                if (_secretary.ContainsKey(type))
                 {
-                    IProvider provider = secretary.GetValue(type);
+                    IProvider provider = _secretary.GetValue(type);
                     if (provider is ISmallUnion  p)
                     {
                         p.UnRegisterSubscriber(subscriber);
@@ -178,9 +177,9 @@ namespace ClearArchitecture.SL
             List<string> types = subscriber.GetProviderSubscription();
             foreach (string type in types)
             {
-                if (secretary.ContainsKey(type))
+                if (_secretary.ContainsKey(type))
                 {
-                    IProvider provider = secretary.GetValue(type);
+                    IProvider provider = _secretary.GetValue(type);
                     if (provider is IUnion p)
                     {
                         p.SetCurrentSubscriber(subscriber);

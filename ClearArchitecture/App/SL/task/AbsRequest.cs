@@ -7,10 +7,10 @@ namespace ClearArchitecture.SL
         private readonly object _data = null;
         private readonly string _sender;
         private readonly List<string> _receiver = new();
-        private int id = -1;
-        private bool isCancelled = false;
-        private IExecutorProvider executor = default;
-        private ExtResult result = default;
+        private int _id = -1;
+        private bool _isCancelled = false;
+        private IExecutorProvider _executor = default;
+        private ExtResult _result = default;
 
         protected AbsRequest(string sender, string receiver, object data)
         {
@@ -29,7 +29,7 @@ namespace ClearArchitecture.SL
             {
                 _receiver.AddRange (receivers);
             }
-            this._data = data;
+            _data = data;
         }
 
         public abstract void Execute(object obj);
@@ -43,7 +43,7 @@ namespace ClearArchitecture.SL
         
         public int GetId()
         {
-            return id;
+            return _id;
         }
 
         public string GetSender()
@@ -52,7 +52,7 @@ namespace ClearArchitecture.SL
         }
         public bool IsCancelled()
         {
-            return isCancelled;
+            return _isCancelled;
         }
 
         public bool IsDistinct()
@@ -72,27 +72,27 @@ namespace ClearArchitecture.SL
 
         public IRequest SetCanceled()
         {
-            isCancelled = true;
+            _isCancelled = true;
             return this;
         }
 
         public IRequest SetExecutor(IExecutorProvider executor)
         {
-            this.executor = executor;
+            _executor = executor;
             return this;
         }
 
         public IRequest SetId(int id)
         {
-            this.id = id;
+            _id = id;
             return this;
         }
 
         public void RemoveRequest()
         {
-            if (executor != null)
+            if (_executor != null)
             {
-                executor.RemoveRequest(this);
+                _executor.RemoveRequest(this);
             }
         }
 
@@ -103,13 +103,13 @@ namespace ClearArchitecture.SL
 
         public IRequest SetResult(ExtResult result)
         {
-            this.result = result;
+            _result = result;
             return this;
         }
 
         public ExtResult GetResult()
         {
-            return result;   
+            return _result;   
         }
 
         public object GetData()
@@ -123,9 +123,9 @@ namespace ClearArchitecture.SL
 
             foreach (string rec in receiver)
             {
-                if (!this._receiver.Contains(rec))
+                if (!_receiver.Contains(rec))
                 {
-                    this._receiver.Add(rec);
+                    _receiver.Add(rec);
                 }
             }
             return this;

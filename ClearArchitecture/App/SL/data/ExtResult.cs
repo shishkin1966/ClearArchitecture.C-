@@ -7,35 +7,35 @@ namespace ClearArchitecture.SL
         public const int NOT_SEND = -1;
         public const int LAST = -2;
 
-        private object data = null;
-        private ExtError error = new();
-        private int order = NOT_SEND;
-        private string name;
-        private int id = 0;
+        private object _data = null;
+        private ExtError _error = new();
+        private int _order = NOT_SEND;
+        private string _name;
+        private int _id = 0;
 
         public ExtResult(object data)
         {
-            this.data = data;
+            _data = data;
         }
 
         public object GetData() 
         {
-            return data;
+            return _data;
         }
 
         public ExtResult SetData(object data) 
         {
-            this.data = data;
+            _data = data;
             return this;
         }
 
         public ExtError GetError() {
-            return error;
+            return _error;
         }
 
         public ExtResult SetError(ExtError error)
         {
-            this.error = error;
+            _error = error;
             return this;
         }
 
@@ -43,7 +43,7 @@ namespace ClearArchitecture.SL
         {
             if (string.IsNullOrEmpty(error)) return this;
 
-            this.error.AddError(sender, error);
+            _error.AddError(sender, error);
             return this;
         }
 
@@ -51,63 +51,63 @@ namespace ClearArchitecture.SL
         {
             if (e == null) return this;
 
-            error.AddError(sender, e);
+            _error.AddError(sender, e);
             return this;
         }
 
         public string GetErrorText() 
         {
-            return error.GetErrorText();
+            return _error.GetErrorText();
         }
         public string GetSender() 
         {
-            return error.GetSender();
+            return _error.GetSender();
         }
 
         public bool IsValid()
         {
-            return data != null && !error.HasError();
+            return _data != null && !_error.HasError();
         }
 
         public bool IsEmpty() 
         {
-            return data == null;
+            return _data == null;
         }
 
         public int GetOrder() 
         {
-            return order;
+            return _order;
         }
 
         public ExtResult SetOrder(int order) 
         {
-            this.order = order;
+            _order = order;
             return this;
         }
 
         public bool HasError()
         {
-            return !error.HasError();
+            return !_error.HasError();
         }
 
         public string GetName() 
         {
-            return name;
+            return _name;
         }
 
         public ExtResult SetName(string name)  
         {
-            this.name = name;
+            _name = name;
             return this;
         }
         public int GetId() 
         {
-            return id;
+            return _id;
         }
 
         public ExtResult SetId(int id)  
         {
-            this.id = id;
+            _id = id;
             return this;
         }
 

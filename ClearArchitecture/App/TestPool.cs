@@ -12,7 +12,7 @@ namespace ConsoleApp1.App
 
         public override int CompareTo(IProvider other)
         {
-            if (other.GetName() == "TestPool")
+            if (other.GetName() == NAME)
             { return 0; }
             else
             { return 1; }

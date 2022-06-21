@@ -2,7 +2,7 @@
 {
     public abstract class AbsAction : IAction
     {
-        private bool isRun = false;
+        private bool _isRun = false;
 
         protected AbsAction()
         {
@@ -14,12 +14,12 @@
 
         public bool IsRun()
         {
-            return isRun;
+            return _isRun;
         }
 
         public void SetRun()
         {
-            isRun = true;
+            _isRun = true;
         }
     }
 }

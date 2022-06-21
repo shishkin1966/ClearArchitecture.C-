@@ -2,16 +2,16 @@
 {
     public class DialogResultAction : AbsAction
     {
-        private readonly int id;
+        private readonly int _id;
 
         public DialogResultAction(int id)
         {
-            this.id = id;
+            _id = id;
         }
 
         public int GetId()
         {
-            return id;
+            return _id;
         }
     }
 }

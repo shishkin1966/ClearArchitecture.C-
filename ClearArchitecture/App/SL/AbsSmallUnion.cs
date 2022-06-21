@@ -6,7 +6,7 @@ namespace ClearArchitecture.SL
 {
     public abstract class AbsSmallUnion : AbsProvider, ISmallUnion 
     {
-        private readonly ISecretary<IProviderSubscriber> secretary = CreateSecretary();
+        private readonly ISecretary<IProviderSubscriber> _secretary = CreateSecretary();
 
         public static ISecretary<IProviderSubscriber> CreateSecretary()
         {
@@ -24,7 +24,7 @@ namespace ClearArchitecture.SL
                 return false;
             }
 
-            return secretary.ContainsKey(subscriber.GetName());
+            return _secretary.ContainsKey(subscriber.GetName());
         }
 
         public List<IProviderSubscriber> GetReadySubscribers()
@@ -46,19 +46,19 @@ namespace ClearArchitecture.SL
         
         public IProviderSubscriber GetSubscriber(string name)
         {
-            if (!secretary.ContainsKey(name))
+            if (!_secretary.ContainsKey(name))
             {
                 return default;
             }
             else
             {
-                return secretary.GetValue(name);
+                return _secretary.GetValue(name);
             }
         }
 
         public List<IProviderSubscriber> GetSubscribers()
         {
-            return secretary.Values();
+            return _secretary.Values();
         }
 
         public IProviderSubscriber GetValidSubscriber()
@@ -90,12 +90,12 @@ namespace ClearArchitecture.SL
                 return false;
             }
 
-            return secretary.ContainsKey(name);
+            return _secretary.ContainsKey(name);
         }
 
         public bool HasSubscribers()
         {
-            return !secretary.IsEmpty();
+            return !_secretary.IsEmpty();
 
         }
 
@@ -125,12 +125,12 @@ namespace ClearArchitecture.SL
                 return false;
             }
 
-            int cnt = secretary.Size();
+            int cnt = _secretary.Size();
 
-            secretary.Put(subscriber.GetName(), subscriber);
+            _secretary.Put(subscriber.GetName(), subscriber);
             subscriber.SetProvider(this.GetName());
 
-            if (cnt == 0 && secretary.Size() == 1)
+            if (cnt == 0 && _secretary.Size() == 1)
             {
                 OnRegisterFirstSubscriber();
             }
@@ -147,14 +147,14 @@ namespace ClearArchitecture.SL
                 return;
             }
 
-            int cnt = secretary.Size();
-            if (secretary.ContainsKey(subscriber.GetName()) && (subscriber.GetType() == secretary.GetValue(subscriber.GetName()).GetType()))
+            int cnt = _secretary.Size();
+            if (_secretary.ContainsKey(subscriber.GetName()) && (subscriber.GetType() == _secretary.GetValue(subscriber.GetName()).GetType()))
             {
-                secretary.Remove(subscriber.GetName());
+                _secretary.Remove(subscriber.GetName());
                 subscriber.RemoveProvider(this.GetName());
             }
 
-            if (cnt == 1 && secretary.Size() == 0)
+            if (cnt == 1 && _secretary.Size() == 0)
             {
                 OnUnRegisterLastSubscriber();
             }
@@ -217,7 +217,7 @@ namespace ClearArchitecture.SL
                 UnRegisterSubscriber(subscriber);
                 subscriber.OnStopProvider(GetName());
             }
-            secretary.Clear();
+            _secretary.Clear();
         }
     }
 }

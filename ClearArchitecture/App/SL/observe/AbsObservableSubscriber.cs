@@ -15,8 +15,13 @@ namespace ClearArchitecture.SL
             return Lifecycle.VIEW_READY;
         }
 
-        public abstract void OnChangeObservable(string name, object obj);
-        
+        public abstract void OnChangeObservable(string observable, object obj);
+
+        public void OnStopObservable(string observable)
+        {
+            //
+        }
+
         public void SetState(int state)
         {
             //
