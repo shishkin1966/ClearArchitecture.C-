@@ -4,9 +4,9 @@ namespace ClearArchitecture.SL
 {
     public abstract class AbsRequest : IRequest
     {
-        private readonly object data = null;
-        private readonly string sender;
-        private readonly List<string> receiver = new();
+        private readonly object _data = null;
+        private readonly string _sender;
+        private readonly List<string> _receiver = new();
         private int id = -1;
         private bool isCancelled = false;
         private IExecutorProvider executor = default;
@@ -14,22 +14,22 @@ namespace ClearArchitecture.SL
 
         protected AbsRequest(string sender, string receiver, object data)
         {
-            this.sender = sender;
+            _sender = sender;
             if (!string.IsNullOrEmpty(receiver))
             {
-                this.receiver.Add(receiver);
+                _receiver.Add(receiver);
             }
-            this.data = data;
+            _data = data;
         }
 
         protected AbsRequest(string sender, List<string> receivers, object data)
         {
-            this.sender = sender;
+            _sender = sender;
             if (receivers != null)
             {
-                this.receiver.AddRange (receivers);
+                _receiver.AddRange (receivers);
             }
-            this.data = data;
+            this._data = data;
         }
 
         public abstract void Execute(object obj);
@@ -48,7 +48,7 @@ namespace ClearArchitecture.SL
 
         public string GetSender()
         {
-            return sender;
+            return _sender;
         }
         public bool IsCancelled()
         {
@@ -98,7 +98,7 @@ namespace ClearArchitecture.SL
 
         public List<string> GetReceiver()
         {
-            return receiver;
+            return _receiver;
         }
 
         public IRequest SetResult(ExtResult result)
@@ -114,7 +114,7 @@ namespace ClearArchitecture.SL
 
         public object GetData()
         {
-            return data;
+            return _data;
         }
 
         public IRequest AddReceiver(List<string> receiver)
@@ -123,9 +123,9 @@ namespace ClearArchitecture.SL
 
             foreach (string rec in receiver)
             {
-                if (!this.receiver.Contains(rec))
+                if (!this._receiver.Contains(rec))
                 {
-                    this.receiver.Add(rec);
+                    this._receiver.Add(rec);
                 }
             }
             return this;

@@ -22,6 +22,16 @@ namespace ConsoleApp1
         {
             TestSubscriber ms = new(TestSubscriber.NAME);
             TestObservable obs = new(TestObservable.NAME);
+            var pool = new TestPool();
+            Console.WriteLine(pool.ToString());
+
+            var v = pool.Get(4);
+            Console.WriteLine(v.Count.ToString());
+
+            pool.Release(v);
+            pool.Release(v);
+            pool.Release(v);
+            Console.WriteLine(pool.ToString());
 
             SL.Start();
 

@@ -9,5 +9,5 @@ namespace ConsoleApp1.App
         public TestObservable(string name) : base(name)
         {
         }
-}
+    }
 }
