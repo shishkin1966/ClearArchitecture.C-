@@ -2,7 +2,7 @@
 
 namespace ClearArchitecture.SL
 {
-    public interface IPool<T>
+    public interface IPool<T> 
     {
         public List<T> Get(int count);
 

@@ -4,12 +4,12 @@ namespace ClearArchitecture.SL
 {
     public abstract class AbsPresenter : AbsProviderSubscriber, IPresenterSubscriber
     {
-        private readonly LifecycleObserver lifecycle;
-        private readonly List<IAction> actions = new();
+        private readonly LifecycleObserver _lifecycle;
+        private readonly List<IAction> _actions = new();
 
         protected AbsPresenter(string name) : base(name)
         {
-            lifecycle = new LifecycleObserver(this);
+            _lifecycle = new LifecycleObserver(this);
         }
 
         public abstract void OnStart();
@@ -29,7 +29,7 @@ namespace ClearArchitecture.SL
 
         public int GetState()
         {
-            return lifecycle.GetState();
+            return _lifecycle.GetState();
         }
 
         public bool IsRegister()
@@ -38,7 +38,7 @@ namespace ClearArchitecture.SL
         }
         new public bool IsValid()
         {
-            return lifecycle.GetState() != Lifecycle.VIEW_DESTROY;
+            return _lifecycle.GetState() != Lifecycle.VIEW_DESTROY;
         }
 
         public void AddAction(IAction action)
@@ -52,14 +52,14 @@ namespace ClearArchitecture.SL
                 case Lifecycle.VIEW_CREATE:  
                     if (!action.IsRun())
                     {
-                            actions.Add(action);
+                            _actions.Add(action);
                     }
                     return;
 
                 default: 
                     if (!action.IsRun())
                     {
-                        actions.Add(action);
+                        _actions.Add(action);
                     }
                     DoActions();
                     return;
@@ -69,22 +69,22 @@ namespace ClearArchitecture.SL
         protected void DoActions()
         {
             var deleted = new List<IAction>();
-            for (int i=0;i < actions.Count;i++)
+            for (int i=0;i < _actions.Count;i++)
             {
                 if (GetState() != Lifecycle.VIEW_READY)
                 {
                     break;
                 }
-                if (!actions[i].IsRun())
+                if (!_actions[i].IsRun())
                 {
-                    actions[i].SetRun();
-                    OnAction(actions[i]);
-                    deleted.Add(actions[i]);
+                    _actions[i].SetRun();
+                    OnAction(_actions[i]);
+                    deleted.Add(_actions[i]);
                 }
             }
             foreach (IAction action in deleted)
             {
-                actions.Remove(action);
+                _actions.Remove(action);
             }
         }
 
@@ -98,7 +98,7 @@ namespace ClearArchitecture.SL
 
         public void SetState(int state)
         {
-            lifecycle.SetState(state);
+            _lifecycle.SetState(state);
         }
     }
 }

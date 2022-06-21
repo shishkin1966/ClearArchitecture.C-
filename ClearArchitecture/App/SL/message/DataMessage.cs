@@ -2,17 +2,17 @@
 {
     public class DataMessage : AbsMessage
     {
-        private readonly object data;
+        private readonly object _data;
 
 
         public DataMessage(string address, object data) : base(address)
         {
-            this.data = data;
+            _data = data;
         }
 
         public override IMessage Copy()
         {
-            return new DataMessage(GetAddress(), data);
+            return new DataMessage(GetAddress(), _data);
         }
 
         public override void Read(IMessengerSubscriber subscriber)

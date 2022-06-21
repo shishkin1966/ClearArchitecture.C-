@@ -5,8 +5,8 @@ namespace ClearArchitecture.SL
 {
     public class ExtError
     {
-        private readonly StringBuilder errorText = new();
-        private string sender;
+        private readonly StringBuilder _errorText = new();
+        private string _sender;
 
         public ExtError()
         {
@@ -24,15 +24,15 @@ namespace ClearArchitecture.SL
 
         public string GetErrorText()
         {
-            return errorText.ToString();
+            return _errorText.ToString();
         }
 
         public ExtError AddError(string sender, string error)
         {
             if (string.IsNullOrEmpty(error)) return this;
 
-            this.sender = sender;
-            errorText.Append(DateTime.Now.ToString("G") + ": " + error);
+            _sender = sender;
+            _errorText.Append(DateTime.Now.ToString("G") + ": " + error);
             return this;
         }
 
@@ -40,24 +40,24 @@ namespace ClearArchitecture.SL
         {
             if (e == null) return this;
 
-            this.sender = sender;
-            errorText.Append(DateTime.Now.ToString("G") + ": " + e.Message);
+            _sender = sender;
+            _errorText.Append(DateTime.Now.ToString("G") + ": " + e.Message);
             return this;
         }
 
         public bool HasError()
         {
-            return (errorText.Length > 0);
+            return (_errorText.Length > 0);
         }
 
         public string GetSender() 
         {
-            return sender;
+            return _sender;
         }
 
         public ExtError SetSender(string sender)  
         {
-            this.sender = sender;
+            _sender = sender;
             return this;
         }
 

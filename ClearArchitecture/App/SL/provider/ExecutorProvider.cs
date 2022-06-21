@@ -9,7 +9,7 @@ namespace ClearArchitecture.SL
         public const int ACTION_DELETE = 0;
         public const int ACTION_IGNORE = 1;
 
-        private readonly Secretary<IRequest> requests = new();
+        private readonly Secretary<IRequest> _requests = new();
 
         public ExecutorProvider(string name) : base(name)
         {
@@ -24,23 +24,23 @@ namespace ClearArchitecture.SL
 
         public void CancelAll()
         {
-            foreach(IRequest request in requests.Values())
+            foreach(IRequest request in _requests.Values())
             {
                 request.SetCanceled();
             }
-            requests.Clear();
+            _requests.Clear();
         }
 
         public void CancelRequests(string sender)
         {
             if (string.IsNullOrEmpty(sender)) return;
 
-            foreach (IRequest request in requests.Values())
+            foreach (IRequest request in _requests.Values())
             {
                 if (request.GetSender() == sender)
                 {
                     request.SetCanceled();
-                    requests.Remove(request.GetName());
+                    _requests.Remove(request.GetName());
                 }
             }
         }
@@ -51,12 +51,12 @@ namespace ClearArchitecture.SL
 
             if (string.IsNullOrEmpty(requestName)) return;
 
-            foreach (IRequest request in requests.Values())
+            foreach (IRequest request in _requests.Values())
             {
                 if (request.GetSender() == sender && request.GetName() == requestName)
                 {
                     request.SetCanceled();
-                    requests.Remove(request.GetName());
+                    _requests.Remove(request.GetName());
                 }
             }
         }
@@ -73,9 +73,9 @@ namespace ClearArchitecture.SL
         {
             if (request.IsSingle())
             {
-                if (requests.ContainsKey(request.GetName()))
+                if (_requests.ContainsKey(request.GetName()))
                 {
-                    foreach (IRequest oldRequest in requests.Values())
+                    foreach (IRequest oldRequest in _requests.Values())
                     {
                         if (oldRequest.GetName() == request.GetName())
                         {
@@ -87,15 +87,15 @@ namespace ClearArchitecture.SL
                 {
 
                     request.SetExecutor(this);
-                    requests.Put(request.GetName(), request);
+                    _requests.Put(request.GetName(), request);
                     ExecuteRequest(request);
                 }
             }
             else
             {
-                if (request.IsDistinct() && requests.ContainsKey(request.GetName()))
+                if (request.IsDistinct() && _requests.ContainsKey(request.GetName()))
                 {
-                    foreach (IRequest oldRequest in requests.Values())
+                    foreach (IRequest oldRequest in _requests.Values())
                     {
                         if (oldRequest.GetName() == request.GetName())
                         {
@@ -108,7 +108,7 @@ namespace ClearArchitecture.SL
                     }
                 }
                 request.SetExecutor(this);
-                requests.Put(request.GetName(), request);
+                _requests.Put(request.GetName(), request);
                 ExecuteRequest(request);
             }
         }
@@ -117,7 +117,7 @@ namespace ClearArchitecture.SL
         {
             if (request == null) return;
 
-            requests.Remove(request.GetName());
+            _requests.Remove(request.GetName());
         }
 
         static private void ExecuteRequest(IRequest request)

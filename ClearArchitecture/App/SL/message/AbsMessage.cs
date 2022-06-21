@@ -4,11 +4,11 @@ namespace ClearArchitecture.SL
 {
     public abstract class AbsMessage : AbsAction, IMessage
     {
-        private int id = -1;
-        private string address;
-        private readonly List<string> copyTo = new();
-        private long keepAliveTime = -1L;
-        private string subj;
+        private int _id = -1;
+        private string _address;
+        private readonly List<string> _copyTo = new();
+        private long _keepAliveTime = -1L;
+        private string _subj;
 
         protected AbsMessage() 
         {
@@ -16,29 +16,29 @@ namespace ClearArchitecture.SL
 
         protected AbsMessage (string address) : this()
         {
-            this.address = address;
+            _address = address;
         }
 
         protected AbsMessage(List<string> address) : this()
         {
             if (address != null && address.Count > 0)
             {
-                this.address = address[0];
+                _address = address[0];
                 var copy = new List<string>();
                 for (int i = 1; i < address.Count; i++)
                 {
                     copy.Add(address[i]);
                 }
-                copyTo.AddRange(copy);
+                _copyTo.AddRange(copy);
             }
         }
 
         protected AbsMessage(IMessage message) : this(message.GetAddress())
         {
-            copyTo.AddRange(message.GetCopyTo());
-            id = message.GetMessageId();
-            keepAliveTime = message.GetEndTime();
-            subj = message.GetSubj();
+            _copyTo.AddRange(message.GetCopyTo());
+            _id = message.GetMessageId();
+            _keepAliveTime = message.GetEndTime();
+            _subj = message.GetSubj();
         }
 
         public abstract IMessage Copy();
@@ -51,12 +51,12 @@ namespace ClearArchitecture.SL
                 return false;
             }
 
-            if (address == this.address)
+            if (address == _address)
             {
                 return true;
             }
 
-            foreach (string s in copyTo)
+            foreach (string s in _copyTo)
             {
                 if (s == address)
                 {
@@ -68,27 +68,27 @@ namespace ClearArchitecture.SL
 
         public string GetAddress()
         {
-            return address;
+            return _address;
         }
 
         public List<string> GetCopyTo()
         {
-            return copyTo;
+            return _copyTo;
         }
 
         public long GetEndTime()
         {
-            return keepAliveTime;
+            return _keepAliveTime;
         }
 
         public int GetMessageId()
         {
-            return id;
+            return _id;
         }
 
         public string GetSubj()
         {
-            return subj;
+            return _subj;
         }
 
         public bool IsCheckDublicate()
@@ -103,32 +103,32 @@ namespace ClearArchitecture.SL
 
         public IMessage SetAddress(string address)
         {
-            this.address = address;
+            _address = address;
             return this;
         }
 
         public IMessage SetCopyTo(List<string> copyTo)
         {
-            this.copyTo.Clear();
-            this.copyTo.AddRange(copyTo);
+            _copyTo.Clear();
+            _copyTo.AddRange(copyTo);
             return this;
         }
 
         public IMessage SetEndTime(long keepAliveTime)
         {
-            this.keepAliveTime = keepAliveTime;
+            _keepAliveTime = keepAliveTime;
             return this;
         }
 
         public IMessage SetMessageId(int id)
         {
-            this.id = id;
+            _id = id;
             return this;
         }
 
         public IMessage SetSubj(string subj)
         {
-            this.subj = subj;
+            _subj = subj;
             return this;
         }
     }

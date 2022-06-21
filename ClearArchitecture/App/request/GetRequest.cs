@@ -13,7 +13,7 @@ namespace ConsoleApp1.App
 
         public override void Execute(object obj)
         {
-            Program.SL.Observable.OnChangeObservable("TestObservable", "Change 0");
+            Program.SL.Observable.OnChangeObservable(TestObservable.NAME, "Change 0");
 
             try
             {

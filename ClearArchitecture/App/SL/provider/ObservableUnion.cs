@@ -7,7 +7,7 @@ namespace ClearArchitecture.SL
     {
         public const string NAME = "ObservableUnion";
 
-        private readonly Secretary<IObservable> secretary = new();
+        private readonly Secretary<IObservable> _secretary = new();
 
         public ObservableUnion(string name) : base(name)
         {
@@ -23,12 +23,12 @@ namespace ClearArchitecture.SL
 
         public IObservable GetObservable(string name)
         {
-            return secretary.GetValue(name);
+            return _secretary.GetValue(name);
         }
 
         public List<IObservable> GetObservables()
         {
-            return secretary.Values();
+            return _secretary.Values();
         }
 
         public void OnChangeObservable(string name, object obj)
@@ -46,7 +46,7 @@ namespace ClearArchitecture.SL
         {
             if (observable == null) return true;
 
-            secretary.Put(observable.GetName(), observable);
+            _secretary.Put(observable.GetName(), observable);
             return true;
         }
 
@@ -54,11 +54,11 @@ namespace ClearArchitecture.SL
         {
             if (observable == null) return true;
 
-            if (secretary.ContainsKey(observable.GetName()))
+            if (_secretary.ContainsKey(observable.GetName()))
             {
-                if ( observable == secretary.GetValue(observable.GetName()))
+                if ( observable == _secretary.GetValue(observable.GetName()))
                 {
-                    secretary.Remove(observable.GetName());
+                    _secretary.Remove(observable.GetName());
                     return true;
                 }
             }

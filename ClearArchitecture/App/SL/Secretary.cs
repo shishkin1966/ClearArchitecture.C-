@@ -7,7 +7,7 @@ namespace ClearArchitecture.SL
 {
     public class Secretary<T> : ISecretary<T>
     {
-        private readonly ConcurrentDictionary<string, T> subscribers = new();
+        private readonly ConcurrentDictionary<string, T> _subscribers = new();
 
         public void Remove(string key)
         {
@@ -16,12 +16,12 @@ namespace ClearArchitecture.SL
                 return;
             }
 
-            subscribers.Remove(key, out T old);
+            _subscribers.Remove(key, out T old);
         }
 
         public int Size()
         {
-            return subscribers.Count;
+            return _subscribers.Count;
         }
 
         public void Put(string key, T value)
@@ -36,7 +36,7 @@ namespace ClearArchitecture.SL
                 return;
             }
 
-            subscribers.AddOrUpdate(key, value, (key, oldValue) => oldValue);
+            _subscribers.AddOrUpdate(key, value, (key, oldValue) => oldValue);
         }
 
         public bool ContainsKey(string key)
@@ -46,7 +46,7 @@ namespace ClearArchitecture.SL
                 return false;
             }
 
-            return subscribers.ContainsKey(key);
+            return _subscribers.ContainsKey(key);
         }
 
         public T GetValue(string key)
@@ -60,29 +60,29 @@ namespace ClearArchitecture.SL
 
             if (ContainsKey(key))
             {
-                subscribers.TryGetValue(key, out value);
+                _subscribers.TryGetValue(key, out value);
             }
             return value;
         }
 
         public List<T> Values()
         {
-            return subscribers.Values.ToList();
+            return _subscribers.Values.ToList();
         }
 
         public bool IsEmpty()
         {
-            return (subscribers.Count == 0);
+            return (_subscribers.Count == 0);
         }
 
         public void Clear()
         {
-            subscribers.Clear();
+            _subscribers.Clear();
         }
 
         public List<string> Keys()
         {
-            return subscribers.Keys.ToList();
+            return _subscribers.Keys.ToList();
         }
     }
 }

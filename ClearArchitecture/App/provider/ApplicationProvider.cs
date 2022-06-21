@@ -6,7 +6,7 @@ namespace ConsoleApp1.App
     public class ApplicationProvider : AbsProvider, IApplicationProvider
     {
         public const string NAME = "ApplicationProvider";
-        private bool isExit = false;
+        private bool _isExit = false;
 
         public ApplicationProvider(string name) : base(name)
         {
@@ -26,7 +26,7 @@ namespace ConsoleApp1.App
 
         public bool IsExit()
         {
-            return isExit;
+            return _isExit;
         }
 
         new public bool IsPersistent()
@@ -41,7 +41,7 @@ namespace ConsoleApp1.App
 
         public void SetExit()
         {
-            isExit = true;
+            _isExit = true;
 
             OnExit();
         }

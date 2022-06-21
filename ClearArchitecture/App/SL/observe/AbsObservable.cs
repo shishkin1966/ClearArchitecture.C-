@@ -3,26 +3,19 @@ using System.Collections.Generic;
 
 namespace ClearArchitecture.SL
 {
-    public abstract class AbsObservable : IObservable
+    public abstract class AbsObservable : AbsSubscriber, IObservable
     {
-        private readonly Secretary<IObservableSubscriber> secretary = new();
-        private readonly string name;
+        private readonly Secretary<IObservableSubscriber> _secretary = new();
 
-        protected AbsObservable(string name)
+        protected AbsObservable(string name) : base(name)
         {
-            this.name = name;
-        }
-
-        public string GetName()
-        {
-            return name;
         }
 
         public void AddObserver(IObservableSubscriber subscriber)
         {
-            secretary.Put(subscriber.GetName(), subscriber);
+            _secretary.Put(subscriber.GetName(), subscriber);
     
-            if (secretary.Size() == 1)
+            if (_secretary.Size() == 1)
             {
                 OnRegisterFirstObserver();
             }
@@ -30,37 +23,36 @@ namespace ClearArchitecture.SL
 
         public IObservableSubscriber GetObserver(string name)
         {
-            return secretary.GetValue(name);
+            return _secretary.GetValue(name);
         }
 
         public List<IObservableSubscriber> GetObservers()
         {
-            return secretary.Values();
+            return _secretary.Values();
 
         }
 
         public void OnChangeObservable(object obj)
         {
-            foreach (IObservableSubscriber subscriber in secretary.Values())
+            foreach (IObservableSubscriber subscriber in _secretary.Values())
             {
                 if (subscriber.IsValid())
                 {
                     subscriber.OnChangeObservable(GetName(), obj);
                 }
             }
-
         }
 
         public void RemoveObserver(IObservableSubscriber subscriber)
         {
-            if (secretary.ContainsKey(subscriber.GetName()))
+            if (_secretary.ContainsKey(subscriber.GetName()))
             {
-                if (subscriber == secretary.GetValue(subscriber.GetName()))
+                if (subscriber == _secretary.GetValue(subscriber.GetName()))
                 {
-                    secretary.Remove(subscriber.GetName());
+                    _secretary.Remove(subscriber.GetName());
                 }
 
-                if (secretary.IsEmpty())
+                if (_secretary.IsEmpty())
                 {
                     OnUnRegisterLastObserver();
                 }
@@ -79,6 +71,11 @@ namespace ClearArchitecture.SL
 
         public void Stop()
         {
+            foreach (IObservableSubscriber subscriber in _secretary.Values())
+            {
+                subscriber.OnStopObservable(GetName());
+            }
+            _secretary.Clear();
             Console.WriteLine(DateTime.Now.ToString("G") + ": " + "Stop "+GetName());
         }
 

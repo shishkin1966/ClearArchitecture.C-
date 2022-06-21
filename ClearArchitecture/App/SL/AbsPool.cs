@@ -5,14 +5,14 @@ namespace ClearArchitecture.SL
 {
     public abstract class AbsPool<T> : AbsProvider, IPool<T> where T : new()
     {
-        private readonly ConcurrentBag<T> items = new();
-        private readonly int capacity;
+        private readonly ConcurrentBag<T> _items = new();
+        private readonly int _capacity;
 
         public int Capacity
         {
             get
             {
-                return capacity;
+                return _capacity;
             }
         }
 
@@ -20,15 +20,17 @@ namespace ClearArchitecture.SL
         {
             get
             {
-                return items.Count;
+                return _items.Count;
             }
         }
 
 
         protected AbsPool(string name, int capacity) : base(name)
         {
-            this.capacity = capacity;
+            _capacity = capacity;
         }
+
+        public abstract T ObjectFactory();
 
         public List<T> Get(int count)
         {
@@ -37,13 +39,13 @@ namespace ClearArchitecture.SL
 
             do
             {
-                if (items.TryTake(out T item))
+                if (_items.TryTake(out T item))
                 {
                     list.Add(item);
                 }
                 else
                 {
-                    if (items.Count < capacity)
+                    if (_items.Count < _capacity)
                     { 
                         Release(ObjectFactory());
                     }
@@ -59,21 +61,19 @@ namespace ClearArchitecture.SL
 
         public void Release(T item)
         {
-            if (items.Count < capacity)
+            if (_items.Count < _capacity)
             {
-                items.Add(item);
+                _items.Add(item);
             }
         }
-
-        public abstract T ObjectFactory();
 
         public void Release(List<T> items)
         {
             int i = 0;
-            while  (this.items.Count < capacity) { 
+            while  (_items.Count < _capacity) { 
                 if (i < items.Count)
                 {
-                    this.items.Add(items[i]);
+                    _items.Add(items[i]);
                     i++;
                 }
                 else
@@ -81,6 +81,18 @@ namespace ClearArchitecture.SL
                     break;
                 }
             }
+        }
+
+        new public void Stop()
+        {
+            _items.Clear();
+
+            base.Stop();
+        }
+
+        public override string ToString()
+        {
+            return string.Format("Pool: {0} Capacity: {1} Count: {2}", GetName(), Capacity, Count);
         }
     }
 }

@@ -12,12 +12,18 @@ namespace ClearArchitecture.SL
         List<string> GetObservable();
 
         /**
-        * Событие - объект изменен
+        * Событие - слушаемый объект изменен
         *
         * @param name имя слушаемого объекта
         * @param obj значение слушаемого объекта
         */
-        void OnChangeObservable(string name, object obj);
+        void OnChangeObservable(string observable, object obj);
+
+        /*
+        * Событие - слушаемый объект прекратил работу
+        */
+        void OnStopObservable(string observable);
+
 
     }
 }

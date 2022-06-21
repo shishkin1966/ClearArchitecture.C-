@@ -58,6 +58,14 @@ namespace ConsoleApp1.App
             }
         }
 
+        public TestPool Pool
+        {
+            get
+            {
+                return (TestPool)GetProvider(TestPool.NAME);
+            }
+        }
+
         public override void Start()
         {
             RegisterProvider(ApplicationProvider.NAME);
@@ -66,7 +74,8 @@ namespace ConsoleApp1.App
             RegisterProvider(ObservableUnion.NAME);
             RegisterProvider(PresenterUnion.NAME);
             RegisterProvider(ExecutorProvider.NAME);
-            RegisterProvider(OutProvider.NAME); 
+            RegisterProvider(OutProvider.NAME);
+            RegisterProvider(TestPool.NAME);
         }
 
         new public void Stop()

@@ -4,14 +4,14 @@ namespace ClearArchitecture.SL
 {
     public class LifecycleObserver : ILifecycle
     {
-        private int state = Lifecycle.VIEW_CREATE;
-        private readonly WeakReference listener;
+        private int _state = Lifecycle.VIEW_CREATE;
+        private readonly WeakReference _listener;
 
         public LifecycleObserver(ILifecycleListener listener)
         {
             if (listener != null)
             {
-                this.listener = new WeakReference(listener, false);
+                _listener = new WeakReference(listener, false);
             }
             SetState(Lifecycle.VIEW_CREATE);
 
@@ -24,7 +24,7 @@ namespace ClearArchitecture.SL
         */
         public int GetState()
         {
-            return state;
+            return _state;
         }
 
         /**
@@ -34,29 +34,29 @@ namespace ClearArchitecture.SL
         */
         public void SetState(int state)
         {
-            this.state = state;
+            _state = state;
 
             switch(state) 
             {
                 case Lifecycle.VIEW_CREATE:
-                    if (listener.IsAlive)
+                    if (_listener.IsAlive)
                     {
-                        ILifecycleListener _listener = listener.Target as ILifecycleListener;
-                        _listener.OnCreateView();
+                        ILifecycleListener l = _listener.Target as ILifecycleListener;
+                        l.OnCreateView();
                     }
                     break;
                 case Lifecycle.VIEW_READY:
-                    if (listener.IsAlive)
+                    if (_listener.IsAlive)
                     {
-                        ILifecycleListener _listener = listener.Target as ILifecycleListener;
-                        _listener.OnReadyView();
+                        ILifecycleListener l = _listener.Target as ILifecycleListener;
+                        l.OnReadyView();
                     }
                     break;
                 case Lifecycle.VIEW_DESTROY:
-                    if (listener.IsAlive)
+                    if (_listener.IsAlive)
                     {
-                        ILifecycleListener _listener = listener.Target as ILifecycleListener;
-                        _listener.OnDestroyView();
+                        ILifecycleListener l = _listener.Target as ILifecycleListener;
+                        l.OnDestroyView();
                     }
                     break;
             }
