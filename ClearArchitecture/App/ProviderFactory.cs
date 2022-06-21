@@ -28,6 +28,8 @@ namespace ConsoleApp1.App
                         return new MessengerUnion(MessengerUnion.NAME);
                     case PresenterUnion.NAME:
                         return new PresenterUnion(PresenterUnion.NAME);
+                    case TestPool.NAME:
+                        return new TestPool();
                     default:
                         return default;
                 }

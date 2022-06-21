@@ -20,20 +20,19 @@ namespace ConsoleApp1
 
         static void Main(string[] args)
         {
+            SL.Start();
+
             TestSubscriber ms = new(TestSubscriber.NAME);
             TestObservable obs = new(TestObservable.NAME);
-            var pool = new TestPool();
-            Console.WriteLine(pool.ToString());
+            Console.WriteLine(SL.Pool.ToString());
 
-            var v = pool.Get(7);
+            var v = SL.Pool.Get(7);
             Console.WriteLine(v.Count.ToString());
 
-            pool.Release(v);
-            pool.Release(v);
-            pool.Release(v);
-            Console.WriteLine(pool.ToString());
-
-            SL.Start();
+            SL.Pool.Release(v);
+            SL.Pool.Release(v);
+            SL.Pool.Release(v);
+            Console.WriteLine(SL.Pool.ToString());
 
             SL.RegisterSubscriber(ms);
 

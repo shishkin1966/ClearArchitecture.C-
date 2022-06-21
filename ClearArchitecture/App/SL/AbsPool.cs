@@ -82,5 +82,17 @@ namespace ClearArchitecture.SL
                 }
             }
         }
+
+        new public void Stop()
+        {
+            items.Clear();
+
+            base.Stop();
+        }
+
+        public override string ToString()
+        {
+            return string.Format("Pool: {0} Capacity: {1} Count: {2}", GetName(), this.Capacity, this.Count);
+        }
     }
 }

@@ -1,11 +1,12 @@
 ﻿using ClearArchitecture.SL;
-using System;
 
 namespace ConsoleApp1.App
 {
     public class TestPool : AbsPool<TestObj>
     {
-        public TestPool() : base("TestPool", 16)
+        public const string NAME = "TestPool";
+
+        public TestPool() : base(NAME, 16)
         {
         }
 
@@ -22,9 +23,5 @@ namespace ConsoleApp1.App
             return new TestObj();
         }
 
-        public override string ToString()
-        {
-            return string.Format("Pool: {0} Capacity: {1} Count: {2}", GetName(), this.Capacity, this.Count);
-        }
     }
 }
