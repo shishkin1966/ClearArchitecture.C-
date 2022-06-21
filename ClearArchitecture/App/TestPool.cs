@@ -24,8 +24,7 @@ namespace ConsoleApp1.App
 
         public override string ToString()
         {
-            string s = string.Format("Pool: {0} {1} {2}", GetName(), this.Capacity, this.Count);
-            return s;
+            return string.Format("Pool: {0} Capacity: {1} Count: {2}", GetName(), this.Capacity, this.Count);
         }
     }
 }
