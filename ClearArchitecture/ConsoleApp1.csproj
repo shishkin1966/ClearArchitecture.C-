@@ -6,4 +6,16 @@
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="App\SL\**" />
+    <EmbeddedResource Remove="App\SL\**" />
+    <None Remove="App\SL\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="ClearArchitecture">
+      <HintPath>..\..\visual studio 2019\Projects\ClearArchitecture\bin\Release\net5.0\ClearArchitecture.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
