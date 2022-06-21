@@ -6,10 +6,14 @@ namespace ClearArchitecture.SL
     public abstract class AbsSubscriber : ISubscriber
     {
         private bool isBusy = false;
-        private readonly string name;
+        private string name;
         private readonly StringBuilder comment = new();
 
-        protected AbsSubscriber(string name)
+        protected AbsSubscriber()
+        {
+        }
+
+        protected AbsSubscriber(string name) : base()
         {
             this.name = name;
         }
@@ -17,6 +21,11 @@ namespace ClearArchitecture.SL
         public string GetName()
         {
             return name;
+        }
+
+        public void SetName(string name)
+        {
+            this.name = name;
         }
 
         public bool IsValid()
