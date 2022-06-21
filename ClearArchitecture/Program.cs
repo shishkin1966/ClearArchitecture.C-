@@ -25,7 +25,7 @@ namespace ConsoleApp1
             var pool = new TestPool();
             Console.WriteLine(pool.ToString());
 
-            var v = pool.Get(4);
+            var v = pool.Get(7);
             Console.WriteLine(v.Count.ToString());
 
             pool.Release(v);

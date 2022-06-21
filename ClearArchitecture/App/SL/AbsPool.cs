@@ -30,6 +30,8 @@ namespace ClearArchitecture.SL
             this.capacity = capacity;
         }
 
+        public abstract T ObjectFactory();
+
         public List<T> Get(int count)
         {
             List<T> list = new();
@@ -64,8 +66,6 @@ namespace ClearArchitecture.SL
                 items.Add(item);
             }
         }
-
-        public abstract T ObjectFactory();
 
         public void Release(List<T> items)
         {
